@@ -72,26 +72,8 @@
                       <li><a href="evaluation_dashboard.php">Evaluation Dashboard</a></li>
                    </ul>
                   </li>
-                  <li><a><i class="fa fa-edit"></i> Evaluation Forms <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="form_kindness_challenge.php">Kindness Challenge</a></li>
-                      <li><a href="form_common_task.php">Common Task</a></li>
-                      <li><a>Vertical Task<span class="fa fa-chevron-down"></span></a>
-                          <ul class="nav child_menu">
-                            <li class="sub_menu"><a href="form_city_team_lead.php">City Team Lead</a></li>
-                            <li><a href="form_ed_support.php">Ed Support</a></li>
-                            <li><a href="form__transition_readiness_and_aftercare.php">Transition Readiness and Aftercare</a></li>
-                            <li><a href="form_fundraiisng.php">Fundraising</a></li>
-                            <li><a href="form_human_capital.php">Human Capital</a></li>
-                            <li><a href="form_finance.php">Finance</a></li>
-                            <li><a href="form_shelter_operations.php">Shelter Operations</a></li>
-                            <li><a href="form_shelter_operations.php">Shelter Support</a></li>
-                            <li><a href="form_ed_mentor.php">Mentor</a></li>
-                            <li><a href="form_wingman.php">Wingman</a></li>
-                          </ul>
-                        </li>
-                      <li><a href="form_background_check.php">Background Check</a></li>
-                      <li><a href="form_personal_interveiw.php">Personal Interview</a></li>
+                  <li><a href="assign_evaluators_applicants.php"><i class="fa fa-edit"></i> Assign Evaluators</a></li>
+                  <li><a href="my_applicants.php"><i class="fa fa-edit"></i> Applicants</a></li>
                     </ul>
                   </li>
                 </ul>

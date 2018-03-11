@@ -10,3 +10,7 @@
 .progress div {
 	float:left;
 }
+
+label.btn.active {
+	font-weight: bold;
+}
