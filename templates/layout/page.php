@@ -15,20 +15,19 @@
 	<link href="<?php echo $config['site_home'] ?>css/style.css" rel="stylesheet" type="text/css" />
 
 	<link href="<?php echo $config['site_home'] ?>css/library/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="<?php echo $config['site_home'] ?>css/library/nprogress.css" rel="stylesheet">
-    <link href="<?php echo $config['site_home'] ?>css/library/flat/green.css" rel="stylesheet">
-    <link href="<?php echo $config['site_home'] ?>css/library/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-    <link href="<?php echo $config['site_home'] ?>css/library/jqvmap.min.css" rel="stylesheet"/>
-    <link href="<?php echo $config['site_home'] ?>css/library/daterangepicker.css" rel="stylesheet">
-    <link href="<?php echo $config['site_home'] ?>css/library/custom.min.css" rel="stylesheet">
+  <link href="<?php echo $config['site_home'] ?>css/library/nprogress.css" rel="stylesheet">
+  <link href="<?php echo $config['site_home'] ?>css/library/flat/green.css" rel="stylesheet">
+  <link href="<?php echo $config['site_home'] ?>css/library/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+  <link href="<?php echo $config['site_home'] ?>css/library/jqvmap.min.css" rel="stylesheet"/>
+  <link href="<?php echo $config['site_home'] ?>css/library/daterangepicker.css" rel="stylesheet">
+  <link href="<?php echo $config['site_home'] ?>css/library/custom.min.css" rel="stylesheet">
 
-    <!--Autofill functionality  -->
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="<?php echo $config['site_home'] ?>/css/layout.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <!--Autofill functionality  -->
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="<?php echo $config['site_home'] ?>/css/layout.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   </head>
-
 
   <body class="nav-md">
 
@@ -59,7 +58,7 @@
                 <br>
                 <h3>Navigation Panel</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-home"></i> Succession Reports <span class="fa fa-chevron-down"></span></a>
+<!--                   <li><a><i class="fa fa-home"></i> Succession Reports <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="index.php">National Report</a></li>
                       <li><a href="city_reports.php">City Reports</a></li>
@@ -71,10 +70,21 @@
                       <li><a href="volunteer_data_dashboard.php">Volunteer Data</a></li>
                       <li><a href="evaluation_dashboard.php">Evaluation Dashboard</a></li>
                    </ul>
-                  </li>
+                  </li> -->
+                  <?php 
+                  $is_director = false;
+                  $groups = $user['groups'];
+                  foreach($groups as $g) 
+                    if($g['type'] == 'national') {
+                      $is_director = true;
+                      break;
+                    }
+
+                  if($is_director) { ?>
                   <li><a href="assign_evaluators_applicants.php"><i class="fa fa-edit"></i> Assign Evaluators</a></li>
+                  <?php } ?>
                   <li><a href="my_applicants.php"><i class="fa fa-edit"></i> Applicants</a></li>
-                    </ul>
+                  </ul>
                   </li>
                 </ul>
               </div>

@@ -1,7 +1,7 @@
 <?php
 require 'common.php';
 
-$applicant_id = i($QUERY, 'applicant_id', 0);
+$applicant_id = intval(i($QUERY, 'applicant_id', 0));
 if(!$applicant_id) {
 	header("Location: my_applicants.php");
 }
@@ -12,7 +12,8 @@ if(!in_array($applicant_id, $my_applicants)) {
 	header("Location: my_applicants.php");
 }
 
-$stage_id = 1; // Kindness Challenge
+$stage_id = intval(i($QUERY, 'stage_id'));
+$stage_name = $fam->getStage($stage_id);
 $applicant = $common->getUser($applicant_id);
 
 $categories = $fam->getCategories($stage_id);

@@ -8,6 +8,21 @@ class FAM {
        $this->sql = $sql;
 	}
 
+	public function getSelectionStatus($user_id, $group_id)
+	{
+		return $this->sql->getOne("SELECT status FROM FAM_UserGroupPreference WHERE user_id=$user_id AND group_id=$group_id");
+	}
+
+	public function setSelectionStatus($user_id, $group_id, $status)
+	{
+		return $this->sql->execQuery("UPDATE FAM_UserGroupPreference SET status='$status' WHERE user_id=$user_id AND group_id=$group_id");
+	}
+
+	public function getStage($stage_id)
+	{
+		return $this->sql->getAssoc("SELECT * FROM FAM_Stage WHERE id=$stage_id");
+	}
+
 	public function getGroups($vertical_id = 0)
 	{
 		$vertical_check = '';
@@ -36,6 +51,14 @@ class FAM {
 				FROM User U
 				INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
 				WHERE " . implode(" AND ", $checks));
+	}
+
+	public function getEvaluator($applicant_id, $group_id)
+	{
+		return $this->sql->getAssoc("SELECT U.id, U.name 
+				FROM User U 
+				INNER JOIN FAM_Evaluator E ON E.evaluator_id=U.id
+				WHERE E.user_id=$applicant_id AND E.group_id=$group_id AND U.status='1' AND U.user_type='volunteer'");
 	}
 
 

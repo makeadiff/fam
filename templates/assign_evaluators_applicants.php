@@ -18,7 +18,7 @@
 <button class="btn btn-success btn-sm" value="Filter" name="action">Filter</button>
 
 <table class="table table-striped">
-<tr><th></th><!-- <th>ID</th> --><th>Name</th><th>Email</th><th>Phone</th><th>Priority</th></tr>
+<tr><th></th><!-- <th>ID</th> --><th>Name</th><th>Email</th><th>Phone</th><th>Priority</th><th>Evaluator</th></tr>
 <?php foreach($applicants as $u) { ?>
 <tr><td><input type="checkbox" name="selected[]" value='<?php echo $u['id'] ?>' <?php
 	if(in_array($u['id'], $existing_applicants)) echo 'checked';
@@ -28,6 +28,9 @@
 	<td><?php echo $u['email'] ?></td>
 	<td><?php echo $u['phone'] ?></td>
 	<td><?php echo $u['preference'] ?></td>
+	<td><?php $evaluator = $fam->getEvaluator($u['id'], $group_id); 
+			  if($evaluator) echo $evaluator['name'];
+			  else echo 'None'; ?></td>
 </tr>
 <?php } ?>
 </table>

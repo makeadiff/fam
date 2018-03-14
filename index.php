@@ -1,4 +1,6 @@
 <?php
 require 'common.php';
 
-render(); 
+// render(); 
+
+header("Location: my_applicants.php");
