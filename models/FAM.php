@@ -33,7 +33,6 @@ class FAM {
 
 	public function saveEvaluation($data)
 	{
-		// dump($data); //exit;
 		// Clear existing evaluations, if any.
 		$this->sql->remove("FAM_Evaluation", [
 			'user_id'		=> $data['applicant_id'],

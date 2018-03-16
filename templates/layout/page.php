@@ -22,9 +22,11 @@
   <link href="<?php echo $config['site_home'] ?>css/library/daterangepicker.css" rel="stylesheet">
   <link href="<?php echo $config['site_home'] ?>css/library/custom.min.css" rel="stylesheet">
 
+  <link rel="stylesheet" href="<?php echo $config['site_home'] ?>/css/layout.css">
+  <?php echo $css_includes; ?>
+
   <!--Autofill functionality  -->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="<?php echo $config['site_home'] ?>/css/layout.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   </head>
@@ -84,6 +86,7 @@
                   <li><a href="assign_evaluators_applicants.php"><i class="fa fa-edit"></i> Assign Evaluators</a></li>
                   <?php } ?>
                   <li><a href="my_applicants.php"><i class="fa fa-edit"></i> Applicants</a></li>
+                  <li><a href="dashboard.php"><i class="fa fa-table"></i> Dashboard</a></li>
                   </ul>
               </div>
 

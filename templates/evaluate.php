@@ -109,7 +109,7 @@ foreach($parameters as $para) {
 <h2>Stage Status</h2>
 <div class="clearfix"></div>
 
-<div class="row">
+<div class="row" style="margin-left: 10px;">
   <div class="btn-group" data-toggle="buttons">
     <label class="btn btn-success <?php if($stage_info['status'] == 'selected') echo 'active'; ?>">
     	<input name="status	" type="radio" class="input-yes" value="selected" <?php if($stage_info['status'] == 'selected') echo 'checked="true"'; ?> />Selected</label>
