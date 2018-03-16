@@ -36,6 +36,8 @@ if(i($QUERY, 'action') == 'Save') {
 			'added_on'		=> 'NOW()'
 		]);
 	}
+	$QUERY['success'] = "Data saved.";
+
 }
 
 render();

@@ -13,4 +13,5 @@
 
 label.btn.active {
 	font-weight: bold;
+	text-decoration: underline;
 }

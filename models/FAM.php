@@ -36,19 +36,14 @@ class FAM {
 
 		if(!empty($source['group_id'])) $checks[] = "group_id=" . $source['group_id'];
 		if(!empty($source['city_id'])) $checks[] = "city_id=" . $source['city_id'];
-
 		if(isset($source['evaluator_id'])) {
 			if(!$source['evaluator_id']) return [];
+	 		$checks[] = "evaluator_id=" . $source['evaluator_id'];
+	 	}
 
-			$checks[] = "E.evaluator_id=" . $source['evaluator_id'];
-			return $this->sql->getAll("SELECT U.id,U.name, U.email, U.mad_email, U.phone, E.group_id, 0 AS preference 
+		return $this->sql->getAll("SELECT U.id, U.name, U.email, U.mad_email, U.phone, UGP.group_id, UGP.preference, C.name AS city
 				FROM User U
-				INNER JOIN FAM_Evaluator E ON E.user_id=U.id
-				WHERE " . implode(" AND ", $checks));
-		}
-
-		return $this->sql->getAll("SELECT U.id, U.name, U.email, U.mad_email, U.phone, UGP.group_id, UGP.preference
-				FROM User U
+				INNER JOIN City C ON C.id=U.city_id
 				INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
 				WHERE " . implode(" AND ", $checks));
 	}
@@ -57,7 +52,7 @@ class FAM {
 	{
 		return $this->sql->getAssoc("SELECT U.id, U.name 
 				FROM User U 
-				INNER JOIN FAM_Evaluator E ON E.evaluator_id=U.id
+				INNER JOIN FAM_UserGroupPreference E ON E.evaluator_id=U.id
 				WHERE E.user_id=$applicant_id AND E.group_id=$group_id AND U.status='1' AND U.user_type='volunteer'");
 	}
 

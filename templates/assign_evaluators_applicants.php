@@ -15,10 +15,11 @@
 </p>
 
 <?php $html->buildInput("group_id", 'Applicants for ', 'select', $group_id, ['options' => $all_groups, 'no_br' => 1]); ?> &nbsp;
+<?php $html->buildInput("city_id", 'City ', 'select', $city_id, ['options' => $all_cities, 'no_br' => 1]); ?> &nbsp;
 <button class="btn btn-success btn-sm" value="Filter" name="action">Filter</button>
 
 <table class="table table-striped">
-<tr><th></th><!-- <th>ID</th> --><th>Name</th><th>Email</th><th>Phone</th><th>Priority</th><th>Evaluator</th></tr>
+<tr><th></th><!-- <th>ID</th> --><th>Name</th><th>Email</th><th>Phone</th><th>City</th><th>Current Roles</th><th>Priority</th><th>Evaluator</th></tr>
 <?php foreach($applicants as $u) { ?>
 <tr><td><input type="checkbox" name="selected[]" value='<?php echo $u['id'] ?>' <?php
 	if(in_array($u['id'], $existing_applicants)) echo 'checked';
@@ -27,6 +28,11 @@
 	<td><?php echo $u['name'] ?></td>
 	<td><?php echo $u['email'] ?></td>
 	<td><?php echo $u['phone'] ?></td>
+	<td><?php echo $u['city'] ?></td>
+	<td><?php $groups = $common->getUserGroups($u['id']); 
+				$names = [];
+				foreach($groups as $g) $names[] = $g['name'];
+				echo implode(", ", $names); ?></td>
 	<td><?php echo $u['preference'] ?></td>
 	<td><?php $evaluator = $fam->getEvaluator($u['id'], $group_id); 
 			  if($evaluator) echo $evaluator['name'];
