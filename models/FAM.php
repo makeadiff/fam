@@ -28,7 +28,55 @@ class FAM {
 		$vertical_check = '';
 		if($vertical_id) $vertical_check = "vertical_id=$vertical_id AND";
 		return $this->sql->getAll("SELECT id, name FROM `Group` 
-			WHERE $vertical_check status='1' AND group_type='normal' AND (type='fellow' OR type='strat')");
+			WHERE $vertical_check status='1' AND group_type='normal' AND (type='fellow' OR type='strat' OR type='volunteer')");
+	}
+
+	public function saveEvaluation($data)
+	{
+		// dump($data); //exit;
+		// Clear existing evaluations, if any.
+		$this->sql->remove("FAM_Evaluation", [
+			'user_id'		=> $data['applicant_id'],
+			'parameter_id'	=> $data['parameter_id']
+		]);
+
+		$this->sql->insert('FAM_Evaluation', [
+			'user_id'		=> $data['applicant_id'],
+			'parameter_id'	=> $data['parameter_id'],
+			'evaluator_id'	=> $data['evaluator_id'],
+			'response'		=> $data['response'],
+			'added_on'		=> 'NOW()'
+		]);
+
+	}
+
+	public function getStageStatus($user_id, $stage_id)
+	{
+		$stage = $this->sql->getAssoc("SELECT * FROM FAM_UserStage WHERE user_id=$user_id AND stage_id=$stage_id");
+
+		if(!$stage) $stage = ['status' => 'pending', 'comment' => ''];
+
+		return $stage;
+	}
+	public function saveStageStatus($data)
+	{
+		$existing = $this->getStageStatus($data['user_id'], $data['stage_id']);
+
+		if(!isset($existing['id'])) $this->sql->insert("FAM_UserStage", $data);
+		else $this->sql->update("FAM_UserStage", [
+				'comment'	=> $data['comment'],
+				'status'	=> $data['status'],
+				'evaluator_id'	=> $data['evaluator_id'],
+			], ['id' => $existing['id']]);
+	}
+
+	public function getUnassignedApplicants()
+	{
+		return $this->sql->getAll("SELECT U.id, U.name, U.phone, U.email, UGP.group_id, UGP.preference, UGP.status, UGP.id AS ugp_id, C.name AS city
+										FROM FAM_UserGroupPreference UGP
+										INNER JOIN User U ON U.id=UGP.user_id 
+										INNER JOIN City C ON U.city_id=C.id
+										WHERE UGP.evaluator_id=0 AND U.status='1' AND U.user_type='volunteer'");
 	}
 
 	public function getApplicants($source) {

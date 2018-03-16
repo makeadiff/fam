@@ -85,8 +85,6 @@
                   <?php } ?>
                   <li><a href="my_applicants.php"><i class="fa fa-edit"></i> Applicants</a></li>
                   </ul>
-                  </li>
-                </ul>
               </div>
 
             </div>

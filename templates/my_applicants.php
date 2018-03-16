@@ -12,7 +12,7 @@
 </p>
 
 <table class="table table-striped">
-<tr><!-- <th>ID</th> --><th>Name</th><th>Email</th><th>Phone</th><th>City</th><th>Applied for Role...</th><th>Evaluate...</th><th>Status</th></tr>
+<tr><!-- <th>ID</th> --><th>Name</th><th>Email</th><th>Phone</th><th>City</th><th>Applied for Role...</th><th>Evaluate...</th></tr>
 <?php foreach($applicants as $u) { ?>
 <tr>
 	<!-- <td><?php echo $u['id'] ?></td> -->
@@ -25,8 +25,6 @@
 	<a href="evaluate.php?stage_id=2&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-success">Background Check</a><br />
 	<a href="evaluate.php?stage_id=3&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-warning">Common/Vertical Tasks</a>
 	<a href="evaluate.php?stage_id=4&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-info">Personal Interview</a></td>
-	<td><?php $html->buildInput("status", "", 'select', $fam->getSelectionStatus($u['id'], $u['group_id']), 
-		['options' => $all_status, 'data_user_id' => $u['id'], 'data_group_id' => $u['group_id'], ]) ?></td>
 </tr>
 <?php } ?>
 </table>

@@ -1,6 +1,6 @@
 <div class="x_panel">
 
-<form action="" method="post" class="form-area">
+<form action="assign_evaluators_applicants.php" method="post" class="form-area">
 
 <div class="x_title">
 <h2>Assign Evaluator to Applicants</h2>
@@ -19,7 +19,7 @@
 <button class="btn btn-success btn-sm" value="Filter" name="action">Filter</button>
 
 <table class="table table-striped">
-<tr><th></th><!-- <th>ID</th> --><th>Name</th><th>Email</th><th>Phone</th><th>City</th><th>Current Roles</th><th>Priority</th><th>Evaluator</th></tr>
+<tr><th></th><!-- <th>ID</th> --><th>Name</th><th>Email</th><th>Phone</th><th>City</th><th>Current Roles</th><th>Applied For</th><th>Priority</th><th>Evaluator</th></tr>
 <?php foreach($applicants as $u) { ?>
 <tr><td><input type="checkbox" name="selected[]" value='<?php echo $u['id'] ?>' <?php
 	if(in_array($u['id'], $existing_applicants)) echo 'checked';
@@ -33,6 +33,7 @@
 				$names = [];
 				foreach($groups as $g) $names[] = $g['name'];
 				echo implode(", ", $names); ?></td>
+	<td><?php echo $all_groups[$u['group_id']] ?></td>
 	<td><?php echo $u['preference'] ?></td>
 	<td><?php $evaluator = $fam->getEvaluator($u['id'], $group_id); 
 			  if($evaluator) echo $evaluator['name'];
@@ -44,4 +45,7 @@
 </div>
 </form>
 
+<?php if(!i($QUERY, 'show_unassigned')) { ?>
+<a href="?show_unassigned=1">Show all Applicants who are not assigned to any Evaluator</a>
+<?php } ?>
 </div>

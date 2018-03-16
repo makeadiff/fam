@@ -15,29 +15,41 @@ if(!in_array($applicant_id, $my_applicants)) {
 $stage_id = intval(i($QUERY, 'stage_id'));
 $stage_name = $fam->getStage($stage_id);
 $applicant = $common->getUser($applicant_id);
-
+$all_status = [
+	'pending'	=> 'Pending',
+	'selected'	=> 'Selected',
+	'rejected'	=> 'Rejected'
+];
 $categories = $fam->getCategories($stage_id);
 
 if(i($QUERY, 'action') == 'Save') {
 	$response = i($QUERY, 'response');
 
-	foreach ($response as $parameter_id => $value) {
-		// Clear existing evaluations, if any.
-		$sql->remove("FAM_Evaluation", [
-			'user_id'		=> $applicant_id,
-			'parameter_id'	=> $parameter_id
-		]);
+	if($response) {
+		foreach ($response as $parameter_id => $value) {
+			$fam->saveEvaluation([
+				'applicant_id'	=> $applicant_id,
+				'parameter_id'	=> $parameter_id,
+				'evaluator_id'	=> $user_id,
+				'response'		=> $value,
+			]);
+		}
+	}
 
-		$sql->insert('FAM_Evaluation', [
-			'user_id'		=> $applicant_id,
-			'parameter_id'	=> $parameter_id,
-			'evaluator_id'	=> $user_id,
-			'response'		=> $value,
-			'added_on'		=> 'NOW()'
+	$status = i($QUERY, 'status');
+	$comment = i($QUERY, 'comment');
+	if($status and $comment) {
+		$fam->saveStageStatus([
+			'user_id'	=> $applicant_id,
+			'stage_id'	=> $stage_id,
+			'status'	=> $status,
+			'comment'	=> $comment,
+			'evaluator_id' => $user_id
 		]);
 	}
-	$QUERY['success'] = "Data saved.";
 
+	$QUERY['success'] = "Data saved.";
 }
+$stage_info = $fam->getStageStatus($applicant_id, $stage_id);
 
 render();
