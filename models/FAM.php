@@ -23,6 +23,11 @@ class FAM {
 		return $this->sql->getAssoc("SELECT * FROM FAM_Stage WHERE id=$stage_id");
 	}
 
+	public function getCategory($category_id)
+	{
+		return $this->sql->getAssoc("SELECT * FROM FAM_Parameter_Category WHERE id=$category_id");
+	}
+
 	public function getGroups($vertical_id = 0)
 	{
 		$vertical_check = '';

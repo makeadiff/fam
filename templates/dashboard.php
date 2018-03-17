@@ -44,11 +44,14 @@
       </div>
 
       <div class="x_content">
-	    <?php foreach($verticals as $slug => $title) { ?>
-        <div class="col-md-2">
+	    <?php foreach($verticals as $group_id => $title) { ?>
+        <div class="col-md-2 boxes">
           <p class="vertical-name"><?php echo $title ?></p>
-          <input class="knob" data-width="100" data-height="120" data-angleOffset="0" data-min="0" data-max="<?php echo $requirements[$slug] ?>" 
-          	data-linecap="round" data-fgColor="#26B99A" value="<?php echo $applicants[$slug] ?>">
+          <input class="knob" data-width="100" data-height="120" data-angleOffset="0" data-min="0" data-max="<?php echo $requirements[$group_id] ?>" 
+          	data-linecap="round" data-fgColor="#26B99A" value="<?php echo $applicants[$group_id] ?>" data-readOnly="true" /><br />
+          Requirement: <strong><?php echo $requirements[$group_id] ?></strong><br />
+          Applicant Count: <strong><?php echo $applicants[$group_id] ?></strong><br />
+          Selected Count: <strong><?php echo $selected[$group_id] ?></strong><br />
         </div>
         <?php } ?>
       </div>

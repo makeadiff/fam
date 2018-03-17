@@ -24,7 +24,6 @@ $wingman_applications = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_Us
 	INNER JOIN User U ON UGP.user_id=U.id 
 	WHERE $city_check (UGP.group_id = 348 OR UGP.group_id = 365)");
 
-
 $verticals = [
 	'2'		=> "City Team Lead",
 	'19'	=> "Ed Support",
@@ -56,6 +55,13 @@ foreach ($verticals as $group_id => $name) {
 	$applicants[$group_id] = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupPreference UGP 
 		INNER JOIN User U ON UGP.user_id=U.id 
 		WHERE $city_check group_id=$group_id");
+}
+
+$selected = [];
+foreach ($verticals as $group_id => $name) {
+	$selected[$group_id] = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupPreference UGP 
+		INNER JOIN User U ON UGP.user_id=U.id 
+		WHERE $city_check group_id=$group_id AND UGP.status='selected'");
 }
 
 render();
