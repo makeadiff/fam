@@ -18,7 +18,6 @@ function stripSlashes(text) {
 	return text.replace(/\\([\'\"])/,"$1");
 }
 
-
 function ajaxError() {
 	alert("Error communicating with server. Please try again");
 }
@@ -27,6 +26,28 @@ function loading() {
 }
 function loaded() {
 	$("#loading").hide();
+}
+
+function handleSubmit(e) {
+	e.stopPropagation();
+	e.preventDefault(); 
+
+	var form = $(this);
+	var url = form.attr("action");
+	$.ajax({
+		"url": url,
+		"data": form.serialize() + "&action=Save&ajaxify=1",
+		"success": function() {
+			var action = form.find("[name='action']");
+			action.val("Saved");
+
+			window.setTimeout(function () {
+				action.val("Save");
+			}, 2000);
+		}
+	});
+
+	return false;
 }
 
 function siteInit() {
@@ -38,6 +59,8 @@ function siteInit() {
 			e.stopPropagation();
 		}
 	});
+
+	$("form.ajaxify").submit(handleSubmit);
 
 	if(window.init && typeof window.init == "function") init(); //If there is a function called init(), call it on load
 }

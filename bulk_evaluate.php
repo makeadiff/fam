@@ -11,31 +11,24 @@ $applicants = colFormat($fam->getApplicants(['evaluator_id' => $user_id]));
 
 if(i($QUERY, 'action') == 'Save') {
 	$response = i($QUERY, 'response');
+	$applicant_id = i($QUERY, 'applicant_id');
 
-	// if($response) {
-	// 	foreach ($response as $parameter_id => $value) {
-	// 		$fam->saveEvaluation([
-	// 			'applicant_id'	=> $applicant_id,
-	// 			'parameter_id'	=> $parameter_id,
-	// 			'evaluator_id'	=> $user_id,
-	// 			'response'		=> $value,
-	// 		]);
-	// 	}
-	// }
-
-	// $status = i($QUERY, 'status');
-	// $comment = i($QUERY, 'comment');
-	// if($status and $comment) {
-	// 	$fam->saveStageStatus([
-	// 		'user_id'	=> $applicant_id,
-	// 		'stage_id'	=> $stage_id,
-	// 		'status'	=> $status,
-	// 		'comment'	=> $comment,
-	// 		'evaluator_id' => $user_id
-	// 	]);
-	// }
+	if($response) {
+		foreach ($response as $parameter_id => $value) {
+			$fam->saveEvaluation([
+				'applicant_id'	=> $applicant_id,
+				'parameter_id'	=> $parameter_id,
+				'evaluator_id'	=> $user_id,
+				'response'		=> $value,
+			]);
+		}
+	}
 
 	$QUERY['success'] = "Data saved.";
 }
 
-render();
+if(i($QUERY, 'ajaxify')) {
+	print json_encode(['status' => 'success', 'data' => $QUERY['success']]);
+} else {
+	render();
+}

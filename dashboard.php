@@ -35,21 +35,12 @@ $verticals = [
 	'5'		=> "Human Capital",
 	'15'	=> "Finance",
 	'11'	=> "Campaigns and Communications",
-	'375'	=> "Foundation",	
+	'375'	=> "Foundational Programme",
 ];
-$requirements = [
-	'2'		=> 25,
-	'19'	=> 40,
-	'378'	=> 50,
-	'272'	=> 50,
-	'370'	=> 25,
-	'269'	=> 70,
-	'4'		=> 40,
-	'5'		=> 25,
-	'15'	=> 25,
-	'11'	=> 15,
-	'375'	=> 6,	
-];
+
+// Data source - https://docs.google.com/spreadsheets/d/150mVAUvisYObaW2MVUZfi2tjbKxvd2tZalB3gfr091o/edit?ts=5aacf12d#gid=675197629
+$requirements = getRequirementFromSheet("https://docs.google.com/spreadsheets/d/e/2PACX-1vTf7uqEdn1CWZjwG8YALAS52jGVMABAfo1Xpb6YR3g69jSHir_govSZvFz_F_J_ACX1W50byaNE0ibS/pub?output=csv");
+
 $applicants = [];
 foreach ($verticals as $group_id => $name) {
 	$applicants[$group_id] = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupPreference UGP 

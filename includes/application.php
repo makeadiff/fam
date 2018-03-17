@@ -19,3 +19,53 @@ function showApplicantStatus($user_id, $stage_id) {
 	if($status['status'] == 'selected') echo '<span class="fa fa-check-circle success-message">Selected</span>';
 	else if($status['status'] == 'rejected') echo '<span class="fa fa-times-circle error-message">Rejected</span>';
 }
+
+function getRequirementFromSheet($sheet_url) {
+	global $common;
+	$contents = load($sheet_url);
+	$lines = explode("\n", $contents);
+
+	$all_cities = keyFormat($common->getCities(), ['name', 'id']);
+
+	// Transilation table for group_id => index in the spreadsheet.
+	$keys = [
+		'city_name'	=> 0,
+		'2'		=> 6,
+		'19'	=> 8,
+		'378'	=> 10,
+		'272'	=> 9,
+		'370'	=> 14,
+		'269'	=> 11,
+		'4'		=> 12,
+		'5'		=> 13,
+		'15'	=> 15,
+		'11'	=> 16,
+		'375'	=> 7,
+	];
+
+	$requirements = [];
+	$line_index = 0;
+	$total = [];
+	foreach($lines as $l) {
+		$data = str_getcsv($l);
+
+		$city_name = $data[$keys['city_name']];
+		if(!isset($all_cities[$city_name])) continue;
+		$city_id = $all_cities[$city_name];
+
+		foreach($keys as $group_id => $sheet_index) {
+			if($group_id == 'city_name') continue;
+
+			$requirements[$city_id][$group_id] = $data[$sheet_index];
+
+			if(!isset($total[$group_id])) $total[$group_id] = 0;
+			$total[$group_id] += $data[$sheet_index];
+		}
+
+		$line_index++;
+		if($line_index > 25) break;
+	}
+
+	$requirements[0] = $total;
+	return $requirements;
+}
