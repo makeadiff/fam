@@ -22,6 +22,10 @@ class FAM {
 	{
 		return $this->sql->getAssoc("SELECT * FROM FAM_Stage WHERE id=$stage_id");
 	}
+	public function getStages()
+	{
+		return $this->sql->getAll("SELECT * FROM FAM_Stage WHERE name!='Done'");
+	}
 
 	public function getCategory($category_id)
 	{

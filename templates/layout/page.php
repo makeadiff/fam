@@ -87,6 +87,7 @@
                   <?php } ?>
                   <li><a href="my_applicants.php"><i class="fa fa-edit"></i> Applicants</a></li>
                   <li><a href="dashboard.php"><i class="fa fa-table"></i> Dashboard</a></li>
+                  <li><a href="all_stages.php"><i class="fa fa-server"></i> All Stages</a></li>
                   </ul>
               </div>
 
