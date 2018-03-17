@@ -52,4 +52,8 @@ if(i($QUERY, 'action') == 'Save') {
 }
 $stage_info = $fam->getStageStatus($applicant_id, $stage_id);
 
-render();
+if(i($QUERY, 'ajaxify')) {
+	print json_encode(['status' => 'success', 'data' => $QUERY['success']]);
+} else {
+	render();
+}

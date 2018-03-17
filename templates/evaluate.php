@@ -35,7 +35,7 @@ $parameters = $fam->getParameters($stage_id, $category['id']);
 
 if(!$parameters) continue;
 ?>
-<form action="" method="post">
+<form action="" method="post" class="ajaxify">
 <div class="x_panel">
 
 <div class="x_title">
@@ -50,14 +50,14 @@ require(joinPath($config['site_folder'], 'templates', 'partials', 'parameters.ph
 </div>
 
 <div class="x-content">
-	<button class="btn btn-primary" value="Save" name="action">Save</button>
+	<input type="submit" class="btn btn-primary" value="Save" name="action" />
 </div>
 </div>
 </form>
 <?php } ?>
 
 
-<form action="evaluate.php" method="post">
+<form action="evaluate.php" method="post" class="ajaxify">
 	<input type="hidden" name="applicant_id" value="<?php echo $applicant_id ?>" />
 	<input type="hidden" name="stage_id" value="<?php echo $stage_id ?>" />
 <div class="x_panel">
@@ -84,7 +84,7 @@ require(joinPath($config['site_folder'], 'templates', 'partials', 'parameters.ph
 		<textarea rows="3" cols="50" name="comment" class="form-control col-md-7 col-xs-12"><?php echo $stage_info['comment'] ?></textarea>
 	</div>
 	<br /><br />
-	<button class="btn btn-success" value="Save" name="action">Save</button>
+	<input type="submit" class="btn btn-primary" value="Save" name="action" />
 </div>
 </div>
 </form>

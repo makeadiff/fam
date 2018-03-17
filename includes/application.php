@@ -20,6 +20,7 @@ function showApplicantStatus($user_id, $stage_id) {
 	else if($status['status'] == 'rejected') echo '<span class="fa fa-times-circle error-message">Rejected</span>';
 }
 
+/// This will fetch the google spreadsheet PUBLISHED csv and convert it into a array.
 function getRequirementFromSheet($sheet_url) {
 	global $common;
 	$contents = load($sheet_url);

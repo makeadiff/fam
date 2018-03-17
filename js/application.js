@@ -34,12 +34,16 @@ function handleSubmit(e) {
 
 	var form = $(this);
 	var url = form.attr("action");
+	var action = form.find("[name='action']");
+	action.val("Saving...");
+	action.prop("disabled", true);
+
 	$.ajax({
 		"url": url,
 		"data": form.serialize() + "&action=Save&ajaxify=1",
 		"success": function() {
-			var action = form.find("[name='action']");
 			action.val("Saved");
+			action.prop("disabled", false);
 
 			window.setTimeout(function () {
 				action.val("Save");
