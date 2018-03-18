@@ -32,6 +32,17 @@ class FAM {
 		return $this->sql->getAssoc("SELECT * FROM FAM_Parameter_Category WHERE id=$category_id");
 	}
 
+	public function getCategories($stage_id)
+	{
+		return $this->sql->getAll("SELECT id, name FROM FAM_Parameter_Category WHERE stage_id=$stage_id AND status='1'");
+	}
+
+	public function getParameters($stage_id, $category_id = 0)
+	{
+		return $this->sql->getAll("SELECT * FROM FAM_Parameter WHERE stage_id=$stage_id AND status='1' AND category_id=$category_id");
+	}
+
+
 	public function getGroups($vertical_id = 0)
 	{
 		$vertical_check = '';
@@ -110,17 +121,6 @@ class FAM {
 				FROM User U 
 				INNER JOIN FAM_UserGroupPreference E ON E.evaluator_id=U.id
 				WHERE E.user_id=$applicant_id AND E.group_id=$group_id AND U.status='1' AND U.user_type='volunteer'");
-	}
-
-
-	public function getCategories($stage_id)
-	{
-		return $this->sql->getAll("SELECT id, name FROM FAM_Parameter_Category WHERE stage_id=$stage_id AND status='1'");
-	}
-
-	public function getParameters($stage_id, $category_id = 0)
-	{
-		return $this->sql->getAll("SELECT * FROM FAM_Parameter WHERE stage_id=$stage_id AND status='1' AND category_id=$category_id");
 	}
 
 	public function getResponse($applicant_id, $parameter_id)

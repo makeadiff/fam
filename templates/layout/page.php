@@ -73,21 +73,25 @@
                       <li><a href="evaluation_dashboard.php">Evaluation Dashboard</a></li>
                    </ul>
                   </li> -->
-                  <?php 
-                  $is_director = false;
-                  $groups = $user['groups'];
-                  foreach($groups as $g) 
-                    if($g['type'] == 'national') {
-                      $is_director = true;
-                      break;
-                    }
-
-                  if($is_director) { ?>
-                  <li><a href="assign_evaluators_applicants.php"><i class="fa fa-edit"></i> Assign Evaluators</a></li>
-                  <?php } ?>
-                  <li><a href="my_applicants.php"><i class="fa fa-edit"></i> Applicants</a></li>
                   <li><a href="dashboard.php"><i class="fa fa-table"></i> Dashboard</a></li>
-                  <li><a href="all_stages.php"><i class="fa fa-server"></i> All Stages</a></li>
+                  <li><a href="my_applicants.php"><i class="fa fa-edit"></i> Applicants</a></li>
+                  <li><a href="all_stages.php"><i class="fa fa-server"></i> Bulk Enter Data for All Applicants</a></li>
+                      <?php 
+                      $is_director = false;
+                      $groups = $user['groups'];
+                      foreach($groups as $g) {
+                        if($g['type'] == 'national') {
+                          $is_director = true;
+                          break;
+                        }
+                      }
+                      if($is_director) { ?>
+                      <li><a><i class="fa fa-home"></i>Tools <span class="fa fa-chevron-left"></span></a>
+                      <ul class="nav child_menu">
+                        <li><a href="assign_evaluators_applicants.php"><i class="fa fa-edit"></i> Assign Evaluators</a></li>
+                        <li><a href="timeline.php"><i class="fa fa-edit"></i> Show Evaluators Who haven't entered Data</a></li>
+                      </ul></li>
+                      <?php } ?>
                   </ul>
               </div>
 
