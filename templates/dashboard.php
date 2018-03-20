@@ -44,6 +44,9 @@
       </div>
 
       <div class="x_content">
+        <p class="text-muted font-13 m-b-30">
+          Requirement Data comes from the spreadsheet <a href="https://docs.google.com/spreadsheets/d/150mVAUvisYObaW2MVUZfi2tjbKxvd2tZalB3gfr091o/edit?ts=5aacf12d#gid=675197629">Succession 2018 - Fellow Requirement</a>
+        </p>
 	    <?php foreach($verticals as $group_id => $title) { ?>
         <div class="col-md-2 boxes">
           <p class="vertical-name"><?php echo $title ?></p>

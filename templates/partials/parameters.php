@@ -8,11 +8,14 @@
 		<div class="row">
 		  <div class="btn-group" data-toggle="buttons">
 		    <label class="btn btn-success <?php if($response == '1') echo 'active'; ?>">
-		    	<input name="response[<?php echo $para['id'] ?>]" type="radio" class="input-yes" value="1" <?php if($response == '1') echo 'checked="true"'; ?> />Yes</label>
+		    	<input name="response[<?php echo $para['id'] ?>]" type="radio" class="<?php echo unformat($para['name']) ?> input-yes yes-no-na" value="1" 
+		    	<?php if($response == '1') echo 'checked="true"'; ?> />Yes</label>
 		    <label class="btn btn-danger <?php if($response == '0') echo 'active'; ?>">
-		    	<input name="response[<?php echo $para['id'] ?>]" type="radio" class="input-no" value="0" <?php if($response == '0') echo 'checked="true"'; ?> />No</label>
+		    	<input name="response[<?php echo $para['id'] ?>]" type="radio" class="<?php echo unformat($para['name']) ?> input-no yes-no-na" value="0" 
+		    	<?php if($response == '0') echo 'checked="true"'; ?> />No</label>
 		    <label class="btn btn-dark <?php if($response == '-1') echo 'active'; ?>">
-		    	<input name="response[<?php echo $para['id'] ?>]" type="radio" class="input-na" value="-1" <?php if($response == '-1') echo 'checked="true"'; ?> />N/A</label>
+		    	<input name="response[<?php echo $para['id'] ?>]" type="radio" class="<?php echo unformat($para['name']) ?> input-na yes-no-na" value="-1" 
+		    	<?php if($response == '-1') echo 'checked="true"'; ?> />N/A</label>
 		  </div>
 		</div>
 		<?php } elseif($para['type'] == '1-5') { ?>

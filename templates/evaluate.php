@@ -23,9 +23,30 @@
 	</div>
 
 	<div class="x_content">
-		Yes Count: <span id="yes-count"></span><br />
-		No Count: <span id="no-count"></span><br />
-		N/A Count: <span id="na-count"></span><br />
+		<script type="text/javascript">
+			var counts = {};
+		</script>
+		<table>
+		<?php
+		$parameters = $fam->getParameters($stage_id, reset($categories)['id']);
+		foreach($parameters as $para) { ?>
+			<script type="text/javascript">
+				counts['<?php echo unformat($para['name']) ?>'] = {
+					'yes': 0,
+					'no': 0,
+					'na': 0,
+				};
+			</script>
+			<tr><td width="300"><?php echo $para['name']; ?></td>
+				<td>
+				<div class="btn-group" data-toggle="buttons">
+				    <label class="btn btn-success">Yes - <span id="<?php echo unformat($para['name']) ?>-yes-count"></span></label>
+				    <label class="btn btn-danger">No - <span id="<?php echo unformat($para['name']) ?>-no-count"></span></label>
+				    <label class="btn btn-dark">N/A - <span id="<?php echo unformat($para['name']) ?>-na-count"></span></label>
+				</div>
+			</td></tr>
+		<?php } ?>
+		</table>
 	</div>
 </div>
 <?php } ?>
@@ -68,12 +89,17 @@ require(joinPath($config['site_folder'], 'templates', 'partials', 'parameters.ph
 
 <div class="row" style="margin-left: 10px;">
   <div class="btn-group" data-toggle="buttons">
+  	<label class="btn btn-dark <?php if($stage_info['status'] == 'pending') echo 'active'; ?>">
+    	<input name="status" type="radio" class="input-na" value="pending" <?php if($stage_info['status'] == 'pending') echo 'checked="true"'; ?> />Pending</label>
     <label class="btn btn-success <?php if($stage_info['status'] == 'selected') echo 'active'; ?>">
     	<input name="status	" type="radio" class="input-yes" value="selected" <?php if($stage_info['status'] == 'selected') echo 'checked="true"'; ?> />Selected</label>
+    <label class="btn btn-primary <?php if($stage_info['status'] == 'free-pool') echo 'active'; ?>" title="Your Vertical doesn't need this applicant - but other verticals can take them">
+    	<input name="status" type="radio" class="input-no" value="free-pool" <?php if($stage_info['status'] == 'free-pool') echo 'checked="true"'; ?> />Free Pool</label>
+    <label class="btn btn-warning <?php if($stage_info['status'] == 'maybe') echo 'active'; ?>">
+    	<input name="status" type="radio" class="input-no" value="maybe" <?php if($stage_info['status'] == 'maybe') echo 'checked="true"'; ?> />Maybe</label>
     <label class="btn btn-danger <?php if($stage_info['status'] == 'rejected') echo 'active'; ?>">
     	<input name="status" type="radio" class="input-no" value="rejected" <?php if($stage_info['status'] == 'rejected') echo 'checked="true"'; ?> />Rejected</label>
-    <label class="btn btn-dark <?php if($stage_info['status'] == 'pending') echo 'active'; ?>">
-    	<input name="status" type="radio" class="input-na" value="pending" <?php if($stage_info['status'] == 'pending') echo 'checked="true"'; ?> />Pending</label>
+    
   </div>
 </div>
 </div>
