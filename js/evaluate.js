@@ -1,6 +1,8 @@
 function init() {
-	collateScores();
-	window.setInterval(collateScores, 3000);
+	if(typeof counts != "undefined") {
+		collateScores();
+		window.setInterval(collateScores, 3000);
+	}
 }
 
 function collateScores() {

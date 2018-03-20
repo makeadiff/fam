@@ -35,11 +35,13 @@
 
 	<div class="x_content">
 		<table class="table table-striped">
-			<tr><th>Evaluator</th><th>Applicant</th></tr>
-			<?php foreach ($applicants_whos_data_is_not_entered as $applicant_id => $evaluator_id) { ?>
+			<tr><th>Evaluator</th><th>Applicant</th><th>City</th><th>Vertical</th></tr>
+			<?php foreach ($applicants_whos_data_is_not_entered as $applicant_id => $applicant) { ?>
 			<tr>
-				<td><?php echo $all_users[$evaluator_id] ?></td>
-				<td><?php echo $all_users[$applicant_id] ?></td>
+				<td><?php echo $all_users[$applicant['evaluator_id']]['name'] ?></td>
+				<td><?php echo $all_users[$applicant_id]['name'] ?></td>
+				<td><?php echo $all_users[$applicant_id]['city'] ?></td>
+				<td><?php echo $all_groups[$all_applicants[$applicant_id]['group_id']] ?></td>
 			</tr>
 			<?php } ?>
 		</table>
