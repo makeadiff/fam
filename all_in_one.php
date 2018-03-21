@@ -42,6 +42,8 @@ foreach ($all_cities as $city_id => $city_name) {
 	// 	GROUP BY UGP.group_id");
 }
 
-// dump($applications);
+// $template->addResource("js/library/DataTables/datatables.min.css", 'css');
+// $template->addResource("js/library/DataTables/datatables.min.js", 'js');
 
+$multiplication_factor = 3;
 render();

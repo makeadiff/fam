@@ -49,4 +49,6 @@ foreach ($verticals as $group_id => $name) {
 		WHERE $city_check preference=1 AND group_id=$group_id AND UGP.status='selected'");
 }
 
+$multiplication_factor = 3;
+
 render();

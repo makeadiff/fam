@@ -8,7 +8,8 @@
 	<form action="dashboard.php" method="post" class="form-area">
 		<?php $html->buildInput("city_id", "Select City", 'select', $city_id, ['options' => $all_cities, 'no_br' => true]); ?> &nbsp; 
 		<input type="submit" class="btn btn-success btn-xs" value="Filter" />
-	</form>
+	</form><br />
+  <a href="all_in_one.php">All In One View</a>
 	</div>
 </div>
  
@@ -36,8 +37,11 @@
     <?php foreach($verticals as $group_id => $title) { ?>
       <div class="col-md-2 boxes">
         <p class="vertical-name"><?php echo $title ?></p>
-        <input class="knob" data-width="100" data-height="120" data-angleOffset="0" data-min="0" data-max="<?php echo ($requirements[$city_id][$group_id] * 2) ?>" 
-        	data-linecap="round" data-fgColor="#26B99A" value="<?php echo $applicants[$group_id] ?>" data-readOnly="true" /><br />
+        <input class="knob" data-width="100" data-height="120" data-angleOffset="0" data-min="0" data-max="<?php echo ($requirements[$city_id][$group_id] * $multiplication_factor) ?>" 
+        	data-linecap="round" data-fgColor="<?php 
+            if($requirements[$city_id][$group_id] > $applicants[$group_id]) echo '#a62c37';
+            elseif($requirements[$city_id][$group_id] < $applicants[$group_id]) echo '#f6b26b';
+            elseif(($requirements[$city_id][$group_id] * 2) < $applicants[$group_id]) echo '#26B99A'; ?>" value="<?php echo $applicants[$group_id] ?>" data-readOnly="true" /><br />
         Requirement: <strong><?php echo $requirements[$city_id][$group_id] ?></strong><br />
         Applicant Count: <strong><?php echo $applicants[$group_id] ?></strong><br />
         Selected Count: <strong><?php echo $selected[$group_id] ?></strong><br />

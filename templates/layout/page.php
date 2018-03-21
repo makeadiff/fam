@@ -88,6 +88,7 @@
                       if($is_director) { ?>
                       <li><a><i class="fa fa-home"></i>Tools <span class="fa fa-chevron-left"></span></a>
                       <ul class="nav child_menu">
+                        <li><a href="all_in_one.php"><i class="fa fa-table"></i> All in One View</a></li>
                         <li><a href="assign_evaluators_applicants.php"><i class="fa fa-edit"></i> Assign Evaluators</a></li>
                         <li><a href="timeline.php"><i class="fa fa-edit"></i> Show Evaluators Who haven't entered Data</a></li>
                       </ul></li>

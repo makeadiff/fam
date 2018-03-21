@@ -1,3 +1,6 @@
 .bordered {
 	border-left:1px solid #333;
 }
+#data-table {
+	background: #fff;
+}
