@@ -3,4 +3,4 @@ require 'common.php';
 
 // render(); 
 
-header("Location: my_applicants.php");
+header("Location: dashboard.php");

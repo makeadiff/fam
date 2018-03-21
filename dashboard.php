@@ -17,9 +17,6 @@ $total_filled = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupP
 $fellowship_applications = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupPreference UGP 
 	INNER JOIN User U ON UGP.user_id=U.id 
 	WHERE $city_check  preference=1 AND UGP.group_id IN (SELECT id FROM `Group` WHERE type='fellow' OR type='strat')");
-$wingman_applications = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupPreference UGP 
-	INNER JOIN User U ON UGP.user_id=U.id 
-	WHERE $city_check (UGP.group_id = 348 OR UGP.group_id = 365)");
 
 $verticals = [
 	'2'		=> "City Team Lead",
