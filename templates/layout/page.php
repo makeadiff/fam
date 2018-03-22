@@ -9,10 +9,10 @@
     <title><?php echo $title . (isset($page_title) ? " : $page_title" : '') ?></title>
 
 	<link href="<?php echo $config['site_url'] ?>css/style.css" rel="stylesheet" type="text/css" />
-	<!-- <link href="<?php echo $config['site_url'] ?>images/silk_theme.css" rel="stylesheet" type="text/css" /> -->
 	<link href="<?php echo $config['site_url'] ?>bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<?php echo $config['site_url'] ?>bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
 	<link href="<?php echo $config['site_home'] ?>css/style.css" rel="stylesheet" type="text/css" />
+  <link href="<?php echo $config['site_home'] ?>images/silk_theme.css" rel="stylesheet" type="text/css" />
 
 	<link href="<?php echo $config['site_home'] ?>css/library/font-awesome/css/font-awesome.min.css" rel="stylesheet">
   <link href="<?php echo $config['site_home'] ?>css/library/nprogress.css" rel="stylesheet">

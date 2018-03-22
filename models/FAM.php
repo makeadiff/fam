@@ -98,7 +98,7 @@ class FAM {
 										WHERE UGP.evaluator_id=0 AND U.status='1' AND U.user_type='volunteer'");
 	}
 
-	public function getApplicants($source) {
+	public function getApplicants($source, $pager = false) {
 		$checks = ['1=1'];
 
 		if(!empty($source['group_id'])) $checks[] = "group_id=" . $source['group_id'];
@@ -108,11 +108,18 @@ class FAM {
 	 		$checks[] = "evaluator_id=" . $source['evaluator_id'];
 	 	}
 
-		return $this->sql->getAll("SELECT U.id, U.name, U.email, U.mad_email, U.phone, UGP.group_id, UGP.preference, C.name AS city
+	 	$query = "SELECT UGP.id AS ugp, U.id, U.name, U.email, U.mad_email, U.phone, UGP.group_id, UGP.preference, C.name AS city
 				FROM User U
 				INNER JOIN City C ON C.id=U.city_id
 				INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
-				WHERE " . implode(" AND ", $checks));
+				WHERE " . implode(" AND ", $checks);
+
+		if($pager) {
+			$sql_pager = new SqlPager($query, 50);
+			return $sql_pager;
+		}
+
+		return $this->sql->getAll($query);
 	}
 
 	public function getEvaluator($applicant_id, $group_id)

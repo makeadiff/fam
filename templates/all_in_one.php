@@ -64,7 +64,7 @@
   </div> 
 </div>
 
-<?php 
+<?php
 
 function highlight($applications, $requirements) {
     global $multiplication_factor;

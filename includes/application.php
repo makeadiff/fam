@@ -1,7 +1,7 @@
 <?php
 $user_info = check_user();
 
-$user_id = 1;// $user['id'];
+$user_id = $user_info['user_id'];
 $fam = new FAM;
 $year = 2017;
 
@@ -11,6 +11,13 @@ $html = new HTML;
 
 $user = $user_info['current_user'];
 $user['groups'] = $common->getUserGroups($user['id']);
+
+$user_groups_ids = array_keys(keyFormat($user['groups']));
+$evaluators_group_id = 382;
+
+if(!in_array('national', $user_info['groups']) and !in_array($evaluators_group_id, $user_groups_ids)) {
+	die("Only directors and evaluators can access this app.");
+}
 
 function showApplicantStatus($user_id, $stage_id) {
 	global $fam;
