@@ -60,21 +60,9 @@
                 <br>
                 <h3>Navigation Panel</h3>
                 <ul class="nav side-menu">
-<!--                   <li><a><i class="fa fa-home"></i> Succession Reports <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="index.php">National Report</a></li>
-                      <li><a href="city_reports.php">City Reports</a></li>
-                      <li><a href="requirements.php">Requirements</a></li>
-                    </ul>
-                  </li>
-                  <li><a><i class="fa fa-table"></i> Dashboards <span class="fa fa-chevron-down"></span></a>
-                    <ul class="nav child_menu">
-                      <li><a href="volunteer_data_dashboard.php">Volunteer Data</a></li>
-                      <li><a href="evaluation_dashboard.php">Evaluation Dashboard</a></li>
-                   </ul>
-                  </li> -->
                   <li><a href="dashboard.php"><i class="fa fa-table"></i> Dashboard</a></li>
-                  <li><a href="my_applicants.php"><i class="fa fa-edit"></i> Applicants</a></li>
+                  <li><a href="my_applicants.php"><i class="fa fa-edit"></i> My Applicants</a></li>
+                  <li><a href="applicants.php"><i class="fa fa-user"></i> Applicants</a></li>
                   <li><a href="all_stages.php"><i class="fa fa-server"></i> Bulk Enter Data for All Applicants</a></li>
                       <?php 
                       $is_director = false;

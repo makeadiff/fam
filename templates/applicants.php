@@ -18,8 +18,8 @@
 $count = 0;
 foreach($applicants as $u) {
 	$count++; ?>
-<tr><!-- <td><?php echo $count ?></td> -->
-	<td><?php echo $u['ugp'] ?></td>
+<tr><td><?php echo $count ?></td>
+	<!-- <td><?php echo $u['ugp'] ?></td> -->
 	<td><?php echo $u['name'] ?></td>
 	<td><?php echo $u['email'] ?></td>
 	<td><?php echo $u['phone'] ?></td>
@@ -38,8 +38,8 @@ foreach($applicants as $u) {
 </table>
 
 <?php
-$applicants_pager->opt['parameters']['city_id'] = $QUERY['city_id'];
-$applicants_pager->opt['parameters']['group_id'] = $QUERY['group_id'];
+if(isset($QUERY['city_id'])) $applicants_pager->opt['parameters']['city_id'] = $QUERY['city_id'];
+if(isset($QUERY['group_id'])) $applicants_pager->opt['parameters']['group_id'] = $QUERY['group_id'];
 $applicants_pager->link_template = '<a href="%%PAGE_LINK%%" class="page-%%CLASS%%">%%TEXT%%</a>';
 if($applicants_pager->total_pages > 1) {
 	print $applicants_pager->getLink("first") . $applicants_pager->getLink("back");

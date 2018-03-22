@@ -8,7 +8,7 @@
 .deactivate {background-image:url(silk_icons/cross.png);}
 .activate {background-image:url(silk_icons/tick.png);}
 /* Activate/Deactivate - oppostite of active/deactive */
-.active {background-image:url(silk_icons/tick.png);}
+/*.active {background-image:url(silk_icons/tick.png);}*/
 .deactive,.inactive {background-image:url(silk_icons/cross.png);}
 
 /*Paging*/
