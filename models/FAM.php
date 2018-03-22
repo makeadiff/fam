@@ -98,7 +98,7 @@ class FAM {
 										WHERE UGP.evaluator_id=0 AND U.status='1' AND U.user_type='volunteer'");
 	}
 
-	public function getApplicants($source, $pager = false) {
+	public function getApplicants($source) {
 		$checks = ['1=1'];
 
 		if(!empty($source['group_id'])) $checks[] = "group_id=" . $source['group_id'];
@@ -113,11 +113,6 @@ class FAM {
 				INNER JOIN City C ON C.id=U.city_id
 				INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
 				WHERE " . implode(" AND ", $checks);
-
-		if($pager) {
-			$sql_pager = new SqlPager($query, 50);
-			return $sql_pager;
-		}
 
 		return $this->sql->getAll($query);
 	}
