@@ -37,6 +37,9 @@ $query = "SELECT UGP.id AS ugp, U.id, U.name, U.email, U.mad_email, U.phone, GRO
 	INNER JOIN `Group` G ON UGP.group_id=G.id
 	WHERE " . implode(" AND ", $checks) . "
 	GROUP BY UGP.user_id";
+if($group_id) $query .= " ORDER BY UGP.preference";
+else $query .= " ORDER BY C.name, U.name";
+
 $applicants_pager = new SqlPager($query, 25);
 
 $applicants = $applicants_pager->getPage();
