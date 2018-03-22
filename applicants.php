@@ -30,7 +30,7 @@ if($group_id) $checks[] = "group_id=" . $group_id;
 if($city_id) $checks[] = "city_id=" . $city_id;
 if($evaluator_id) $checks[] = "evaluator_id=" . $evaluator_id;
 
-$query = "SELECT UGP.id AS ugp, U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(G.name ORDER BY UGP.preference SEPARATOR ',') AS applied_groups, C.name AS city 
+$query = "SELECT UGP.id AS ugp, U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(G.name ORDER BY UGP.preference SEPARATOR ',') AS applied_groups, C.name AS city, UGP.preference
 	FROM User U
 	INNER JOIN City C ON C.id=U.city_id
 	INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id

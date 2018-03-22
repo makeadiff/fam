@@ -13,7 +13,7 @@
 </form>
 
 <table class="table table-striped">
-<tr><th>Count</th><!-- <th>ID</th> --><th>Name</th><th>Email</th><th>Phone</th><th>City</th><th>Current Roles</th><th>Applied For</th></tr>
+<tr><th>Count</th><!-- <th>ID</th> --><th>Name</th><th>Email</th><th>Phone</th><th>City</th><th>Current Roles</th><th>Applied For</th><?php if($group_id) { ?><th>Preference</th><?php } ?></tr>
 <?php 
 $count = 0;
 foreach($applicants as $u) {
@@ -29,6 +29,7 @@ foreach($applicants as $u) {
 				foreach($groups as $g) $names[] = $g['name'];
 				echo implode(", ", $names); ?></td>
 	<td><?php echo $u['applied_groups']; ?></td>
+	<?php if($group_id) { ?><td><?php echo $u['preference'] ?></td><?php } ?>
 </tr>
 <?php } ?>
 </table>
