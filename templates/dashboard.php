@@ -40,13 +40,19 @@
         <input class="knob" data-width="100" data-height="120" data-angleOffset="0" data-min="0" data-max="<?php echo ($requirements[$city_id][$group_id] * $multiplication_factor) ?>" 
         	data-linecap="round" data-fgColor="<?php 
             if($requirements[$city_id][$group_id] > $applicants[$group_id]) echo '#a62c37';
-            elseif($requirements[$city_id][$group_id] < $applicants[$group_id]) echo '#f6b26b';
-            elseif(($requirements[$city_id][$group_id] * 2) < $applicants[$group_id]) echo '#26B99A'; ?>" value="<?php echo $applicants[$group_id] ?>" data-readOnly="true" /><br />
+            elseif(($requirements[$city_id][$group_id] * 2) > $applicants[$group_id]) echo '#f6b26b';
+            else echo '#26B99A'; // 
+             ?>" value="<?php echo $applicants[$group_id] ?>" data-readOnly="true" /><br />
         Requirement: <strong><?php echo $requirements[$city_id][$group_id] ?></strong><br />
         Applicant Count: <strong><?php echo $applicants[$group_id] ?></strong><br />
         Selected Count: <strong><?php echo $selected[$group_id] ?></strong><br />
       </div>
       <?php } ?>
     </div> 
+
+    <strong>Legend</strong><br />
+    <span style="background-color:#a62c37; border:1px solid #000;"> &nbsp; </span>&nbsp; Number of Applicantions are less than requirements.<br />
+    <span style="background-color:#f6b26b; border:1px solid #000;"> &nbsp; </span>&nbsp; Number of Applicantions are less than 2 x the requirements.<br />
+    <span style="background-color:#26B99A; border:1px solid #000;"> &nbsp; </span>&nbsp; Number of Applicantions are more than 2 x the requirements.<br />
   </div>
 </div>

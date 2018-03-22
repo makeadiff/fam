@@ -43,7 +43,7 @@ foreach ($all_cities as $city_id => $city_name) {
 }
 
 // $template->addResource("js/library/DataTables/datatables.min.css", 'css');
-// $template->addResource("js/library/DataTables/datatables.min.js", 'js');
+// $template->addResource("js/library/DataTables/datatables.js", 'js');
 
 $multiplication_factor = 3;
 render();
