@@ -27,13 +27,13 @@ $applicants_pager = $fam->getApplicants(['group_id' => $group_id, 'city_id' => $
 
 $checks = ['1=1'];
 if($group_id) $checks[] = "group_id=" . $group_id;
-if($city_id) $checks[] = "city_id=" . $city_id;
+if($city_id) $checks[] = "((UGP.city_id != 0 AND UGP.city_id={$city_id}) OR (UGP.city_id = 0 AND U.city_id={$city_id}))";
 if($evaluator_id) $checks[] = "evaluator_id=" . $evaluator_id;
 
 $query = "SELECT UGP.id AS ugp, U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(G.name ORDER BY UGP.preference SEPARATOR ',') AS applied_groups, C.name AS city, UGP.preference
 	FROM User U
-	INNER JOIN City C ON C.id=U.city_id
 	INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
+	INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
 	INNER JOIN `Group` G ON UGP.group_id=G.id
 	WHERE " . implode(" AND ", $checks) . "
 	GROUP BY UGP.user_id";

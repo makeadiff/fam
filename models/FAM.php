@@ -94,7 +94,7 @@ class FAM {
 		return $this->sql->getAll("SELECT U.id, U.name, U.phone, U.email, UGP.group_id, UGP.preference, UGP.status, UGP.id AS ugp_id, C.name AS city
 										FROM FAM_UserGroupPreference UGP
 										INNER JOIN User U ON U.id=UGP.user_id 
-										INNER JOIN City C ON U.city_id=C.id
+										INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
 										WHERE UGP.evaluator_id=0 AND U.status='1' AND U.user_type='volunteer'");
 	}
 
@@ -102,7 +102,7 @@ class FAM {
 		$checks = ['1=1'];
 
 		if(!empty($source['group_id'])) $checks[] = "group_id=" . $source['group_id'];
-		if(!empty($source['city_id'])) $checks[] = "city_id=" . $source['city_id'];
+		if(!empty($source['city_id'])) $checks[] = "((UGP.city_id != 0 AND UGP.city_id={$source['city_id']}) OR (UGP.city_id = 0 AND U.city_id={$source['city_id']}))";
 		if(isset($source['evaluator_id'])) {
 			if(!$source['evaluator_id']) return [];
 	 		$checks[] = "evaluator_id=" . $source['evaluator_id'];
@@ -110,8 +110,8 @@ class FAM {
 
 	 	$query = "SELECT UGP.id AS ugp, U.id, U.name, U.email, U.mad_email, U.phone, UGP.group_id, UGP.preference, C.name AS city
 				FROM User U
-				INNER JOIN City C ON C.id=U.city_id
 				INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
+				INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
 				WHERE " . implode(" AND ", $checks);
 
 		return $this->sql->getAll($query);

@@ -53,7 +53,7 @@
         $total_applied += $total_verticals[$group_id]['applications'];
         ?>
       <td class="bordered"><?php echo $total_verticals[$group_id]['requirements'] ?></td>
-      <td <?php highlight($total_verticals[$group_id]['applications'], $total_verticals[$group_id]['requirements']); ?></td>
+      <td <?php highlight($total_verticals[$group_id]['applications'], $total_verticals[$group_id]['requirements']); ?>><?php echo $total_verticals[$group_id]['applications']; ?></td>
       <?php } ?>
       <td class="bordered"><?php echo $total_required ?></td>
       <td <?php highlight($total_applied, $total_required); ?>><?php echo $total_applied ?></td>

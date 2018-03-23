@@ -19,6 +19,21 @@ if(!in_array('national', $user_info['groups']) and !in_array($evaluators_group_i
 	die("Only directors and evaluators can access this app.");
 }
 
+$verticals = [
+	'2'		=> "City Team Lead",
+	'19'	=> "Ed Support",
+	'378'	=> "Aftercare",
+	'272'	=> "Transition Readiness",
+	'370'	=> "Fundraising",
+	'269'	=> "Shelter Operations",
+	'4'		=> "Shelter Support",
+	'5'		=> "Human Capital",
+	'15'	=> "Finance",
+	'11'	=> "Campaigns and Communications",
+	'375'	=> "Foundational Programme",
+];
+
+
 function showApplicantStatus($user_id, $stage_id) {
 	global $fam;
 
@@ -30,50 +45,51 @@ function showApplicantStatus($user_id, $stage_id) {
 /// This will fetch the google spreadsheet PUBLISHED csv and convert it into a array.
 function getRequirementFromSheet($sheet_url) {
 	global $common;
-	$contents = load($sheet_url);
-	$lines = explode("\n", $contents);
+	require 'includes/classes/ParseCSV.php';
+	$sheet = new ParseCSV($sheet_url);
 
 	$all_cities = keyFormat($common->getCities(), ['name', 'id']);
 
 	// Transilation table for group_id => index in the spreadsheet.
 	$keys = [
-		'city_name'	=> 0,
-		'2'		=> 6,
-		'19'	=> 8,
-		'378'	=> 10,
-		'272'	=> 9,
-		'370'	=> 14,
-		'269'	=> 11,
-		'4'		=> 12,
-		'5'		=> 13,
-		'15'	=> 15,
-		'11'	=> 16,
-		'375'	=> 7,
+		'city_name'	=> 'A',
+		'2'		=> 'G',	// City Team Lead
+		'19'	=> 'I',	// Ed Support
+		'378'	=> 'K',	// Aftercare
+		'272'	=> 'J',	// Transition Readiness
+		'370'	=> 'O',	// Fundraising
+		'269'	=> 'L',	// Shelter Operations
+		'4'		=> 'M',	// Shelter Support
+		'5'		=> 'N',	// Human Capital
+		'15'	=> 'P',	// Finance
+		'11'	=> 'Q',	// Campaigns and Communications
+		'375'	=> 'H',	// Foundational Programme
 	];
 
 	$requirements = [];
-	$line_index = 0;
-	$total = [];
-	foreach($lines as $l) {
-		$data = str_getcsv($l);
-
-		$city_name = $data[$keys['city_name']];
+	$total_by_group = [];
+	$total_by_city = [];
+	foreach($sheet as $row_index => $row) {
+		$city_name = $row[$keys['city_name']];
 		if(!isset($all_cities[$city_name])) continue;
 		$city_id = $all_cities[$city_name];
 
-		foreach($keys as $group_id => $sheet_index) {
+		foreach($keys as $group_id => $column_name) {
 			if($group_id == 'city_name') continue;
 
-			$requirements[$city_id][$group_id] = $data[$sheet_index];
+			$requirements[$city_id][$group_id] = $row[$column_name];
 
-			if(!isset($total[$group_id])) $total[$group_id] = 0;
-			$total[$group_id] += $data[$sheet_index];
+			if(!isset($total_by_group[$group_id])) $total_by_group[$group_id] = 0;
+			$total_by_group[$group_id] += $row[$column_name];
 		}
 
-		$line_index++;
-		if($line_index > 25) break;
+		$total_by_city[$city_id] = $row['R'];
 	}
 
-	$requirements[0] = $total;
+	$requirements['total_group'] = $total_by_group;
+	$requirements['total_city'] = $total_by_city;
+	$requirements['total_group'][0] = $requirements['total_city'][0] = $sheet->getCell('R25');
+
+	$requirements[0] = $total_by_group;
 	return $requirements;
 }
