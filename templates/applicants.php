@@ -15,7 +15,7 @@
 <table class="table table-striped">
 <tr><th>Count</th><!-- <th>ID</th> --><th>Name</th><th>Email</th><th>Phone</th><th>City</th><th>Current Roles</th><th>Applied For</th><?php if($group_id) { ?><th>Preference</th><?php } ?></tr>
 <?php 
-$count = 0;
+$count = ($applicants_pager->page - 1) * $applicants_pager->items_per_page;
 foreach($applicants as $u) {
 	$count++; ?>
 <tr><td><?php echo $count ?></td>
