@@ -58,9 +58,12 @@ function siteInit() {
 	$("a.confirm").click(function(e) { //If a link has a confirm class, confrm the action
 		var action = (this.title) ? this.title : "do this";
 		action = action.substr(0,1).toLowerCase() + action.substr(1); //Lowercase the first char.
-		
-		if(!confirm("Are you sure you want to " + action + "?")) {
+		var user_action = confirm("Are you sure you want to " + action + "?");
+
+		if(!user_action) {
 			e.stopPropagation();
+			e.preventDefault();
+			return false;
 		}
 	});
 

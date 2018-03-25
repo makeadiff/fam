@@ -4,9 +4,9 @@ require 'common.php';
 // :TODO: 
 // Validation - make sure at least one applicant is chooser, and evaluator is chosen.
 
-$strats = $common->getUsers(['group_id' => 382]);
-$directors = $common->getUsers(['group_type' => 'national']);
-$evaluators = array_merge($directors, $strats);
+$evaluators = $common->getUsers(['group_id' => 382]);
+// $directors = $common->getUsers(['group_type' => 'national']);
+// $evaluators = array_merge($directors, $strats);
 $all_evaluators = keyFormat($evaluators, ['id', 'name']);
 $all_evaluators[0] = 'Select...';
 
@@ -31,6 +31,9 @@ if(i($QUERY, 'show_unassigned')) {
 
 if(i($QUERY, 'action') == 'Assign' and $evaluator_id) {
 	$assignments = $QUERY['selected'];
+
+	// Remove earlier assignments.
+	$sql->update("FAM_UserGroupPreference", [ 'evaluator_id' => 0 ], [ 'evaluator_id' => $evaluator_id ]);
 
 	// Add the newly marked ones.
 	foreach ($assignments as $user_id) {

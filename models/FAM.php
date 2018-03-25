@@ -105,14 +105,15 @@ class FAM {
 		if(!empty($source['city_id'])) $checks[] = "((UGP.city_id != 0 AND UGP.city_id={$source['city_id']}) OR (UGP.city_id = 0 AND U.city_id={$source['city_id']}))";
 		if(isset($source['evaluator_id'])) {
 			if(!$source['evaluator_id']) return [];
-	 		$checks[] = "evaluator_id=" . $source['evaluator_id'];
+	 		$checks[] = "UGP.evaluator_id=" . $source['evaluator_id'];
 	 	}
 
-	 	$query = "SELECT UGP.id AS ugp, U.id, U.name, U.email, U.mad_email, U.phone, UGP.group_id, UGP.preference, C.name AS city
+	 	$query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, UGP.group_id, UGP.preference, C.name AS city, UGP.id AS ugp_id
 				FROM User U
 				INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
 				INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
-				WHERE " . implode(" AND ", $checks);
+				WHERE " . implode(" AND ", $checks) . "
+				ORDER BY C.name, U.name";
 
 		return $this->sql->getAll($query);
 	}

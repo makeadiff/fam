@@ -19,6 +19,14 @@ if(!in_array('national', $user_info['groups']) and !in_array($evaluators_group_i
 	die("Only directors and evaluators can access this app.");
 }
 
+$is_director = false;
+foreach($user['groups'] as $grp) {
+	if($grp['type'] == 'national') {
+	  $is_director = true;
+	  break;
+	}
+}
+
 $verticals = [
 	'2'		=> "City Team Lead",
 	'19'	=> "Ed Support",

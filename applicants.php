@@ -1,36 +1,32 @@
 <?php
 require 'common.php';
 
-$all_groups = $verticals = [
-	'0'		=> 'Any',
-	'2'		=> "City Team Lead",
-	'19'	=> "Ed Support",
-	'378'	=> "Aftercare",
-	'272'	=> "Transition",
-	'370'	=> "Fundraising",
-	'269'	=> "Shelter Ops",
-	'4'		=> "Shelter Support",
-	'5'		=> "Human Capital",
-	'15'	=> "Finance",
-	'11'	=> "Campaigns",
-	'375'	=> "Foundational",
-];
+$all_groups = $verticals;
+$all_groups[0] = 'Any';
 
 $all_cities = keyFormat($common->getCities(), ['id', 'name']);
 $all_cities[0] = 'Any';
 
 $group_id = i($QUERY, 'group_id', 0);
-$city_id = i($QUERY, 'city_id');
+$city_id = i($QUERY, 'city_id', 0);
 $evaluator_id = i($QUERY, 'evaluator_id', 0);
+$action = i($QUERY, 'action', '');
 
-$applicants_pager = $fam->getApplicants(['group_id' => $group_id, 'city_id' => $city_id], true);
+if($action == 'delete') {
+	if(!$is_director) die("You have to be a director to delete applicants.");
+
+	$deleted = $sql->remove("FAM_UserGroupPreference", ['id' => i($QUERY, 'ugp_id')]);
+	$QUERY['success'] = "Applicant Deleted Successfully";
+	// header("Location: applicants.php?city_id=$city_id&group_id=$group_id");
+}
+
 
 $checks = ['1=1'];
 if($group_id) $checks[] = "group_id=" . $group_id;
 if($city_id) $checks[] = "((UGP.city_id != 0 AND UGP.city_id={$city_id}) OR (UGP.city_id = 0 AND U.city_id={$city_id}))";
 if($evaluator_id) $checks[] = "evaluator_id=" . $evaluator_id;
 
-$query = "SELECT UGP.id AS ugp, U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(G.name ORDER BY UGP.preference SEPARATOR ',') AS applied_groups, C.name AS city, UGP.preference
+$query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(G.name ORDER BY UGP.preference SEPARATOR ',') AS applied_groups, C.name AS city, UGP.preference, UGP.id AS ugp_id
 	FROM User U
 	INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
 	INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))

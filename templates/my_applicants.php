@@ -24,7 +24,7 @@
 	<td><a href="evaluate.php?stage_id=1&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-primary">Kindness Challenge</a> <?php showApplicantStatus($u['id'], 1); ?><br />
 	<a href="evaluate.php?stage_id=2&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-success">Background Check</a> <?php showApplicantStatus($u['id'], 2); ?><br />
 	<a href="evaluate.php?stage_id=3&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-warning">Common/Vertical Tasks</a> <?php showApplicantStatus($u['id'], 3); ?><br />
-	<a href="evaluate.php?stage_id=4&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-info">Personal Interview</a></td> <?php showApplicantStatus($u['id'], 4); ?><br />
+	<a href="evaluate.php?stage_id=4&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-info">Personal Interview</a></td> <?php showApplicantStatus($u['id'], 4); ?></td>
 </tr>
 <?php } ?>
 </table>

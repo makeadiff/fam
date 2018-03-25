@@ -64,16 +64,7 @@
                   <li><a href="my_applicants.php"><i class="fa fa-edit"></i> My Applicants</a></li>
                   <li><a href="applicants.php"><i class="fa fa-user"></i> Applicants</a></li>
                   <li><a href="all_stages.php"><i class="fa fa-server"></i> Bulk Enter Data for All Applicants</a></li>
-                      <?php 
-                      $is_director = false;
-                      $groups = $user['groups'];
-                      foreach($groups as $g) {
-                        if($g['type'] == 'national') {
-                          $is_director = true;
-                          break;
-                        }
-                      }
-                      if($is_director) { ?>
+                      <?php if($is_director) { ?>
                       <li><a><i class="fa fa-home"></i>Tools <span class="fa fa-chevron-left"></span></a>
                       <ul class="nav child_menu">
                         <li><a href="all_in_one.php"><i class="fa fa-table"></i> All in One View</a></li>
@@ -105,6 +96,16 @@
 
 <!-- page content -->
 <div class="right_col" role="main">
+
+<?php if(i($QUERY, 'error') or i($QUERY, 'success')) { ?>
+<div class="x_panel">
+<div id="error-message" <?php echo ($QUERY['error']) ? '':'style="display:none;"';?>><?php
+  if(isset($PARAM['error'])) print strip_tags($PARAM['error']); //It comes from the URL
+  else print $QUERY['error']; //Its set in the code(validation error or something.
+?></div>
+<div id="success-message" <?php echo ($QUERY['success']) ? '':'style="display:none;"';?>><?php echo strip_tags(stripslashes($QUERY['success']))?></div>
+</div>
+<?php } ?>
 
 <?php include($GLOBALS['template']->template); ?>
 
