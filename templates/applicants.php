@@ -15,6 +15,7 @@
 <table class="table table-striped">
 <tr><th>Count</th><!-- <th>ID</th> --><th>Name</th><th>Email</th><th>Phone</th><th>City</th><th>Current Roles</th><th>Applied For</th>
 	<?php if($group_id) { ?><th>Preference</th><?php } ?>
+	<th>Evaluator</th>
 	<?php if($is_director) { ?><th>Action</th><?php } ?>
 </tr>
 <?php 
@@ -33,6 +34,7 @@ foreach($applicants as $u) {
 				echo implode(", ", $names); ?></td>
 	<td><?php echo $u['applied_groups']; ?></td>
 	<?php if($group_id) { ?><td><?php echo $u['preference'] ?></td><?php } ?>
+	<td><?php echo $u['evaluator'] ?></td>
 	<?php if($is_director) { ?><td><a href="applicants.php?action=delete&ugp_id=<?php echo $u['ugp_id'] ?>&city_id=<?php echo $city_id ?>&group_id=<?php echo $group_id ?>" class="delete confirm icon">Delete</a></td><?php } ?>
 </tr>
 <?php } ?>

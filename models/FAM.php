@@ -130,4 +130,19 @@ class FAM {
 	{
 		return $this->sql->getOne("SELECT response FROM FAM_Evaluation WHERE user_id=$applicant_id AND parameter_id=$parameter_id");
 	}
+
+	public function findUser($parameters, $and_or = ' AND ')
+	{
+		$checks = [];
+		foreach ($parameters as $field => $value) {
+			$checks[] = "`$field` = '" . $this->sql->escape($value) . "'";
+		}
+
+		$query = "SELECT id,name,email,mad_email,phone,user_type FROM User 
+					WHERE (user_type='volunteer' OR user_type='alumni') AND status='1'";
+
+		if($checks) $query .= " AND (" . implode($and_or, $checks) . ")";
+
+		return $this->sql->getAll($query);
+	}
 }

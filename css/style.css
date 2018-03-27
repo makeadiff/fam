@@ -15,3 +15,7 @@ label.btn.active {
 	font-weight: bold;
 	text-decoration: underline;
 }
+
+.form-control-feedback {
+	margin-top: 0 !important;
+}

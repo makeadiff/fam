@@ -23,7 +23,7 @@
 <?php foreach($applicants as $u) { ?>
 <tr><td><input type="checkbox" name="selected[]" value='<?php echo $u['id'] ?>' <?php
 	if(in_array($u['id'], $existing_applicants)) echo 'checked';
-?> /></td>
+?> /><input type="hidden" name="all_ids[]" value="<?php echo $u['id'] ?>" /></td>
 	<!-- <td><?php echo $u['id'] ?></td> -->
 	<td><?php echo $u['name'] ?></td>
 	<td><?php echo $u['email'] ?></td>

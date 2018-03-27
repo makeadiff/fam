@@ -26,9 +26,11 @@ if($group_id) $checks[] = "group_id=" . $group_id;
 if($city_id) $checks[] = "((UGP.city_id != 0 AND UGP.city_id={$city_id}) OR (UGP.city_id = 0 AND U.city_id={$city_id}))";
 if($evaluator_id) $checks[] = "evaluator_id=" . $evaluator_id;
 
-$query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(G.name ORDER BY UGP.preference SEPARATOR ',') AS applied_groups, C.name AS city, UGP.preference, UGP.id AS ugp_id
+$query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(G.name ORDER BY UGP.preference SEPARATOR ',') AS applied_groups, 
+					C.name AS city, UGP.preference, UGP.id AS ugp_id, E.name AS evaluator
 	FROM User U
 	INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
+	LEFT JOIN User E ON E.id=UGP.evaluator_id
 	INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
 	INNER JOIN `Group` G ON UGP.group_id=G.id
 	WHERE " . implode(" AND ", $checks) . "
