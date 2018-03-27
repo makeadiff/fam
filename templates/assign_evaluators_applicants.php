@@ -11,7 +11,7 @@
 
 <div class="x_content">
 <p class="text-muted font-13 m-b-30">
-  Assign multiple applicants for the selected evaluator from the below list. If you want to add evaluators who are not in the above list, talk to Binny.
+  Assign multiple applicants for the selected evaluator from the below list.
 </p>
 
 <?php $html->buildInput("group_id", 'Applicants for ', 'select', $group_id, ['options' => $all_groups, 'no_br' => 1]); ?> &nbsp;
@@ -23,7 +23,7 @@
 <?php foreach($applicants as $u) { ?>
 <tr><td><input type="checkbox" name="selected[]" value='<?php echo $u['id'] ?>' <?php
 	if(in_array($u['id'], $existing_applicants)) echo 'checked';
-?> /><input type="hidden" name="all_ids[]" value="<?php echo $u['id'] ?>" /></td>
+?> /><input type="hidden" name="all_user_ids[]" value="<?php echo $u['id'] ?>" /></td>
 	<!-- <td><?php echo $u['id'] ?></td> -->
 	<td><?php echo $u['name'] ?></td>
 	<td><?php echo $u['email'] ?></td>
@@ -33,7 +33,11 @@
 				$names = [];
 				foreach($groups as $g) $names[] = $g['name'];
 				echo implode(", ", $names); ?></td>
-	<td><?php echo $all_groups[$u['group_id']] ?></td>
+	<td><?php 
+		$grps = explode(",", $u['groups']); 
+		$groups = [];
+		foreach($grps as $group_id) $groups[] = $all_groups[$group_id];
+		echo implode(',', $groups); ?></td>
 	<td><?php echo $u['preference'] ?></td>
 	<td><?php $evaluator = $fam->getEvaluator($u['id'], $group_id); 
 			  if($evaluator) echo $evaluator['name'];

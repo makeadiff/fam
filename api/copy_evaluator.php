@@ -10,7 +10,7 @@ print "Total Connections : " . $total_connections . "\n";
 
 foreach ($applicant_eval_connections as $conn) {
 	$id = $sql->insert("FAM_UserEvaluator", [
-		'applicant_id'	=> $conn['user_id'],
+		'user_id'		=> $conn['user_id'],
 		'evaluator_id'	=> $conn['evaluator_id'],
 		'group_id'		=> $conn['group_id'],
 	]);

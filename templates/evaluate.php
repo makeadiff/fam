@@ -23,6 +23,7 @@
 	</div>
 
 	<div class="x_content">
+		<p class="text-muted">This section shows the total score of the applicant - you cannot interact with it directly</p>
 		<script type="text/javascript">
 			var counts = {};
 		</script>
@@ -40,9 +41,9 @@
 			<tr><td width="300"><?php echo $para['name']; ?></td>
 				<td>
 				<div class="btn-group" data-toggle="buttons">
-				    <label class="btn btn-success">Yes - <span id="<?php echo unformat($para['name']) ?>-yes-count"></span></label>
-				    <label class="btn btn-danger">No - <span id="<?php echo unformat($para['name']) ?>-no-count"></span></label>
-				    <label class="btn btn-dark">N/A - <span id="<?php echo unformat($para['name']) ?>-na-count"></span></label>
+				    <label class="btn btn-success" disabled>Yes - <span id="<?php echo unformat($para['name']) ?>-yes-count"></span></label>
+				    <label class="btn btn-danger" disabled>No - <span id="<?php echo unformat($para['name']) ?>-no-count"></span></label>
+				    <label class="btn btn-dark" disabled>N/A - <span id="<?php echo unformat($para['name']) ?>-na-count"></span></label>
 				</div>
 			</td></tr>
 		<?php } ?>

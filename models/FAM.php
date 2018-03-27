@@ -66,7 +66,20 @@ class FAM {
 			'response'		=> $data['response'],
 			'added_on'		=> 'NOW()'
 		]);
+	}
 
+	public function resetAssignments($evaluator_id, $amount_users)
+	{
+		$this->sql->execQuery("DELETE FROM FAM_UserEvaluator WHERE evaluator_id=$evaluator_id AND user_id IN (" . implode(',', $amount_users) . ")");
+	}
+
+	public function assignEvaluators($user_id, $evaluator_id, $group_id)
+	{
+		$this->sql->insert("FAM_UserEvaluator", [
+			'user_id'		=> $user_id,
+			'evaluator_id'	=> $evaluator_id,
+			'group_id'		=> $group_id
+		]);
 	}
 
 	public function getStageStatus($user_id, $stage_id)
@@ -83,8 +96,8 @@ class FAM {
 
 		if(!isset($existing['id'])) $this->sql->insert("FAM_UserStage", $data);
 		else $this->sql->update("FAM_UserStage", [
-				'comment'	=> $data['comment'],
-				'status'	=> $data['status'],
+				'comment'		=> $data['comment'],
+				'status'		=> $data['status'],
 				'evaluator_id'	=> $data['evaluator_id'],
 			], ['id' => $existing['id']]);
 	}
@@ -100,19 +113,23 @@ class FAM {
 
 	public function getApplicants($source) {
 		$checks = ['1=1'];
+		$join = '';
 
 		if(!empty($source['group_id'])) $checks[] = "group_id=" . $source['group_id'];
 		if(!empty($source['city_id'])) $checks[] = "((UGP.city_id != 0 AND UGP.city_id={$source['city_id']}) OR (UGP.city_id = 0 AND U.city_id={$source['city_id']}))";
 		if(isset($source['evaluator_id'])) {
 			if(!$source['evaluator_id']) return [];
-	 		$checks[] = "UGP.evaluator_id=" . $source['evaluator_id'];
+	 		$checks[] = "UE.evaluator_id=" . $source['evaluator_id'];
+	 		$join = "INNER JOIN FAM_UserEvaluator UE ON U.id=UE.user_id";
 	 	}
 
-	 	$query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, UGP.group_id, UGP.preference, C.name AS city, UGP.id AS ugp_id
+	 	$query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS groups, UGP.preference, C.name AS city, UGP.id AS ugp_id
 				FROM User U
 				INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
+				$join
 				INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
 				WHERE " . implode(" AND ", $checks) . "
+				GROUP BY UGP.user_id
 				ORDER BY C.name, U.name";
 
 		return $this->sql->getAll($query);
@@ -122,13 +139,18 @@ class FAM {
 	{
 		return $this->sql->getAssoc("SELECT U.id, U.name 
 				FROM User U 
-				INNER JOIN FAM_UserGroupPreference E ON E.evaluator_id=U.id
+				INNER JOIN FAM_UserEvaluator E ON E.evaluator_id=U.id
 				WHERE E.user_id=$applicant_id AND E.group_id=$group_id AND U.status='1' AND U.user_type='volunteer'");
 	}
 
 	public function getResponse($applicant_id, $parameter_id)
 	{
 		return $this->sql->getOne("SELECT response FROM FAM_Evaluation WHERE user_id=$applicant_id AND parameter_id=$parameter_id");
+	}
+
+	public function getApplications($applicant_id)
+	{
+		return $this->sql->getAll("SELECT preference, group_id, city_id FROM FAM_UserGroupPreference WHERE user_id=$applicant_id");
 	}
 
 	public function findUser($parameters, $and_or = ' AND ')

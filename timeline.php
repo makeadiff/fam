@@ -5,7 +5,7 @@ $all_stages = $fam->getStages();
 list($active_stage_id, $active_category_id) = explode("-", i($QUERY, 'stage', '1-1'));
 $category_name = $fam->getCategory($active_category_id);
 
-$all_applicants = $sql->getById("SELECT DISTINCT user_id, evaluator_id,group_id FROM FAM_UserGroupPreference WHERE evaluator_id != 0");
+$all_applicants = $sql->getById("SELECT user_id, evaluator_id,group_id FROM FAM_UserEvaluator WHERE evaluator_id != 0");
 
 // Remove applicants rejected during the last stage.
 if($active_stage_id > 1) {

@@ -33,16 +33,12 @@ if(i($QUERY, 'action') == 'Assign' and $evaluator_id) {
 	$assignments = $QUERY['selected'];
 
 	// Remove earlier assignments.
-	// $sql->update("FAM_UserGroupPreference", [ 'evaluator_id' => 0 ], [ 'evaluator_id' => $evaluator_id ]);
+	$amoung_users = $QUERY['all_user_ids'];
+	$fam->resetAssignments($evaluator_id, $amoung_users);
 
 	// Add the newly marked ones.
 	foreach ($assignments as $user_id) {
-		$sql->update("FAM_UserGroupPreference", [
-				'evaluator_id' => $evaluator_id,
-			], [
-				'group_id'	=> $group_id,
-				'user_id'	=> $user_id,
-			]);
+		$fam->assignEvaluators($user_id, $evaluator_id, $group_id);
 	}
 }
 
