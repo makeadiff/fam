@@ -35,7 +35,8 @@ foreach($applicants as $u) {
 	<td><?php echo $u['applied_groups']; ?></td>
 	<?php if($group_id) { ?><td><?php echo $u['preference'] ?></td><?php } ?>
 	<td><?php echo i($u, 'evaluator'); ?></td>
-	<?php if($is_director) { ?><td><a href="applicants.php?action=delete&ugp_id=<?php echo $u['ugp_id'] ?>&city_id=<?php echo $city_id ?>&group_id=<?php echo $group_id ?>" class="delete confirm icon">Delete</a></td><?php } ?>
+	<?php if($is_director) { ?><td><a href="applicants.php?action=delete&ugp_id=<?php echo $u['ugp_id'] ?>&city_id=<?php echo $city_id ?>&group_id=<?php echo $group_id ?>"
+									 class="delete confirm icon">Delete</a></td><?php } ?>
 </tr>
 <?php } ?>
 </table>

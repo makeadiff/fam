@@ -39,8 +39,8 @@
 		foreach($grps as $group_id) $groups[] = $all_groups[$group_id];
 		echo implode(',', $groups); ?></td>
 	<td><?php echo $u['preference'] ?></td>
-	<td><?php $evaluator = $fam->getEvaluator($u['id'], $group_id); 
-			  if($evaluator) echo $evaluator['name'];
+	<td><?php $evaluator = keyFormat($fam->getEvaluators($u['id'], $group_id), ['id', 'name']); 
+			  if($evaluator) echo implode(", ", array_values($evaluator));
 			  else echo 'None'; ?></td>
 </tr>
 <?php } ?>

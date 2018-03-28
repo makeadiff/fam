@@ -135,9 +135,9 @@ class FAM {
 		return $this->sql->getAll($query);
 	}
 
-	public function getEvaluator($applicant_id, $group_id)
+	public function getEvaluators($applicant_id, $group_id)
 	{
-		return $this->sql->getAssoc("SELECT U.id, U.name 
+		return $this->sql->getAll("SELECT U.id, U.name 
 				FROM User U 
 				INNER JOIN FAM_UserEvaluator E ON E.evaluator_id=U.id
 				WHERE E.user_id=$applicant_id AND E.group_id=$group_id AND U.status='1' AND U.user_type='volunteer'");

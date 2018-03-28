@@ -38,8 +38,6 @@ $query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTI
 if($group_id) $query .= " ORDER BY UGP.preference";
 else $query .= " ORDER BY C.name, U.name";
 
-// dump($query); exit;
-
 $applicants_pager = new SqlPager($query, 25);
 
 $applicants = $applicants_pager->getPage();
