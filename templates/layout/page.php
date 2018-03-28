@@ -71,7 +71,7 @@
                         <li><a href="assign_evaluators_applicants.php"><i class="fa fa-edit"></i> Assign Evaluators</a></li>
                         <li><a href="timeline.php"><i class="fa fa-search"></i> Show Evaluators Who haven't entered Data</a></li>
                         <li><a href="evaluators.php"><i class="fa fa-user"></i> Evaluators</a></li>
-                        <li><a href="edit_application.php"><i class="fa fa-edit"></i> Edit Applications</a></li>
+                        <li><a href="edit_application.php"><i class="fa fa-edit"></i> Add/Edit Applications</a></li>
                       </ul></li>
                       <?php } ?>
                   </ul>

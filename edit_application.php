@@ -49,12 +49,20 @@ if($applicant_id and !$applicant) $applicant = $common->getUser($applicant_id);
 if($applicant) {
 	$preferences = $fam->getApplications($applicant['id']);
 
-	$applicant['preference_1'] = $applicant['preference_2'] = $applicant['preference_3'] = 0;
-	foreach ($preferences as $pref) {
-		$applicant['preference_' . $pref['preference']] = $pref['group_id'];
-	}
+	// Init
+	$applicant['preference_1'] = 0;
+	$applicant['preference_2'] = 0;
+	$applicant['preference_3'] = 0;
+	$applicant['moving_city_id'] = 0;
 
-	$applicant['moving_city_id'] = $preferences[0]['city_id'];
+	if($preferences) {
+		
+		foreach ($preferences as $pref) {
+			$applicant['preference_' . $pref['preference']] = $pref['group_id'];
+		}
+
+		$applicant['moving_city_id'] = $preferences[0]['city_id'];
+	}
 }
 
 render();
