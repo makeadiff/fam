@@ -25,7 +25,7 @@ $selects = '';
 if($group_id) $checks[] = "UGP.group_id=" . $group_id;
 if($city_id) $checks[] = "((UGP.city_id != 0 AND UGP.city_id={$city_id}) OR (UGP.city_id = 0 AND U.city_id={$city_id}))";
 
-$query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(G.name ORDER BY UGP.preference SEPARATOR ',') AS applied_groups, 
+$query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTINCT G.name ORDER BY UGP.preference SEPARATOR ',') AS applied_groups, 
 					C.name AS city, UGP.preference, UGP.id AS ugp_id, E.name AS evaluator
 			FROM User U
 			INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
