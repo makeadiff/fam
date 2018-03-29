@@ -1,6 +1,6 @@
 <div class="x_panel">
 
-<form action="assign_evaluators_applicants.php" method="post" class="form-area">
+<form action="assign_evaluators_applicants.php" method="post" class="form-area" id="filter">
 
 <div class="x_title">
 <h2>Assign Evaluator to Applicants</h2>
@@ -24,8 +24,7 @@
 <tr><td><input type="checkbox" name="selected[]" value='<?php echo $u['id'] ?>' <?php
 	if(in_array($u['id'], $existing_applicants)) echo 'checked';
 ?> /><input type="hidden" name="all_user_ids[]" value="<?php echo $u['id'] ?>" /></td>
-	<!-- <td><?php echo $u['id'] ?></td> -->
-	<td><?php echo $u['name'] ?></td>
+	<td title="<?php echo $u['id'] ?>"><?php echo $u['name'] ?></td>
 	<td><?php echo $u['email'] ?></td>
 	<td><?php echo $u['phone'] ?></td>
 	<td><?php echo $u['city'] ?></td>
@@ -39,9 +38,12 @@
 		foreach($grps as $group_id) $groups[] = $all_groups[$group_id];
 		echo implode(',', $groups); ?></td>
 	<td><?php echo $u['preference'] ?></td>
-	<td><?php $evaluator = keyFormat($fam->getEvaluators($u['id'], $group_id), ['id', 'name']); 
-			  if($evaluator) echo implode(", ", array_values($evaluator));
-			  else echo 'None'; ?></td>
+	<td><?php if(i($QUERY, 'show_unassigned')) echo 'None'; 
+			  else {
+			  	  $evaluator = keyFormat($fam->getEvaluators($u['id'], $group_id), ['id', 'name']); 
+				  if($evaluator) echo implode(", ", array_values($evaluator));
+				  else echo 'None';
+			  } ?></td>
 </tr>
 <?php } ?>
 </table>

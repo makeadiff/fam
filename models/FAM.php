@@ -104,11 +104,14 @@ class FAM {
 
 	public function getUnassignedApplicants()
 	{
-		return $this->sql->getAll("SELECT U.id, U.name, U.phone, U.email, UGP.group_id, UGP.preference, UGP.status, UGP.id AS ugp_id, C.name AS city
+		return $this->sql->getAll("SELECT U.id, U.name, U.phone, U.email, GROUP_CONCAT(UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS groups, 
+											UGP.preference, UGP.status, UGP.id AS ugp_id, C.name AS city
 										FROM FAM_UserGroupPreference UGP
 										INNER JOIN User U ON U.id=UGP.user_id 
+										LEFT JOIN FAM_UserEvaluator UE ON UE.user_id=U.id
 										INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
-										WHERE UGP.evaluator_id=0 AND U.status='1' AND U.user_type='volunteer'");
+										WHERE UE.evaluator_id IS NULL AND U.status='1' AND (U.user_type='volunteer' OR U.user_type='alumni')
+										GROUP BY UGP.user_id");
 	}
 
 	public function getApplicants($source) {
