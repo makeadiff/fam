@@ -5,7 +5,8 @@
 	</div>
 
 	<div class="x_content">
-		<form action="" method="post">
+		<form action="" method="post" class="form-area">
+			<label for="stage">Stage</label>
 			<select name="stage">
 			<?php foreach ($all_stages as $stage) { ?>
 				<optgroup label="<?php echo $stage['name']; ?>">
@@ -22,6 +23,8 @@
 				</optgroup>
 			<?php } ?>
 			</select><br />
+
+			<?php $html->buildInput("group_id", 'Applicants for ', 'select', $group_id, ['options' => $verticals]); ?>
 			<input type="submit" value="Show" name="action" class="btn btn-primary" />
 		</form>
 	</div>
@@ -41,7 +44,7 @@
 				<td><?php echo $all_users[$applicant['evaluator_id']]['name'] ?></td>
 				<td><?php echo $all_users[$applicant_id]['name'] ?></td>
 				<td><?php echo $all_users[$applicant_id]['city'] ?></td>
-				<td><?php echo $all_groups[$all_applicants[$applicant_id]['group_id']] ?></td>
+				<td><?php echo $verticals[$all_applicants[$applicant_id]['group_id']] ?></td>
 			</tr>
 			<?php } ?>
 		</table>

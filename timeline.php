@@ -4,8 +4,9 @@ require 'common.php';
 $all_stages = $fam->getStages();
 list($active_stage_id, $active_category_id) = explode("-", i($QUERY, 'stage', '1-1'));
 $category_name = $fam->getCategory($active_category_id);
+$group_id = i($QUERY, 'group_id', 2);
 
-$all_applicants = $sql->getById("SELECT user_id, evaluator_id,group_id FROM FAM_UserEvaluator WHERE evaluator_id != 0");
+$all_applicants = $sql->getById("SELECT user_id, evaluator_id, group_id FROM FAM_UserEvaluator WHERE evaluator_id != 0 AND group_id=$group_id");
 
 // Remove applicants rejected during the last stage.
 if($active_stage_id > 1) {
@@ -41,9 +42,10 @@ foreach ($applicants_whos_data_is_not_entered as $user_id => $applicant) {
 
 $all_users = [];
 if($cache_user_ids) {
-	$all_users = $sql->getById("SELECT U.id, U.name , C.name as city FROM User U INNER JOIN City C ON C.id=U.city_id WHERE U.id IN (" . implode(",", $cache_user_ids) . ")");
+	$all_users = $sql->getById("SELECT U.id, U.name , C.name as city 
+									FROM User U 
+									INNER JOIN City C ON C.id=U.city_id 
+									WHERE U.id IN (" . implode(",", $cache_user_ids) . ")");
 }
-
-$all_groups = $sql->getById("SELECT id, name FROM `Group` WHERE status='1' AND group_type='normal'");
 
 render();
