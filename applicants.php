@@ -14,7 +14,7 @@ $action = i($QUERY, 'action', '');
 if($action == 'delete') {
 	if(!$is_director) die("You have to be a director to delete applicants.");
 
-	$deleted = $sql->remove("FAM_UserGroupPreference", ['id' => i($QUERY, 'ugp_id')]);
+	$sql->update("FAM_UserGroupPreference", ['status' => 'withdrawn'], ['id' => i($QUERY, 'ugp_id')]);
 	$QUERY['success'] = "Applicant Deleted Successfully";
 	// header("Location: applicants.php?city_id=$city_id&group_id=$group_id");
 }
@@ -33,7 +33,7 @@ $query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTI
 			LEFT JOIN FAM_UserEvaluator UE ON U.id=UE.user_id
 			LEFT JOIN User E ON E.id=UE.evaluator_id
 			INNER JOIN `Group` G ON UGP.group_id=G.id
-			WHERE " . implode(" AND ", $checks) . "
+			WHERE " . implode(" AND ", $checks) . " AND UGP.status != 'withdrawn'
 			GROUP BY UGP.user_id";
 if($group_id) $query .= " ORDER BY UGP.preference";
 else $query .= " ORDER BY C.name, U.name";

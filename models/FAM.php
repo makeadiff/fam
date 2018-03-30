@@ -110,7 +110,7 @@ class FAM {
 										INNER JOIN User U ON U.id=UGP.user_id 
 										LEFT JOIN FAM_UserEvaluator UE ON UE.user_id=U.id
 										INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
-										WHERE UE.evaluator_id IS NULL AND U.status='1' AND (U.user_type='volunteer' OR U.user_type='alumni')
+										WHERE UE.evaluator_id IS NULL AND U.status='1' AND (U.user_type='volunteer' OR U.user_type='alumni') AND UGP.status != 'withdrawn'
 										GROUP BY UGP.user_id");
 	}
 
@@ -131,7 +131,7 @@ class FAM {
 				INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
 				$join
 				INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
-				WHERE " . implode(" AND ", $checks) . "
+				WHERE " . implode(" AND ", $checks) . " AND UGP.status != 'withdrawn'
 				GROUP BY UGP.user_id
 				ORDER BY C.name, U.name";
 

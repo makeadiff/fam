@@ -2,6 +2,8 @@
 $_SESSION['user_id'] = 1;
 require '../common.php';
 
+/// Needed to do this when we created the FAM_UserEvaluator table - needed to recreate the data - because they wanted to assign multiple evaluators to an applicant.
+
 $applicant_eval_connections = $sql->getAll("SELECT user_id, evaluator_id, group_id FROM FAM_UserGroupPreference WHERE evaluator_id != 0");
 
 $i = 0;

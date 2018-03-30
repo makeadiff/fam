@@ -8,7 +8,7 @@ if(!$applicant_id) {
 $my_applicants = $fam->getApplicants(['evaluator_id' => $user_id]);
 
 // Make sure the current applicant has been assigned to the current evaluator
-if(!in_array($applicant_id, colFormat($my_applicants))) {
+if(!in_array($applicant_id, colFormat($my_applicants)) and !$is_director) {
 	header("Location: my_applicants.php");
 }
 

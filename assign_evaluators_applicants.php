@@ -5,8 +5,6 @@ require 'common.php';
 // Validation - make sure at least one applicant is chooser, and evaluator is chosen.
 
 $evaluators = $common->getUsers(['group_id' => 382]);
-// $directors = $common->getUsers(['group_type' => 'national']);
-// $evaluators = array_merge($directors, $strats);
 $all_evaluators = keyFormat($evaluators, ['id', 'name']);
 $all_evaluators[0] = 'Select...';
 

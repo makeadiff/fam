@@ -6,38 +6,47 @@ list($active_stage_id, $active_category_id) = explode("-", i($QUERY, 'stage', '1
 $category_name = $fam->getCategory($active_category_id);
 $group_id = i($QUERY, 'group_id', 2);
 
-$all_applicants = $sql->getById("SELECT user_id, evaluator_id, group_id FROM FAM_UserEvaluator WHERE evaluator_id != 0 AND group_id=$group_id");
+$all_connections = $sql->getById("SELECT user_id, evaluator_id FROM FAM_UserEvaluator WHERE evaluator_id != 0 AND group_id=$group_id");
 
 // Remove applicants rejected during the last stage.
 if($active_stage_id > 1) {
 	$last_stage_id = $active_stage_id - 1;
 	$rejected_applicants = $sql->getCol("SELECT user_id FROM FAM_UserStage WHERE stage_id<=$last_stage_id AND status='rejected'");
 
-	foreach ($all_applicants as $user_id => $applicant) {
+	foreach ($all_connections as $user_id => $applicant) {
 		if(in_array($user_id, $rejected_applicants))
-			unset($all_applicants[$user_id]);
+			unset($all_connections[$user_id]);
 	}
 }
 
-$applicants_whos_data_is_not_entered = $all_applicants;
+$all_evaluators = [];
+
+foreach($all_connections as $user_id => $evaluator_id) {
+	if(!isset($all_evaluators[$evaluator_id])) {
+		$all_evaluators[$evaluator_id] = [
+			'assigned' => 0,
+			'data_entered' => 0
+		];
+	}
+
+	$all_evaluators[$evaluator_id]['assigned']++;
+}
+
+$cache_user_ids = array_keys($all_evaluators);
 
 if($active_category_id) {
 	$parameters_in_category = array_keys(keyFormat($fam->getParameters($active_stage_id, $active_category_id), ['id', 'name']));
 
 	if(count($parameters_in_category)) {
-		$data_entered_for = $sql->getCol("SELECT user_id FROM FAM_Evaluation WHERE parameter_id IN (" . implode(",", $parameters_in_category) . ")");
+		$data_entered = $sql->getAll("SELECT evaluator_id, COUNT(DISTINCT user_id) AS users 
+			FROM FAM_Evaluation 
+			WHERE parameter_id IN (" . implode(",", $parameters_in_category) . ") AND evaluator_id IN (" . implode(',', $cache_user_ids) . ")
+			GROUP BY evaluator_id");
 
-		foreach ($applicants_whos_data_is_not_entered as $user_id => $applicant) {
-			if(in_array($user_id, $data_entered_for))
-				unset($applicants_whos_data_is_not_entered[$user_id]);
+		foreach ($data_entered as $eval) {
+			$all_evaluators[$eval['evaluator_id']]['data_entered'] = $eval['users'];
 		}
 	}
-}
-
-$cache_user_ids = [];
-foreach ($applicants_whos_data_is_not_entered as $user_id => $applicant) {
-	$cache_user_ids[] = $user_id;
-	$cache_user_ids[] = $applicant['evaluator_id'];
 }
 
 $all_users = [];

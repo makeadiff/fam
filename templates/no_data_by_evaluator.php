@@ -25,6 +25,7 @@
 			</select><br />
 
 			<?php $html->buildInput("group_id", 'Applicants for ', 'select', $group_id, ['options' => $verticals]); ?>
+			<?php $html->buildInput("evaluator_id", 'Evaluator', 'select', $evaluator_id, ['options' => $all_evaluators]); ?>
 			<input type="submit" value="Show" name="action" class="btn btn-primary" />
 		</form>
 	</div>
