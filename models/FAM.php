@@ -170,4 +170,26 @@ class FAM {
 
 		return $this->sql->getAll($query);
 	}
+
+
+	public function getApplicantFeedback($applicant_id)
+	{
+		$feedback = $this->sql->getAll("SELECT reviewer_user_id, question_id, feedback, comment FROM FAM_ApplicantFeedback WHERE applicant_user_id=$applicant_id");
+
+		$return = [];
+
+		foreach ($feedback as $fb) {
+			$reviewer_user_id = $fb['reviewer_user_id'];
+			if(!isset($return[$reviewer_user_id])) $return[$reviewer_user_id] = [];
+
+			$return[$reviewer_user_id][] = $fb;
+		}
+
+		return $return;
+	}
+
+	public function getApplicantFeedbackQuestions()
+	{
+		return $this->sql->getById("SELECT id,question,type FROM FAM_ApplicantFeedbackQuestions");
+	}
 }

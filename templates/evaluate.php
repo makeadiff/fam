@@ -50,7 +50,9 @@
 		</table>
 	</div>
 </div>
-<?php } ?>
+<?php } elseif ($stage_id == 2) { 
+	require 'templates/partials/applicant_feedback.php';
+} ?>
 
 <?php foreach($categories as $category) { 
 $parameters = $fam->getParameters($stage_id, $category['id']);

@@ -39,15 +39,20 @@
 
 	<div class="x_content">
 		<table class="table table-striped">
-			<tr><th>Evaluator</th><th>Applicant</th><th>City</th><th>Vertical</th></tr>
-			<?php foreach ($applicants_whos_data_is_not_entered as $applicant_id => $applicant) { ?>
+			<tr><th>#</th><th>Evaluator</th><th>Applicant</th><th>City</th><th>Vertical</th></tr>
+			<?php 
+			$count = 1;
+			foreach ($applicants_whos_data_is_not_entered as $applicant_id => $applicant) { ?>
 			<tr>
+				<td><?php echo $count ?></td>
 				<td><?php echo $all_users[$applicant['evaluator_id']]['name'] ?></td>
 				<td><?php echo $all_users[$applicant_id]['name'] ?></td>
 				<td><?php echo $all_users[$applicant_id]['city'] ?></td>
 				<td><?php echo $verticals[$all_applicants[$applicant_id]['group_id']] ?></td>
 			</tr>
-			<?php } ?>
+			<?php 
+				$count++;
+			} ?>
 		</table>
 	</div>
 </div>

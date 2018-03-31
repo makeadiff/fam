@@ -16,7 +16,8 @@
 						?><option value="<?php echo $stage['id'] ?>-0" <?php if($active_stage_id == $stage['id'] . '-0') echo "selected='selected'"; ?>>Comment</option>
 					<?php } else {
 						foreach ($all_categories as $category) { ?>
-						<option value="<?php echo $stage['id'] ?>-<?php echo $category['id'] ?>" <?php if($active_stage_id == $stage['id'] . '-' . $category['id']) echo "selected='selected'"; ?>
+						<option value="<?php echo $stage['id'] ?>-<?php echo $category['id'] ?>" <?php 
+								if($active_stage_id . '-' . $active_category_id == $stage['id'] . '-' . $category['id']) echo "selected='selected'"; ?>
 							><?php echo $category['name'] ?></option>
 					<?php }
 					} ?>
@@ -41,11 +42,12 @@
 			<tr><th>Evaluator</th><th>Assigned</th><th>Data Entered For</th><th>Not Entered</th></tr>
 			<?php foreach ($all_evaluators as $evaluator_id => $info) { ?>
 			<tr>
-				<td><?php echo $all_users[$evaluator_id]['name'] ?></td>
+				<td><a href="no_data_by_evaluator.php?evaluator_id=<?php echo $evaluator_id ?>&group_id=<?php echo $group_id ?>&stage=<?php echo $active_stage_id . '-' . $active_category_id?>"><?php 
+						echo $all_users[$evaluator_id]['name'] ?></a></td>
 				<td><?php echo $info['assigned'] ?></td>
 				<td><?php echo $info['data_entered'] ?></td>
 				<td><?php if($info['assigned'] - $info['data_entered']) { ?>
-					<a href="no_data_by_evaluator.php?evaluator_id=<?php echo $evaluator_id ?>&stage=<?php echo $active_stage_id . '-' . $active_category_id?>"
+					<a href="no_data_by_evaluator.php?evaluator_id=<?php echo $evaluator_id ?>&group_id=<?php echo $group_id ?>&stage=<?php echo $active_stage_id . '-' . $active_category_id?>"
 						style="text-decoration: underline;"><?php echo $info['assigned'] - $info['data_entered'] ?></a>
 					<?php } else echo 'None'; ?></td>
 			</tr>
