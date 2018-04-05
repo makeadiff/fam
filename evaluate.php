@@ -38,7 +38,7 @@ if(i($QUERY, 'action') == 'Save') {
 
 	$status = i($QUERY, 'status');
 	$comment = i($QUERY, 'comment');
-	if($status and $comment) {
+	if($status) {
 		$fam->saveStageStatus([
 			'user_id'	=> $applicant_id,
 			'stage_id'	=> $stage_id,
