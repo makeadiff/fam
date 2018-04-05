@@ -95,7 +95,7 @@ require(joinPath($config['site_folder'], 'templates', 'partials', 'parameters.ph
   	<label class="btn btn-dark <?php if($stage_info['status'] == 'pending') echo 'active'; ?>">
     	<input name="status" type="radio" class="input-na" value="pending" <?php if($stage_info['status'] == 'pending') echo 'checked="true"'; ?> />Pending</label>
     <label class="btn btn-success <?php if($stage_info['status'] == 'selected') echo 'active'; ?>">
-    	<input name="status	" type="radio" class="input-yes" value="selected" <?php if($stage_info['status'] == 'selected') echo 'checked="true"'; ?> />Selected</label>
+    	<input name="status" type="radio" class="input-yes" value="selected" <?php if($stage_info['status'] == 'selected') echo 'checked="true"'; ?> />Selected</label>
     <label class="btn btn-primary <?php if($stage_info['status'] == 'free-pool') echo 'active'; ?>" title="Your Vertical doesn't need this applicant - but other verticals can take them">
     	<input name="status" type="radio" class="input-no" value="free-pool" <?php if($stage_info['status'] == 'free-pool') echo 'checked="true"'; ?> />Free Pool</label>
     <label class="btn btn-warning <?php if($stage_info['status'] == 'maybe') echo 'active'; ?>">

@@ -38,6 +38,7 @@ foreach ($all_questions as $question_id => $ques) { ?>
 	<div class="x_content">
 		<dl>
 		<?php 
+		$count = 1;
 		foreach ($feedback as $reviewer_id => $responses)  {
 			foreach ($responses as $row) {
 				if($row['question_id'] == $question_id) {
@@ -48,6 +49,7 @@ foreach ($all_questions as $question_id => $ques) { ?>
 					<dd><?php echo $row['feedback'] ?></dd>
 		<?php 	}
 			}
+			$count++;
 		} ?>
 		</dl>
 	</div>
