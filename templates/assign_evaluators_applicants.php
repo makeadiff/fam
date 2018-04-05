@@ -40,7 +40,7 @@
 	<td><?php echo $u['preference'] ?></td>
 	<td><?php if(i($QUERY, 'show_unassigned')) echo 'None'; 
 			  else {
-			  	  $evaluator = keyFormat($fam->getEvaluators($u['id'], $group_id), ['id', 'name']); 
+			  	  $evaluator = keyFormat($fam->getEvaluators($u['id'], $group_id), ['id', 'name']);
 				  if($evaluator) echo implode(", ", array_values($evaluator));
 				  else echo 'None';
 			  } ?></td>
