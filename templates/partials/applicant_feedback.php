@@ -46,7 +46,11 @@ foreach ($all_questions as $question_id => $ques) { ?>
 				?>
 					<dt>Feedback <?php if($is_director) echo 'by ' . $common->getUserName($reviewer_id); 
 										else echo '#' . $count; ?></dt>
-					<dd><?php echo $row['feedback'] ?></dd>
+					<dd><?php
+						echo $row['feedback']; 
+						if(i($row, 'comment')) 
+							echo ' (' . $row['comment'] . ')'; 
+					?></dd>
 		<?php 	}
 			}
 			$count++;
