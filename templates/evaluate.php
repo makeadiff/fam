@@ -1,11 +1,14 @@
 <div class="x_panel">
 	<div class="x_title">
-		<h2>Evaluate <strong><?php echo $applicant['name'] ?></strong>'s <?php echo $stage_name['name'] ?></h2>
+		<h2>Evaluate <strong><?php echo $applicant['name'] ?></strong>'s <?php echo $stage_name['name'] ?><?php if($group_id) echo "(" . $verticals[$group_id] . ")"; ?></h2>
 		<div class="clearfix"></div>
 	</div>
 
 	<div class="x_content">
-		<p class="text-muted font-13 m-b-30">City: <?php echo $applicant['city'] ?></p>
+		<p class="text-muted font-13 m-b-30">
+			City: <?php echo $applicant['city'] ?><br />
+			<?php if($reference_link) { ?>For more details on the scale used in this evaluation, refer to <a href="<?php echo $reference_link ?>">this document</a>.<?php } ?>
+		</p>
 		
 <div class="message-area" id="error-message" <?php echo ($QUERY['error']) ? '':'style="display:none;"';?>><?php
 	if(!empty($PARAM['error'])) print strip_tags($PARAM['error']); //It comes from the URL

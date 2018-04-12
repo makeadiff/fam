@@ -38,8 +38,10 @@ foreach($applicants as $u) {
 	<?php if($is_director) { ?>
 		<td><a href="evaluate.php?stage_id=1&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-primary">Kindness Challenge</a> <?php showApplicantStatus($u['id'], 1); ?><br />
 			<a href="evaluate.php?stage_id=2&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-success">Applicant Feedback</a> <?php showApplicantStatus($u['id'], 2); ?><br />
-			<a href="evaluate.php?stage_id=3&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-warning">Common/Vertical Tasks</a> <?php showApplicantStatus($u['id'], 3); ?><br />
+			<a href="evaluate.php?stage_id=3&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-warning">Common Tasks</a> <?php showApplicantStatus($u['id'], 3); ?><br />
+			<a href="evaluate_vertical.php?stage_id=5&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-default">Vertical Tasks</a> <?php showApplicantStatus($u['id'], 5); ?><br />
 			<a href="evaluate.php?stage_id=4&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-info">Personal Interview</a></td> <?php showApplicantStatus($u['id'], 4); ?></td>
+
 		<td><a href="applicants.php?action=delete&ugp_id=<?php echo $u['ugp_id'] ?>&city_id=<?php echo $city_id ?>&group_id=<?php echo $group_id ?>"
 									 class="delete confirm icon">Delete</a></td><?php } ?>
 </tr>
