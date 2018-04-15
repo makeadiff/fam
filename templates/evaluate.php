@@ -8,6 +8,21 @@
 		<p class="text-muted font-13 m-b-30">
 			City: <?php echo $applicant['city'] ?><br />
 			<?php if($reference_link) { ?>For more details on the scale used in this evaluation, refer to <a href="<?php echo $reference_link ?>">this document</a>.<?php } ?>
+
+			<?php 
+			if($stage_id == 3) {
+				$task_url = $fam->getTask($applicant_id, 'common');
+				if($task_url) echo "<h4><a href='$task_url'>View $applicant[name]'s Common Task</a></h4>";
+			}
+
+			if($stage_id == 5) {
+				$task_url = $fam->getTask($applicant_id, 'vertical', $group_id);
+				if($task_url) echo "<h4><a href='$task_url'>View $applicant[name]'s Vertical Task</a></h4>";
+
+				$task_video_url = $fam->getTask($applicant_id, 'vertical_video_task', $group_id);
+				if($task_video_url) echo "<h4><a href='$task_url'>View $applicant[name]'s Vertical Task Video</a></h4>";
+			}
+			?>
 		</p>
 		
 <div class="message-area" id="error-message" <?php echo ($QUERY['error']) ? '':'style="display:none;"';?>><?php

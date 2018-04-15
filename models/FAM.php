@@ -156,6 +156,31 @@ class FAM {
 		return $this->sql->getAll("SELECT preference, group_id, city_id FROM FAM_UserGroupPreference WHERE user_id=$applicant_id");
 	}
 
+	public function getTask($applicant_id, $type = 'common', $group_id = 0)
+	{
+		if($type == 'common') {
+			return $this->sql->getOne("SELECT common_task_url FROM FAM_UserTask WHERE user_id=$applicant_id");
+		} elseif($type == 'vertical') {
+			return $this->sql->getOne("SELECT CASE $group_id
+												WHEN preference_1_group_id THEN preference_1_task_files
+												WHEN preference_2_group_id THEN preference_2_task_files
+												WHEN preference_3_group_id THEN preference_3_task_files
+												ELSE ''
+												END
+											FROM FAM_UserTask WHERE user_id=$applicant_id");
+		} elseif($type == 'vertical_video_task') {
+			return $this->sql->getOne("SELECT CASE $group_id
+												WHEN preference_1_group_id THEN preference_1_video_files
+												WHEN preference_2_group_id THEN preference_2_video_files
+												WHEN preference_3_group_id THEN preference_3_video_files
+												ELSE ''
+												END
+											FROM FAM_UserTask WHERE user_id=$applicant_id");
+		}
+
+		return false;
+	}
+
 	public function findUser($parameters, $and_or = ' AND ')
 	{
 		$checks = [];
