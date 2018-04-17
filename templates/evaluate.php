@@ -7,9 +7,9 @@
 	<div class="x_content">
 		<p class="text-muted font-13 m-b-30">
 			City: <?php echo $applicant['city'] ?><br />
-			<?php if($reference_link) { ?>For more details on the scale used in this evaluation, refer to <a href="<?php echo $reference_link ?>">this document</a>.<?php } ?>
+			<?php if($reference_link) { ?>For more details on the scale used in this evaluation, refer to <a target="_blank" href="<?php echo $reference_link ?>">this document</a>.<?php } ?>
 
-			<?php 
+			<?php
 			if($stage_id == 3) {
 				$task_url = $fam->getTask($applicant_id, 'common');
 				if($task_url) echo "<h4><a href='$task_url'>View $applicant[name]'s Common Task</a></h4>";
@@ -24,7 +24,7 @@
 			}
 			?>
 		</p>
-		
+
 <div class="message-area" id="error-message" <?php echo ($QUERY['error']) ? '':'style="display:none;"';?>><?php
 	if(!empty($PARAM['error'])) print strip_tags($PARAM['error']); //It comes from the URL
 	else print $QUERY['error']; //Its set in the code(validation error or something).
@@ -68,11 +68,11 @@
 		</table>
 	</div>
 </div>
-<?php } elseif ($stage_id == 2) { 
+<?php } elseif ($stage_id == 2) {
 	require 'templates/partials/applicant_feedback.php';
 } ?>
 
-<?php foreach($categories as $category) { 
+<?php foreach($categories as $category) {
 $parameters = $fam->getParameters($stage_id, $category['id']);
 
 if(!$parameters) continue;
@@ -120,7 +120,7 @@ require(joinPath($config['site_folder'], 'templates', 'partials', 'parameters.ph
     	<input name="status" type="radio" class="input-no" value="maybe" <?php if($stage_info['status'] == 'maybe') echo 'checked="true"'; ?> />Maybe</label>
     <label class="btn btn-danger <?php if($stage_info['status'] == 'rejected') echo 'active'; ?>">
     	<input name="status" type="radio" class="input-no" value="rejected" <?php if($stage_info['status'] == 'rejected') echo 'checked="true"'; ?> />Rejected</label>
-    
+
   </div>
 </div>
 </div>
@@ -135,4 +135,3 @@ require(joinPath($config['site_folder'], 'templates', 'partials', 'parameters.ph
 </div>
 </div>
 </form>
- 

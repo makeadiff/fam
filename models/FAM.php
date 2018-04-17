@@ -32,14 +32,18 @@ class FAM {
 		return $this->sql->getAssoc("SELECT * FROM FAM_Parameter_Category WHERE id=$category_id");
 	}
 
-	public function getCategories($stage_id, $group_id)
+	public function getCategories($stage_id, $group_id=0)
 	{
-		return $this->sql->getAll("SELECT id, name FROM FAM_Parameter_Category WHERE stage_id=$stage_id AND status='1' AND group_id=$group_id");
+		$condition='';
+		if($group_id!=0){
+			$condition = ' AND group_id=$group_id';
+		}
+		return $this->sql->getAll("SELECT id, name FROM FAM_Parameter_Category WHERE stage_id=$stage_id AND status='1'".$condition);
 	}
 
 	public function getParameters($stage_id, $category_id = 0)
 	{
-		return $this->sql->getAll("SELECT * FROM FAM_Parameter WHERE stage_id=$stage_id AND status='1' AND category_id=$category_id");
+		return $this->sql->getAll("SELECT * FROM FAM_Parameter WHERE stage_id=$stage_id AND status='1' AND category_id=$category_id ORDER BY sort ASC");
 	}
 
 
@@ -47,7 +51,7 @@ class FAM {
 	{
 		$vertical_check = '';
 		if($vertical_id) $vertical_check = "vertical_id=$vertical_id AND";
-		return $this->sql->getAll("SELECT id, name FROM `Group` 
+		return $this->sql->getAll("SELECT id, name FROM `Group`
 			WHERE $vertical_check status='1' AND group_type='normal' AND (type='fellow' OR type='strat' OR type='volunteer')");
 	}
 
@@ -104,10 +108,10 @@ class FAM {
 
 	public function getUnassignedApplicants()
 	{
-		return $this->sql->getAll("SELECT U.id, U.name, U.phone, U.email, GROUP_CONCAT(UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS groups, 
+		return $this->sql->getAll("SELECT U.id, U.name, U.phone, U.email, GROUP_CONCAT(UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS groups,
 											UGP.preference, UGP.status, UGP.id AS ugp_id, C.name AS city
 										FROM FAM_UserGroupPreference UGP
-										INNER JOIN User U ON U.id=UGP.user_id 
+										INNER JOIN User U ON U.id=UGP.user_id
 										LEFT JOIN FAM_UserEvaluator UE ON UE.user_id=U.id
 										INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
 										WHERE UE.evaluator_id IS NULL AND U.status='1' AND (U.user_type='volunteer' OR U.user_type='alumni') AND UGP.status != 'withdrawn'
@@ -140,8 +144,8 @@ class FAM {
 
 	public function getEvaluators($applicant_id, $group_id)
 	{
-		return $this->sql->getAll("SELECT U.id, U.name 
-				FROM User U 
+		return $this->sql->getAll("SELECT U.id, U.name
+				FROM User U
 				INNER JOIN FAM_UserEvaluator E ON E.evaluator_id=U.id
 				WHERE E.user_id=$applicant_id AND E.group_id=$group_id AND U.status='1' AND U.user_type='volunteer'");
 	}
@@ -188,7 +192,7 @@ class FAM {
 			$checks[] = "`$field` = '" . $this->sql->escape($value) . "'";
 		}
 
-		$query = "SELECT id,name,email,mad_email,phone,user_type FROM User 
+		$query = "SELECT id,name,email,mad_email,phone,user_type FROM User
 					WHERE (user_type='volunteer' OR user_type='alumni') AND status='1'";
 
 		if($checks) $query .= " AND (" . implode($and_or, $checks) . ")";
