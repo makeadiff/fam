@@ -12,12 +12,40 @@
 			<?php
 			if($stage_id == 3) {
 				$task_url = $fam->getTask($applicant_id, 'common');
-				if($task_url) echo "<h4><a href='$task_url'>View $applicant[name]'s Common Task</a></h4>";
+				if($task_url) {
+					echo "<h4>Click on the link(s) below to see $applicant[name]'s Common Task </h4>";
+					$task = explode('http',str_replace(', ','',$task_url));
+					$i=0;
+					foreach ($task as $file) {
+						if($file!=''){
+							$i++;
+							echo '<a target="_blank" class="badge badge-info" href="http'.$file.'">'.'Common Task '.$i.'</a>';
+						}
+					}
+
+				}
+				else{
+					echo "<h4 class='alert alert-warning'> $applicant[name] <strong>hasn't updated</strong> Common Task yet</h4>";
+				}
 			}
 
 			if($stage_id == 5) {
 				$task_url = $fam->getTask($applicant_id, 'vertical', $group_id);
-				if($task_url) echo "<h4><a href='$task_url'>View $applicant[name]'s Vertical Task</a></h4>";
+				if($task_url){
+					echo "<h4>Click on the link(s) below to see $applicant[name]'s $verticals[$group_id] Task </h4>";
+					$task = explode('http',str_replace(', ','',$task_url));
+					$i=0;
+					foreach ($task as $file) {
+						if($file!=''){
+							$i++;
+							echo '<a target="_blank" class="badge badge-info" href="http'.$file.'">'.$verticals[$group_id].' Task '.$i.'</a>';
+						}
+					}
+					echo "<h4><a href='$task_url'>View $applicant[name]'s Vertical Task</a></h4>";
+				}
+				else{
+					echo "<h4 class='alert alert-warning'> $applicant[name] <strong>hasn't updated</strong> Vertical Tasks yet</h4>";
+				}
 
 				$task_video_url = $fam->getTask($applicant_id, 'vertical_video_task', $group_id);
 				if($task_video_url) echo "<h4><a href='$task_url'>View $applicant[name]'s Vertical Task Video</a></h4>";

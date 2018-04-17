@@ -36,7 +36,7 @@ class FAM {
 	{
 		$condition='';
 		if($group_id!=0){
-			$condition = ' AND group_id=$group_id';
+			$condition = ' AND group_id='.$group_id;
 		}
 		return $this->sql->getAll("SELECT id, name FROM FAM_Parameter_Category WHERE stage_id=$stage_id AND status='1'".$condition);
 	}
