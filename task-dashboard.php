@@ -71,7 +71,7 @@ $total_filled = $sql->getOne("SELECT COUNT(DISTINCT UGP.user_id)
 		(US.stage_id=2 AND US.status='selected')
 	)
 	");
-$fellowship_applications = $sql->getOne("SELECT COUNT(DISTINCT user_id)
+$fellowship_applications = $sql->getOne("SELECT COUNT(DISTINCT UGP.user_id)
 	FROM FAM_UserGroupPreference UGP
 	INNER JOIN User U ON UGP.user_id=U.id
 	INNER JOIN FAM_UserStage US ON US.user_id = U.id

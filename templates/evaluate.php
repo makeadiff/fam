@@ -41,7 +41,7 @@
 							echo '<a target="_blank" class="badge badge-info" href="http'.$file.'">'.$verticals[$group_id].' Task '.$i.'</a>';
 						}
 					}
-					echo "<h4><a href='$task_url'>View $applicant[name]'s Vertical Task</a></h4>";
+					// echo "<h4><a href='$task_url'>View $applicant[name]'s Vertical Task</a></h4>";
 				}
 				else{
 					echo "<h4 class='alert alert-warning'> $applicant[name] <strong>hasn't updated</strong> Vertical Tasks yet</h4>";

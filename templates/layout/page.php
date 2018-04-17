@@ -61,7 +61,7 @@
                 <h3>Navigation Panel</h3>
                 <ul class="nav side-menu">
                   <li><a href="dashboard.php"><i class="fa fa-table"></i> Dashboard</a></li>
-                  <li><a href="task-dashboard.php"><i class="fa fa-table"></i> Task Upload Status</a></li>
+                  <!-- <li><a href="task-dashboard.php"><i class="fa fa-table"></i> Task Upload Status</a></li> -->
                   <li><a href="my_applicants.php"><i class="fa fa-edit"></i> My Applicants</a></li>
                   <li><a href="applicants.php"><i class="fa fa-user"></i> Applicants</a></li>
 
