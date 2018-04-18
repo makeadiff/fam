@@ -42,6 +42,7 @@ a.badge-info{
   font-weight: 700;
   border-radius: 5px;
   margin-bottom: 5px;
+	margin-right: 5px;
 }
 
 a.badge-primary{
@@ -51,4 +52,5 @@ a.badge-primary{
   font-weight: 700;
   border-radius: 5px;
   margin-bottom: 5px;
+	margin-right: 5px;
 }

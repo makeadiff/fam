@@ -48,7 +48,20 @@
 				}
 
 				$task_video_url = $fam->getTask($applicant_id, 'vertical_video_task', $group_id);
-				if($task_video_url) echo "<h4><a href='$task_url'>View $applicant[name]'s Vertical Task Video</a></h4>";
+				if($task_video_url) {
+					echo "<h4>Click on the link(s) below to see $applicant[name]'s Video Tasks for $verticals[$group_id]</h4>";
+					$task = explode('http',str_replace(', ','',$task_video_url));
+					$i=0;
+					foreach ($task as $file) {
+						if($file!=''){
+							$i++;
+							echo '<a target="_blank" class="badge badge-info" href="http'.$file.'">'.$verticals[$group_id].' Task URL '.$i.'</a>';
+						}
+					}
+
+				}
+
+				// if($task_video_url) echo "<h4><a href='$task_video_url'>View $applicant[name]'s Vertical Task Video</a></h4>";
 			}
 			?>
 		</p>
