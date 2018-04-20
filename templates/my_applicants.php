@@ -20,8 +20,8 @@
 	<td><?php echo $u['email'] ?></td>
 	<td><?php echo $u['phone'] ?></td>
 	<td><?php echo $u['city'] ?></td>
-	<td><?php 
-		$grps = explode(",", $u['groups']); 
+	<td><?php
+		$grps = explode(",", $u['groups']);
 		$groups = [];
 		foreach($grps as $group_id) $groups[] = $all_groups[$group_id];
 		echo implode(',', $groups); ?></td>
@@ -29,7 +29,7 @@
 	<a href="evaluate.php?stage_id=2&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-success">Applicant Feedback</a> <?php showApplicantStatus($u['id'], 2); ?><br />
 	<a href="evaluate.php?stage_id=3&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-warning">Common Tasks</a> <?php showApplicantStatus($u['id'], 3); ?><br />
 	<a href="evaluate_vertical.php?stage_id=5&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-default">Vertical Tasks</a> <?php showApplicantStatus($u['id'], 5); ?><br />
-	<a href="evaluate.php?stage_id=4&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-info">Personal Interview</a></td> <?php showApplicantStatus($u['id'], 4); ?></td>
+	<a href="evaluate.php?stage_id=4&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-info">Personal Interview</a> <?php showApplicantStatus($u['id'], 4); ?></td>
 </tr>
 <?php } ?>
 </table>
