@@ -1,4 +1,6 @@
 
+<link href="<?php echo $config['site_home'] ?>css/all_in_one.css" rel="stylesheet">
+
 <div class="x_panel">
 	<div class="x_title">
 		<h2>City Data</h2>
@@ -65,7 +67,7 @@
 				<th>Task Submitted</th>
 				<th>Task Evaluated</th>
 			<?php } ?>
-      <th class="city-name bordered">&nbsp;</th>
+      <!-- <th class="city-name bordered">&nbsp;</th> -->
     </tr>
     </thead>
 
