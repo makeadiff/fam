@@ -3,14 +3,14 @@ $=jQuery.noConflict();
 function showMessage(data) {
 	var type = 'error';
 	if(data.success) var type = 'success';
-	
+
 	$("#"+type+"-message").html(stripSlashes(data[type]));
 	$("#"+type+"-message").fadeIn(500);
-	
+
 	window.setTimeout(function() {
 		$("#"+type+"-message").fadeOut(500);
 	}, 3000); // Amount of time message should be shown.
-	
+
 	return type;
 }
 function stripSlashes(text) {
@@ -30,27 +30,26 @@ function loaded() {
 
 function handleSubmit(e) {
 	e.stopPropagation();
-	e.preventDefault(); 
+	e.preventDefault();
 
 	var form = $(this);
 	var url = form.attr("action");
 	var action = form.find("[name='action']");
 	action.val("Saving...");
 	action.prop("disabled", true);
-
+	// alert(url+form.serialize());
 	$.ajax({
 		"url": url,
 		"data": form.serialize() + "&action=Save&ajaxify=1",
-		"success": function() {
+		"success": function(message) {
 			action.val("Saved");
 			action.prop("disabled", false);
-
+			// console.log(message);
 			window.setTimeout(function () {
 				action.val("Save");
 			}, 2000);
 		}
 	});
-
 	return false;
 }
 

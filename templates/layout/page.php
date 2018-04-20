@@ -61,7 +61,7 @@
                 <h3>Navigation Panel</h3>
                 <ul class="nav side-menu">
                   <li><a href="dashboard.php"><i class="fa fa-table"></i> Dashboard</a></li>
-                  <!-- <li><a href="task-dashboard.php"><i class="fa fa-table"></i> Task Upload Status</a></li> -->
+                  <li><a href="task-dashboard.php"><i class="fa fa-table"></i> Task Upload Status</a></li>
                   <li><a href="my_applicants.php"><i class="fa fa-edit"></i> My Applicants</a></li>
                   <li><a href="applicants.php"><i class="fa fa-user"></i> Applicants</a></li>
 
@@ -73,6 +73,7 @@
                         <li><a href="assign_evaluators_applicants.php"><i class="fa fa-edit"></i> Assign Evaluators</a></li>
                         <li><a href="no_data.php"><i class="fa fa-search"></i> Show Evaluators Who haven't entered Data</a></li>
                         <li><a href="evaluators.php"><i class="fa fa-user"></i> Evaluators</a></li>
+                        <!-- <li><a href="evaluators.php"><i class="fa fa-user"></i> Freepool Applicants</a></li> -->
                         <li><a href="edit_application.php"><i class="fa fa-edit"></i> Add/Edit Applications</a></li>
                       </ul></li>
                       <?php } ?>
@@ -152,6 +153,7 @@
     <script src="<?php echo $config['site_home'] ?>/js/library/jquery.inputmask.bundle.min.js"></script>
     <script src="<?php echo $config['site_home'] ?>/js/library/jquery.knob.min.js"></script>
     <script src="<?php echo $config['site_home'] ?>/js/library/custom.min.js"></script>
+    <script src="<?php echo $config['site_home'] ?>/js/gridviewscroll.js"></script>
 <!-- <script src="<?php echo $config['site_url'] ?>bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
 <script src="<?php echo $config['site_url'] ?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
 	<script src="<?php echo $config['site_home'] ?>js/application.js" type="text/javascript"></script>

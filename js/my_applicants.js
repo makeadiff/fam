@@ -1,6 +1,6 @@
 function init() {
 	$("#status").on("change", setStatus);
-} 
+}
 
 
 function setStatus(e) {

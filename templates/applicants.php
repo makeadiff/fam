@@ -18,7 +18,7 @@
 	<th>Evaluator</th>
 	<?php if($is_director) { ?><th>Evaluations</th><th>Action</th><?php } ?>
 </tr>
-<?php 
+<?php
 $count = ($applicants_pager->page - 1) * $applicants_pager->items_per_page;
 foreach($applicants as $u) {
 	$count++; ?>
@@ -28,7 +28,7 @@ foreach($applicants as $u) {
 		<?php echo $u['email'] ?><br />
 	<?php echo $u['phone'] ?></td>
 	<td><?php echo $u['city'] ?></td>
-	<td><?php $groups = $common->getUserGroups($u['id']); 
+	<td><?php $groups = $common->getUserGroups($u['id']);
 				$names = [];
 				foreach($groups as $g) $names[] = $g['name'];
 				echo implode(", ", $names); ?></td>

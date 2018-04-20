@@ -60,6 +60,7 @@ if(i($QUERY, 'action') == 'Save') {
 			'user_id'	=> $applicant_id,
 			'stage_id'	=> $stage_id,
 			'status'	=> $status,
+			'group_id'	=> $group_id,
 			'comment'	=> $comment,
 			'evaluator_id' => $user_id
 		]);

@@ -10,7 +10,7 @@
 	<h4>Select Vertical that you wish to evaluate...</h4>
 
 	<ol>
-	<?php 
+	<?php
 	foreach ($applications as $application) {
 		extract($application);
 		echo "<li><a href='evaluate.php?stage_id=5&group_id=$group_id&applicant_id=$applicant_id'>$verticals[$group_id]</a></li>";

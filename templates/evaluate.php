@@ -11,10 +11,11 @@
 
 			<?php
 			if($stage_id == 3) {
+				echo 'For more details on the scale used in this evaluation, refer to <a target="_blank" href="https://docs.google.com/document/d/1DBwtJRK-W6l2WFQm4QKUX9b-rWfjT1Nz2UhSA5tz-B4/edit?usp=sharing">this document</a>';
 				$task_url = $fam->getTask($applicant_id, 'common');
 				if($task_url) {
 					echo "<h4>Click on the link(s) below to see $applicant[name]'s Common Task </h4>";
-					$task = explode('http',str_replace(', ','',$task_url));
+					$task = explode('http',str_replace(', ','',str_replace('#','%23',$task_url)));
 					$i=0;
 					foreach ($task as $file) {
 						if($file!=''){
@@ -33,7 +34,7 @@
 				$task_url = $fam->getTask($applicant_id, 'vertical', $group_id);
 				if($task_url){
 					echo "<h4>Click on the link(s) below to see $applicant[name]'s $verticals[$group_id] Task </h4>";
-					$task = explode('http',str_replace(', ','',$task_url));
+					$task = explode('http',str_replace(', ','',str_replace('#','%23',$task_url)));
 					$i=0;
 					foreach ($task as $file) {
 						if($file!=''){
@@ -50,7 +51,7 @@
 				$task_video_url = $fam->getTask($applicant_id, 'vertical_video_task', $group_id);
 				if($task_video_url) {
 					echo "<h4>Click on the link(s) below to see $applicant[name]'s Video Tasks for $verticals[$group_id]</h4>";
-					$task = explode('http',str_replace(', ','',$task_video_url));
+					$task = explode('http',str_replace(', ','',str_replace('#','%23',$task_video_url)));
 					$i=0;
 					foreach ($task as $file) {
 						if($file!=''){
