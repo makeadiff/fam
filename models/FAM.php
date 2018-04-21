@@ -121,16 +121,25 @@ class FAM {
 	public function getApplicants($source) {
 		$checks = ['1=1'];
 		$join = '';
-
-		if(!empty($source['group_id'])) $checks[] = "group_id=" . $source['group_id'];
+		$selects = '';
+		if(!empty($source['group_id'])) $checks[] = "UGP.group_id=" . $source['group_id'];
 		if(!empty($source['city_id'])) $checks[] = "((UGP.city_id != 0 AND UGP.city_id={$source['city_id']}) OR (UGP.city_id = 0 AND U.city_id={$source['city_id']}))";
 		if(isset($source['evaluator_id'])) {
 			if(!$source['evaluator_id']) return [];
 	 		$checks[] = "UE.evaluator_id=" . $source['evaluator_id'];
-	 		$join = "INNER JOIN FAM_UserEvaluator UE ON U.id=UE.user_id";
+	 		$join .= "INNER JOIN FAM_UserEvaluator UE ON U.id=UE.user_id";
 	 	}
+		if(isset($source['stage_id']) && $source['stage_id']!=0){
+			$selects .= ', US.status, US.stage_id';
+			$join .= 'LEFT JOIN FAM_UserStage US ON US.user_id = U.id';
+			$checks[] = 'US.stage_id='.$source['stage_id'];
+			if(isset($source['status']) && $source['status']!='0'){
+				$checks[] = 'Us.status="'.$source['status'].'"';
+			}
+		}
 
-	 	$query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS groups, UGP.preference, C.name AS city, UGP.id AS ugp_id
+
+	 	$query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS groups, UGP.preference, C.name AS city, UGP.id AS ugp_id $selects
 				FROM User U
 				INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
 				$join
@@ -138,6 +147,7 @@ class FAM {
 				WHERE " . implode(" AND ", $checks) . " AND UGP.status != 'withdrawn'
 				GROUP BY UGP.user_id
 				ORDER BY C.name, U.name";
+
 
 		return $this->sql->getAll($query);
 	}
@@ -220,5 +230,28 @@ class FAM {
 	public function getApplicantFeedbackQuestions()
 	{
 		return $this->sql->getById("SELECT id,question,type FROM FAM_ApplicantFeedbackQuestions");
+	}
+
+	public function statusSelectOption($name,$label,$status){
+		$status_array = array(
+			'0'=>'Any',
+			'pending'=>'Pending',
+			'free-pool'=>'Free Pool',
+			'maybe'=>'Maybe',
+			'rejected'=>'Rejected',
+			'selected'=>'Selected',
+		);
+
+		$input = '<label for="'.$name.'">'.$label.'</label>'.'<select id="'.$name.'" name="'.$name.'">';
+		foreach ($status_array as $key => $s) {
+			$selected='';
+			if($key==$status){
+				$selected='selected';
+			}
+			$input .= '<option value="'.$key.'" '.$selected.'>'.$s.'</option>';
+		}
+		$input .= '</select>';
+
+		return $input;
 	}
 }

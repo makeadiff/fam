@@ -5,10 +5,13 @@
 <div class="clearfix"></div>
 </div>
 
+
 <div class="x_content">
 <form action="applicants.php" method="post">
 <?php $html->buildInput("group_id", 'Applicants for ', 'select', $group_id, ['options' => $all_groups, 'no_br' => 1]); ?> &nbsp;
 <?php $html->buildInput("city_id", 'City ', 'select', $city_id, ['options' => $all_cities, 'no_br' => 1]); ?> &nbsp;
+<?php $html->buildInput("stage_id", 'Stage ', 'select', $stage_id, ['options' => $all_stages_input, 'no_br' => 1]); ?> &nbsp;
+<?php echo $fam->statusSelectOption('status','Status ',$status); ?> &nbsp;
 <button class="btn btn-success btn-sm" value="Filter" name="action">Filter</button>
 </form>
 

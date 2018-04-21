@@ -45,7 +45,7 @@ $verticals = [
 function showApplicantStatus($user_id, $stage_id) {
 	global $fam;
 
-	$status = $fam->getStageStatus($user_id, $stage_id);
+	$status = $fam->getStageStatus($user_id, $stage_id);	
 	if($status['status'] == 'selected') echo '<span class="fa fa-check-circle success-message">Selected</span>';
 	else if($status['status'] == 'rejected') echo '<span class="fa fa-times-circle error-message">Rejected</span>';
 	else if($status['status'] == 'free-pool') echo '<span class="fa fa-info-circle" style="color: #397eb9;">Free Pool</span>';

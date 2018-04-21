@@ -16,6 +16,8 @@
 
 <?php $html->buildInput("group_id", 'Applicants for ', 'select', $group_id, ['options' => $all_groups, 'no_br' => 1]); ?> &nbsp;
 <?php $html->buildInput("city_id", 'City ', 'select', $city_id, ['options' => $all_cities, 'no_br' => 1]); ?> &nbsp;
+<?php $html->buildInput("stage_id", 'Stage ', 'select', $stage_id, ['options' => $all_stages_input, 'no_br' => 1]); ?> &nbsp;
+<?php echo $fam->statusSelectOption('status','Status ',$status); ?> &nbsp;
 <button class="btn btn-success btn-sm" value="Filter" name="action">Filter</button>
 
 <table class="table table-striped">
@@ -28,17 +30,17 @@
 	<td><?php echo $u['email'] ?></td>
 	<td><?php echo $u['phone'] ?></td>
 	<td><?php echo $u['city'] ?></td>
-	<td><?php $groups = $common->getUserGroups($u['id']); 
+	<td><?php $groups = $common->getUserGroups($u['id']);
 				$names = [];
 				foreach($groups as $g) $names[] = $g['name'];
 				echo implode(", ", $names); ?></td>
-	<td><?php 
-		$grps = explode(",", $u['groups']); 
+	<td><?php
+		$grps = explode(",", $u['groups']);
 		$groups = [];
 		foreach($grps as $group_id) $groups[] = $all_groups[$group_id];
 		echo implode(',', $groups); ?></td>
 	<td><?php echo $u['preference'] ?></td>
-	<td><?php if(i($QUERY, 'show_unassigned')) echo 'None'; 
+	<td><?php if(i($QUERY, 'show_unassigned')) echo 'None';
 			  else {
 			  	  $evaluator = keyFormat($fam->getEvaluators($u['id'], $group_id), ['id', 'name']);
 				  if($evaluator) echo implode(", ", array_values($evaluator));
