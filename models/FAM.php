@@ -134,7 +134,7 @@ class FAM {
 			$join .= 'LEFT JOIN FAM_UserStage US ON US.user_id = U.id';
 			$checks[] = 'US.stage_id='.$source['stage_id'];
 			if(isset($source['status']) && $source['status']!='0'){
-				$checks[] = 'Us.status="'.$source['status'].'"';
+				$checks[] = 'US.status="'.$source['status'].'"';
 			}
 		}
 
