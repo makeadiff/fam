@@ -42,7 +42,7 @@ if($stage_id){
 	$join .= 'INNER JOIN FAM_UserStage US ON US.user_id = U.id';
 	$checks[] = 'US.stage_id='.$stage_id;
 	if($status){
-		$checks[] = 'Us.status="'.$status.'"';
+		$checks[] = 'US.status="'.$status.'"';
 	}
 }
 
