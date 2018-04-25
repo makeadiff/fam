@@ -9,8 +9,8 @@ updateData($sql,$vertical_task_status);
 
 $pi_status = $sql->getAll('SELECT * FROM FAM_UserStage WHERE stage_id = 4 AND group_id = 0');
 
-// dump($vertical_task_status);
-// updateData($sql,$pi_status);
+dump($vertical_task_status);
+updateData($sql,$pi_status);
 
 
 
