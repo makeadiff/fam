@@ -4,7 +4,7 @@ require 'common.php';
 $vertical_task_status = $sql->getAll('SELECT * FROM FAM_UserStage WHERE stage_id = 5 AND group_id = 0');
 
 dump($vertical_task_status);
-// updateData($sql,$vertical_task_status);
+updateData($sql,$vertical_task_status);
 
 
 $pi_status = $sql->getAll('SELECT * FROM FAM_UserStage WHERE stage_id = 4 AND group_id = 0');
