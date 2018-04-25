@@ -86,17 +86,21 @@ class FAM {
 		]);
 	}
 
-	public function getStageStatus($user_id, $stage_id)
+	public function getStageStatus($user_id, $stage_id,$group_id=0)
 	{
-		$stage = $this->sql->getAssoc("SELECT * FROM FAM_UserStage WHERE user_id=$user_id AND stage_id=$stage_id");
+		$q = "SELECT * FROM FAM_UserStage WHERE user_id=$user_id AND stage_id=$stage_id";
+		if($group_id!=0){
+			$q .= " AND group_id=$group_id";
+		}
+		$stage = $this->sql->getAssoc($q);
 
 		if(!$stage) $stage = ['status' => 'pending', 'comment' => ''];
 
 		return $stage;
 	}
 	public function saveStageStatus($data)
-	{
-		$existing = $this->getStageStatus($data['user_id'], $data['stage_id']);
+	{		
+		$existing = $this->getStageStatus($data['user_id'], $data['stage_id'],$data['group_id']);
 
 		if(!isset($existing['id'])) $this->sql->insert("FAM_UserStage", $data);
 		else $this->sql->update("FAM_UserStage", [

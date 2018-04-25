@@ -144,6 +144,7 @@ require(joinPath($config['site_folder'], 'templates', 'partials', 'parameters.ph
 <form action="evaluate.php" method="post" class="ajaxify">
 	<input type="hidden" name="applicant_id" value="<?php echo $applicant_id ?>" />
 	<input type="hidden" name="stage_id" value="<?php echo $stage_id ?>" />
+	<input type="hidden" name="group_id" value="<?php echo $group_id ?>" />
 <div class="x_panel">
 
 <div class="x_title">

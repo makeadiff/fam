@@ -41,7 +41,6 @@ if($group_id) $reference_link = $all_reference_links[$group_id];
 
 if(i($QUERY, 'action') == 'Save') {
 	$response = i($QUERY, 'response');
-
 	if($response) {
 		foreach ($response as $parameter_id => $value) {
 			$fam->saveEvaluation([
@@ -65,10 +64,11 @@ if(i($QUERY, 'action') == 'Save') {
 			'evaluator_id' => $user_id
 		]);
 	}
-
 	$QUERY['success'] = "Data saved.";
 }
-$stage_info = $fam->getStageStatus($applicant_id, $stage_id);
+$stage_info = $fam->getStageStatus($applicant_id, $stage_id, $group_id);
+
+// dump($stage_info);
 
 if(i($QUERY, 'ajaxify')) {
 	print json_encode(['status' => 'success', 'data' => $QUERY['success']]);
