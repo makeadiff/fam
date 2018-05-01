@@ -2,6 +2,7 @@
 require 'common.php';
 
 
+$stage_id = intval(i($QUERY, 'stage_id'));
 $applicant_id = intval(i($QUERY, 'applicant_id', 0));
 if(!$applicant_id) {
 	header("Location: my_applicants.php");

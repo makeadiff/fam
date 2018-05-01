@@ -13,7 +13,7 @@
 	<?php
 	foreach ($applications as $application) {
 		extract($application);
-		echo "<li><a href='evaluate.php?stage_id=5&group_id=$group_id&applicant_id=$applicant_id'>$verticals[$group_id]</a></li>";
+		echo "<li><a href='evaluate.php?stage_id=$stage_id&group_id=$group_id&applicant_id=$applicant_id'>$verticals[$group_id]</a></li>";
 	}
 	?>
 	</ol>
