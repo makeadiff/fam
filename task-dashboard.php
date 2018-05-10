@@ -71,12 +71,7 @@ foreach ($all_cities as $city_id => $city_name) {
 	// dump($evaluated[$city_id]);
 }
 
-
-// $template->addResource("js/library/DataTables/datatables.min.css", 'css');
-// $template->addResource("js/library/DataTables/datatables.js", 'js');
-
 $multiplication_factor = 3;
-
 
 $all_cities = keyFormat($common->getCities(), ['id', 'name']);
 $all_cities[0] = 'All';
@@ -97,8 +92,7 @@ $total_volunteers = $sql->getOne("SELECT COUNT(U.id) FROM User U
 		(US.stage_id=1 AND US.status='selected')
 		OR
 		(US.stage_id=2 AND US.status='selected')
-	)
-	");
+	)");
 
 $total_filled = $sql->getOne("SELECT COUNT(DISTINCT UGP.user_id)
 	FROM FAM_UserGroupPreference UGP
@@ -109,16 +103,13 @@ $total_filled = $sql->getOne("SELECT COUNT(DISTINCT UGP.user_id)
 		(US.stage_id=1 AND US.status='selected')
 		OR
 		(US.stage_id=2 AND US.status='selected')
-	)
-	");
+	)");
 
 $fellowship_applications = $sql->getOne("SELECT COUNT(DISTINCT UGP.user_id)
 	FROM FAM_UserGroupPreference UGP
 	INNER JOIN User U ON UGP.user_id=U.id
 	INNER JOIN FAM_UserStage US ON US.user_id = U.id
 	WHERE $city_check_ugp preference=1 AND UGP.group_id IN (SELECT id FROM `Group` WHERE type='fellow' OR type='strat')");
-
-// Data source - https://docs.google.com/spreadsheets/d/150mVAUvisYObaW2MVUZfi2tjbKxvd2tZalB3gfr091o/edit?ts=5aacf12d#gid=675197629
 
 $shortlisted = [];
 $total_submitted = [];
@@ -168,6 +159,5 @@ foreach ($verticals as $group_id => $name) {
 		WHERE $city_check preference=1 AND group_id=$group_id AND UGP.status='selected'");
 }
 
-$multiplication_factor = 3;
 
 render();
