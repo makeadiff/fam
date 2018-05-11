@@ -1,6 +1,6 @@
 <div class="x_panel">
 	<div class="x_title">
-		<h2>Evaluate <strong><?php echo $applicant['name'] ?></strong>'s <?php echo $stage_name['name'] ?><?php if($group_id) echo "(" . $verticals[$group_id] . ")"; ?></h2>
+		<h2>Evaluate <strong><?php echo $applicant['name'] ?></strong>'s <?php echo $stage_name['name'] ?><?php if($group_id) echo " (" . $verticals[$group_id] . ")"; ?></h2>
 		<div class="clearfix"></div>
 	</div>
 
