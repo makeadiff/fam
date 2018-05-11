@@ -73,8 +73,8 @@
                         <li><a href="assign_evaluators_applicants.php"><i class="fa fa-edit"></i> Assign Evaluators</a></li>
                         <li><a href="no_data.php"><i class="fa fa-search"></i> Show Evaluators Who haven't entered Data</a></li>
                         <li><a href="evaluators.php"><i class="fa fa-user"></i> Evaluators</a></li>
-                        <!-- <li><a href="evaluators.php"><i class="fa fa-user"></i> Freepool Applicants</a></li> -->
                         <li><a href="edit_application.php"><i class="fa fa-edit"></i> Add/Edit Applications</a></li>
+                        <li><a href="selected_fellows.php"><i class="fa fa-user"></i> Selected Fellows</a></li>
                       </ul></li>
                       <?php } ?>
                   </ul>
