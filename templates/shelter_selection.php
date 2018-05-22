@@ -69,7 +69,7 @@ function create_shelter($sql,$city_id,$user_id,$selected_id=0){
   $shelters = $sql->getAll('SELECT id as shelter_id,name FROM Center WHERE status=1 AND city_id ='.$city_id);
 
   $output  = '<select class="shelter_selection" name="shelter_id_'.$user_id.'">';
-  $output .= '<option value="">Assign Shelter</option>';
+  $output .= '<option value="0">Assign Shelter</option>';
   foreach ($shelters as $shelter) {
     if($shelter['shelter_id']==$selected_id){
       $output .= '<option value='.$shelter['shelter_id'].' selected>'.$shelter['name'].'</option>';

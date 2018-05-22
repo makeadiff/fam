@@ -28,7 +28,7 @@ if(isset($_POST['user_id'])){
 	unset($post_vars['user_id']);
 	foreach ($post_vars as $key => $shelter_id) {
 		$applicant_id = str_replace('shelter_id_','',$key);
-		if($shelter_id!=''){
+		if($shelter_id!=0){
 			$sql->update('FAM_UserStage',array(
 				'shelter_id' => $shelter_id,
 			),array(
@@ -39,7 +39,7 @@ if(isset($_POST['user_id'])){
 		}
 		else{
 			$sql->update('FAM_UserStage',array(
-				'shelter_id' => '',
+				'shelter_id' => 0,
 			),array(
 				'user_id' 	=> $applicant_id,
 				'group_id' 	=> '269',
