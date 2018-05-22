@@ -10,13 +10,13 @@
 <form action="applicants.php" method="post">
 <?php $html->buildInput("group_id", 'Applicants for ', 'select', $group_id, ['options' => $all_groups, 'no_br' => 1]); ?> &nbsp;
 <?php $html->buildInput("city_id", 'City ', 'select', $city_id, ['options' => $all_cities, 'no_br' => 1]); ?> &nbsp;
-<?php $html->buildInput("stage_id", 'Stage ', 'select', $stage_id, ['options' => $all_stages_input, 'no_br' => 1]); ?> &nbsp;
-<?php echo $fam->statusSelectOption('status','Status ',$status); ?> &nbsp;
+<?php if($is_director) { $html->buildInput("stage_id", 'Stage ', 'select', $stage_id, ['options' => $all_stages_input, 'no_br' => 1]); } ?> &nbsp;
+<?php if($is_director) { echo $fam->statusSelectOption('status','Status ',$status); } ?> &nbsp;
 <button class="btn btn-success btn-sm" value="Filter" name="action">Filter</button>
 </form>
 
 <table class="table table-striped">
-<tr><th>Count</th><th>Applicant</th><th>City</th><th>Current Roles</th><th>Applied For</th>
+<tr><th>Count</th><th>Applicant</th><th>City</th><th>Current Roles</th><th>Applied For</th>p
 	<?php if($group_id) { ?><th>Preference</th><?php } ?>
 	<th>Evaluator</th>
 	<?php if($is_director) { ?><th>Evaluations</th><th>Action</th><?php } ?>

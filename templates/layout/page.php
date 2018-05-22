@@ -63,18 +63,19 @@
                   <li><a href="dashboard.php"><i class="fa fa-table"></i> Dashboard</a></li>
                   <li><a href="task-dashboard.php"><i class="fa fa-table"></i> Task Upload Status</a></li>
                   <li><a href="my_applicants.php"><i class="fa fa-edit"></i> My Applicants</a></li>
-                  <li><a href="applicants.php"><i class="fa fa-user"></i> Applicants</a></li>
 
                   <li><a href="all_stages.php"><i class="fa fa-server"></i> Bulk Enter Data for All Applicants</a></li>
                       <?php if($is_director) { ?>
                       <li><a><i class="fa fa-home"></i>Tools <span class="fa fa-chevron-left"></span></a>
                       <ul class="nav child_menu">
+                        <li><a href="applicants.php"><i class="fa fa-user"></i> Applicants</a></li>
                         <li><a href="all_in_one.php"><i class="fa fa-table"></i> All in One View</a></li>
                         <li><a href="assign_evaluators_applicants.php"><i class="fa fa-edit"></i> Assign Evaluators</a></li>
                         <li><a href="no_data.php"><i class="fa fa-search"></i> Show Evaluators Who haven't entered Data</a></li>
                         <li><a href="evaluators.php"><i class="fa fa-user"></i> Evaluators</a></li>
                         <li><a href="edit_application.php"><i class="fa fa-edit"></i> Add/Edit Applications</a></li>
                         <li><a href="selected_fellows.php"><i class="fa fa-user"></i> Selected Fellows</a></li>
+                        <li><a href="shelter_selection.php"><i class="fa fa-user"></i>Shelter Selection (SOFs)</a></li>
                       </ul></li>
                       <?php } ?>
                   </ul>

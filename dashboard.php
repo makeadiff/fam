@@ -14,7 +14,7 @@ if($city_id) {
 
 $total_volunteers = $sql->getOne("SELECT COUNT(id) FROM User U WHERE $city_check U.status='1' AND U.user_type='volunteer'");
 $total_filled = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupPreference UGP
-	INNER JOIN User U ON UGP.user_id=U.id 
+	INNER JOIN User U ON UGP.user_id=U.id
 	WHERE $city_check_ugp preference=1");
 $fellowship_applications = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupPreference UGP
 	INNER JOIN User U ON UGP.user_id=U.id

@@ -1,5 +1,5 @@
 <?php
 // require 'common.php';
-// render(); 
+// render();
 
 header("Location: dashboard.php");
