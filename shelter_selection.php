@@ -37,6 +37,15 @@ if(isset($_POST['user_id'])){
 				'stage_id' 	=> '4'
 			));
 		}
+		else{
+			$sql->update('FAM_UserStage',array(
+				'shelter_id' => '',
+			),array(
+				'user_id' 	=> $applicant_id,
+				'group_id' 	=> '269',
+				'stage_id' 	=> '4'
+			));
+		}
 	}
 };
 
