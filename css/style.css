@@ -103,3 +103,7 @@ BODY {
     background-color: #F4F4F4;
     color: #444444;
 }
+
+.shelter_selection{
+		width: 200px;
+}
