@@ -16,7 +16,7 @@
 </form>
 
 <table class="table table-striped">
-<tr><th>Count</th><th>Applicant</th><th>City</th><th>Current Roles</th><th>Applied For</th>p
+<tr><th>Count</th><th>Applicant</th><th>City</th><th>Current Roles</th><th>Applied For</th>
 	<?php if($group_id) { ?><th>Preference</th><?php } ?>
 	<th>Evaluator</th>
 	<?php if($is_director) { ?><th>Evaluations</th><th>Action</th><?php } ?>
