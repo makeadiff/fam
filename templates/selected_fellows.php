@@ -33,12 +33,3 @@
   </table>
   </div>
 </div>
-
-<?php
-
-function highlight($applications, $requirements) {
-    global $multiplication_factor;
-
-    if($applications < $requirements * $multiplication_factor) echo ' class="error-message"';
-    else echo ' class="success-message"';
-}

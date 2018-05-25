@@ -22,9 +22,6 @@ $verticals = [
 	'375'	=> "Foundational Programme",
 ];
 
-// Data source - https://docs.google.com/spreadsheets/d/150mVAUvisYObaW2MVUZfi2tjbKxvd2tZalB3gfr091o/edit?ts=5aacf12d#gid=675197629
-$requirements = getRequirementFromSheet("https://docs.google.com/spreadsheets/d/e/2PACX-1vTf7uqEdn1CWZjwG8YALAS52jGVMABAfo1Xpb6YR3g69jSHir_govSZvFz_F_J_ACX1W50byaNE0ibS/pub?output=csv");
-
 $applications = [];
 $selected = [];
 
@@ -45,11 +42,4 @@ foreach ($all_cities as $city_id => $city_name) {
 	}
 }
 
-
-// dump($applications);
-
-// $template->addResource("js/library/DataTables/datatables.min.css", 'css');
-// $template->addResource("js/library/DataTables/datatables.js", 'js');
-
-$multiplication_factor = 3;
 render();
