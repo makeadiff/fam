@@ -84,11 +84,11 @@
           $email_update_check = $sql->getOne('SELECT id FROM User U WHERE U.id='.$app['user_id'].' AND U.mad_email="'.$email.'"');
 
           if(empty($email_update_check) && $email!=''){
-            $mad_email_add = $sql->Update('User',array(
+            $mad_email_add = $sql->update('User',array(
               'mad_email' => $email
             ),'id='.$app['user_id']);
 
-            if($mad_email_add>1){
+            if($mad_email_add>=1){
               $email_status = 'Saved';
             }
             else{
