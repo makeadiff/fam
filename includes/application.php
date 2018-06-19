@@ -44,7 +44,7 @@ $verticals = [
 function showApplicantStatus($user_id, $stage_id) {
 	global $fam;
 
-	$status = $fam->getStageStatus($user_id, $stage_id);	
+	$status = $fam->getStageStatus($user_id, $stage_id);
 	if($status['status'] == 'selected') echo '<span class="fa fa-check-circle success-message">Selected</span>';
 	else if($status['status'] == 'rejected') echo '<span class="fa fa-times-circle error-message">Rejected</span>';
 	else if($status['status'] == 'free-pool') echo '<span class="fa fa-info-circle" style="color: #397eb9;">Free Pool</span>';
@@ -101,4 +101,16 @@ function getRequirementFromSheet($sheet_url) {
 
 	$requirements[0] = $total_by_group;
 	return $requirements;
+}
+
+function getEmailFromSheet($sheet_url) {
+	global $common;
+	require 'includes/classes/ParseCSV.php';
+	$sheet = new ParseCSV($sheet_url);
+	$data = [];
+	foreach($sheet as $row_index => $row) {
+		$data[$row['A']] = strtolower($row['J']);
+	}
+	unset($data['ID']); //Unset Header Row	
+	return $data;
 }
