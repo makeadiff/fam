@@ -99,7 +99,7 @@ class FAM {
 		return $stage;
 	}
 	public function saveStageStatus($data)
-	{		
+	{
 		$existing = $this->getStageStatus($data['user_id'], $data['stage_id'],$data['group_id']);
 
 		if(!isset($existing['id'])) $this->sql->insert("FAM_UserStage", $data);

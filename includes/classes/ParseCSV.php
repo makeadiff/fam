@@ -9,7 +9,7 @@ class ParseCSV implements Iterator
 	protected $data = [];
 	private $line_index = 1;
 
-	/** 
+	/**
 	 * :TODO:
 	 * loadFile()
 	 * Autoload support

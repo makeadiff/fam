@@ -76,6 +76,7 @@
                         <li><a href="edit_application.php"><i class="fa fa-edit"></i> Add/Edit Applications</a></li>
                         <li><a href="selected_fellows.php"><i class="fa fa-user"></i> Selected Fellows</a></li>
                         <li><a href="shelter_selection.php"><i class="fa fa-user"></i>Shelter Selection (SOFs)</a></li>
+                        <li><a href="update_madapp.php"><i class="fa fa-lock"></i><em>Update MADApp</em></a></li>
                       </ul></li>
                       <?php } ?>
                   </ul>
