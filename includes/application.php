@@ -8,7 +8,7 @@ $fam = new FAM;
 $common = new Common;
 $html = new HTML;
 
-$user = $user_info['current_user'];
+$user = $user_info['user'];
 $user['groups'] = $common->getUserGroups($user['id']);
 
 $user_groups_ids = array_keys(keyFormat($user['groups']));
