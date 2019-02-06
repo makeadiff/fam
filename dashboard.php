@@ -15,10 +15,10 @@ if($city_id) {
 $total_volunteers = $sql->getOne("SELECT COUNT(id) FROM User U WHERE $city_check U.status='1' AND U.user_type='volunteer'");
 $total_filled = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupPreference UGP
 	INNER JOIN User U ON UGP.user_id=U.id
-	WHERE $city_check_ugp preference=1");
+	WHERE $city_check_ugp preference=1 AND year=$year");
 $fellowship_applications = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupPreference UGP
 	INNER JOIN User U ON UGP.user_id=U.id
-	WHERE $city_check_ugp preference=1 AND UGP.group_id IN (SELECT id FROM `Group` WHERE type='fellow' OR type='strat')");
+	WHERE $city_check_ugp preference=1 AND UGP.year=$year AND UGP.group_id IN (SELECT id FROM `Group` WHERE type='fellow' OR type='strat')");
 
 // Data source - https://docs.google.com/spreadsheets/d/150mVAUvisYObaW2MVUZfi2tjbKxvd2tZalB3gfr091o/edit?ts=5aacf12d#gid=675197629
 $requirements = getRequirementFromSheet("https://docs.google.com/spreadsheets/d/e/2PACX-1vTf7uqEdn1CWZjwG8YALAS52jGVMABAfo1Xpb6YR3g69jSHir_govSZvFz_F_J_ACX1W50byaNE0ibS/pub?output=csv");
@@ -27,7 +27,7 @@ $applicants = [];
 foreach ($verticals as $group_id => $name) {
 	$applicants[$group_id] = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupPreference UGP
 		INNER JOIN User U ON UGP.user_id=U.id
-		WHERE $city_check_ugp preference=1 AND group_id=$group_id");
+		WHERE $city_check_ugp preference=1 AND UGP.year=$year AND group_id=$group_id");
 }
 
 // $selected = [];

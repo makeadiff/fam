@@ -3,6 +3,7 @@ $user_info = check_user();
 
 $user_id = $user_info['user_id'];
 $fam = new FAM;
+$year = 2018;
 
 // require dirname(__FILE__) . '/../../driller/models/Common.php';
 $common = new Common;
