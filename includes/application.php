@@ -111,6 +111,6 @@ function getEmailFromSheet($sheet_url) {
 	foreach($sheet as $row_index => $row) {
 		$data[$row['A']] = strtolower($row['J']);
 	}
-	unset($data['ID']); //Unset Header Row	
+	unset($data['ID']); //Unset Header Row
 	return $data;
 }
