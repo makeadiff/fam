@@ -1,8 +1,4 @@
-
-<?php
-
-  if($continue){
-?>
+<?php if($continue) { ?>
     <div class="x_panel">
       <div class="x_title">
         <h2>Update On MADApp</h2>
@@ -18,12 +14,9 @@
       </div>
     </div>
 <?php
-    exit;
-  }
-
+  exit;
+}
 ?>
-
-
 
 <div class="x_panel">
   <div class="x_title">
@@ -65,9 +58,9 @@
 
           if(empty($ugp_update_check)){
             $ugp_add = $sql->insert('UserGroup',array(
-                'user_id' => $app['user_id'],
-                'group_id' => $app['group_id'],
-                'year' => $year
+                'user_id'   => $app['user_id'],
+                'group_id'  => $app['group_id'],
+                'year'      => $year
               ));
 
             if($ugp_add>1){

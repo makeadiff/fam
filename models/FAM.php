@@ -2,20 +2,23 @@
 /// Common model. Includes all the neccessay data interactions. Not enough to make seperate models yet.
 class FAM {
 	private $sql;
+	private $year;
 
 	function __construct() {
-       global $sql;
+       global $sql, $year;
+
        $this->sql = $sql;
+       $this->year = $year;
 	}
 
 	public function getSelectionStatus($user_id, $group_id)
 	{
-		return $this->sql->getOne("SELECT status FROM FAM_UserGroupPreference WHERE user_id=$user_id AND group_id=$group_id");
+		return $this->sql->getOne("SELECT status FROM FAM_UserGroupPreference WHERE user_id=$user_id AND group_id=$group_id AND year={$this->year}");
 	}
 
 	public function setSelectionStatus($user_id, $group_id, $status)
 	{
-		return $this->sql->execQuery("UPDATE FAM_UserGroupPreference SET status='$status' WHERE user_id=$user_id AND group_id=$group_id");
+		return $this->sql->execQuery("UPDATE FAM_UserGroupPreference SET status='$status' WHERE user_id=$user_id AND group_id=$group_id AND year={$this->year}");
 	}
 
 	public function getStage($stage_id)
@@ -82,13 +85,14 @@ class FAM {
 		$this->sql->insert("FAM_UserEvaluator", [
 			'user_id'		=> $user_id,
 			'evaluator_id'	=> $evaluator_id,
-			'group_id'		=> $group_id
+			'group_id'		=> $group_id,
+			'year'			=> $this->year
 		]);
 	}
 
 	public function getStageStatus($user_id, $stage_id,$group_id=0)
 	{
-		$q = "SELECT * FROM FAM_UserStage WHERE user_id=$user_id AND stage_id=$stage_id";
+		$q = "SELECT * FROM FAM_UserStage WHERE user_id=$user_id AND stage_id=$stage_id AND year={$this->year}";
 		if($group_id!=0){
 			$q .= " AND group_id=$group_id";
 		}
@@ -107,6 +111,7 @@ class FAM {
 				'comment'		=> $data['comment'],
 				'status'		=> $data['status'],
 				'evaluator_id'	=> $data['evaluator_id'],
+				'year'			=> $this->year
 			], ['id' => $existing['id']]);
 	}
 
@@ -118,7 +123,8 @@ class FAM {
 										INNER JOIN User U ON U.id=UGP.user_id
 										LEFT JOIN FAM_UserEvaluator UE ON UE.user_id=U.id
 										INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
-										WHERE UE.evaluator_id IS NULL AND U.status='1' AND (U.user_type='volunteer' OR U.user_type='alumni') AND UGP.status != 'withdrawn'
+										WHERE UE.evaluator_id IS NULL AND U.status='1' AND UGP.year={$this->year} 
+											AND (U.user_type='volunteer' OR U.user_type='alumni') AND UGP.status != 'withdrawn'
 										GROUP BY UGP.user_id");
 	}
 
@@ -148,7 +154,7 @@ class FAM {
 				INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
 				$join
 				INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
-				WHERE " . implode(" AND ", $checks) . " AND UGP.status != 'withdrawn'
+				WHERE " . implode(" AND ", $checks) . " AND UGP.status != 'withdrawn' AND UGP.year={$this->year}
 				GROUP BY UGP.user_id
 				ORDER BY C.name, U.name";
 
@@ -161,12 +167,12 @@ class FAM {
 		return $this->sql->getAll("SELECT U.id, U.name
 				FROM User U
 				INNER JOIN FAM_UserEvaluator E ON E.evaluator_id=U.id
-				WHERE E.user_id=$applicant_id AND E.group_id=$group_id AND U.status='1' AND U.user_type='volunteer'");
+				WHERE E.user_id=$applicant_id AND E.group_id=$group_id AND U.status='1' AND U.user_type='volunteer' AND E.year={$this->year}");
 	}
 
 	public function getResponse($applicant_id, $parameter_id)
 	{
-		return $this->sql->getOne("SELECT response FROM FAM_Evaluation WHERE user_id=$applicant_id AND parameter_id=$parameter_id");
+		return $this->sql->getOne("SELECT response FROM FAM_Evaluation WHERE user_id=$applicant_id AND parameter_id=$parameter_id AND year={$this->year}");
 	}
 
 	public function getApplications($applicant_id)

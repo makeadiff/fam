@@ -2,11 +2,12 @@
 require 'common.php';
 
 $all_cities = keyFormat($common->getCities(), ['id', 'name']);
+unset($all_cities[26]);
 
 $total_volunteers = $sql->getOne("SELECT COUNT(id) FROM User WHERE status='1' AND user_type='volunteer'");
 $total_filled = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupPreference UGP
 	INNER JOIN User U ON UGP.user_id=U.id
-	WHERE preference=1");
+	WHERE preference=1 AND UGP.year=$year");
 
 $verticals = [
 	'2'		=> "City Team Lead",
@@ -33,7 +34,7 @@ foreach ($all_cities as $city_id => $city_name) {
 
 	$applications[$city_id] = $sql->getById("SELECT UGP.group_id, COUNT(DISTINCT user_id) FROM FAM_UserGroupPreference UGP
 		INNER JOIN User U ON UGP.user_id=U.id
-		WHERE preference=1 AND ((UGP.city_id != 0 AND UGP.city_id=$city_id) OR (UGP.city_id = 0 AND U.city_id=$city_id))
+		WHERE preference=1 AND UGP.year=$year AND ((UGP.city_id != 0 AND UGP.city_id=$city_id) OR (UGP.city_id = 0 AND U.city_id=$city_id))
 		GROUP BY UGP.group_id");
 
 	// $selected[$city_id] = $sql->getById("SELECT UGP.group_id, COUNT(DISTINCT user_id) FROM FAM_UserGroupPreference UGP

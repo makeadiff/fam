@@ -55,7 +55,7 @@ $query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTI
 			LEFT JOIN FAM_UserEvaluator UE ON U.id=UE.user_id $join_condition
 			LEFT JOIN User E ON E.id=UE.evaluator_id
 			INNER JOIN `Group` G ON UGP.group_id=G.id $join
-			WHERE " . implode(" AND ", $checks) . " AND UGP.status != 'withdrawn'
+			WHERE " . implode(" AND ", $checks) . " AND UGP.status != 'withdrawn' AND UGP.year=$year
 			GROUP BY UGP.user_id";
 if($group_id) $query .= " ORDER BY UGP.preference, U.name";
 else $query .= " ORDER BY C.name, U.name";

@@ -28,12 +28,12 @@
   <?php foreach($verticals as $group_id => $group_name) {
     if(!isset($total_verticals[$group_id]['requirements'])) $total_verticals[$group_id]['requirements'] = 0;
     if(!isset($total_verticals[$group_id]['applications'])) $total_verticals[$group_id]['applications'] = 0;
-    $total_verticals[$group_id]['requirements'] += $requirements[$city_id][$group_id];
+    $total_verticals[$group_id]['requirements'] += i($requirements[$city_id], $group_id, 0);
     $total_verticals[$group_id]['applications'] += i($applications[$city_id], $group_id, 0);
 
     if(!isset($total_cities[$city_id]['requirements'])) $total_cities[$city_id]['requirements'] = 0;
     if(!isset($total_cities[$city_id]['applications'])) $total_cities[$city_id]['applications'] = 0;
-    $total_cities[$city_id]['requirements'] += $requirements[$city_id][$group_id];
+    $total_cities[$city_id]['requirements'] += i($requirements[$city_id], $group_id, 0);
     $total_cities[$city_id]['applications'] += i($applications[$city_id], $group_id, 0);
     ?>
     <td class="bordered"><?php echo $requirements[$city_id][$group_id] ?></td>
