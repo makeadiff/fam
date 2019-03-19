@@ -39,6 +39,7 @@ $verticals = [
 	'15'	=> "Finance",
 	'11'	=> "Campaigns and Communications",
 	'375'	=> "Foundational Programme",
+	'8'		=> 'Mentors'
 ];
 
 
@@ -62,38 +63,42 @@ function getRequirementFromSheet($sheet_url) {
 
 	// Transilation table for group_id => index in the spreadsheet.
 	$keys = [
-		'city_name'	=> 'A',
-		'2'		=> 'G',	// City Team Lead
-		'19'	=> 'I',	// Ed Support
-		'378'	=> 'K',	// Aftercare
-		'272'	=> 'J',	// Transition Readiness
-		'370'	=> 'O',	// Fundraising
-		'269'	=> 'L',	// Shelter Operations
-		'4'		=> 'M',	// Shelter Support
-		'5'		=> 'N',	// Human Capital
-		'15'	=> 'P',	// Finance
-		'11'	=> 'Q',	// Campaigns and Communications
-		'375'	=> 'H',	// Foundational Programme
+		'city_name'	=> ['A'],
+		'2'		=> ['H','I','J'],	// City Team Lead
+		'375'	=> ['K','L','M'],	// Foundation
+		'19'	=> ['N','O','P'],	// Ed Support
+		'272'	=> ['Q','R','S'],	// Transition Readiness
+		'378'	=> ['T','U','V'],	// Aftercare
+		'269'	=> ['W','X','Y'],	// Shelter Operations
+		'4'		=> ['Z','AA','AB'],	// Shelter Support
+		'5'		=> ['AC','AD','AE'],	// Human Capital
+		'370'	=> ['AF','AG','AH'],	// Fundraising
+		'15'	=> ['AI','AJ','AK'],	// Finance
+		'11'	=> ['AL','AM','AN'],	// Campaigns and Communications
+		'8'		=> ['AP','AQ','AR'],	// Mentors
 	];
 
 	$requirements = [];
 	$total_by_group = [];
 	$total_by_city = [];
 	foreach($sheet as $row_index => $row) {
-		$city_name = $row[$keys['city_name']];
+		$city_name = $row[$keys['city_name'][0]];
 		if(!isset($all_cities[$city_name])) continue;
 		$city_id = $all_cities[$city_name];
 
-		foreach($keys as $group_id => $column_name) {
+		foreach($keys as $group_id => $columns) {
 			if($group_id == 'city_name') continue;
 
-			$requirements[$city_id][$group_id] = $row[$column_name];
+			$requirements[$city_id][$group_id] = 0;
+			foreach ($columns as $column_index) {
+				$requirements[$city_id][$group_id] += $row[$column_index];
+			}
 
 			if(!isset($total_by_group[$group_id])) $total_by_group[$group_id] = 0;
-			$total_by_group[$group_id] += $row[$column_name];
+			$total_by_group[$group_id] += $requirements[$city_id][$group_id];
 		}
 
-		$total_by_city[$city_id] = $row['R'];
+		$total_by_city[$city_id] = $row['AO'];
 	}
 
 	$requirements['total_group'] = $total_by_group;

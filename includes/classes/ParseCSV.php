@@ -131,7 +131,7 @@ class ParseCSV implements Iterator
 	    $letter = chr(65 + $numeric);
 	    $num2 = intval($num / 26);
 	    if ($num2 > 0) {
-	        return numberToColumnLetterIndex($num2 - 1) . $letter;
+	        return $this->numberToColumnLetterIndex($num2 - 1) . $letter;
 	    } else {
 	        return $letter;
 	    }

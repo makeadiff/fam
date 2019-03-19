@@ -5,10 +5,10 @@ $all_cities = keyFormat($common->getCities(), ['id', 'name']);
 
 $total_volunteers = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupPreference UGP
 	INNER JOIN User U ON UGP.user_id=U.id
-	WHERE preference=1");
+	WHERE preference=1 AND year=$year");
 $total_filled = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupPreference UGP
 	INNER JOIN User U ON UGP.user_id=U.id
-	WHERE preference=1");
+	WHERE preference=1 AND year=$year");
 
 $verticals = [
 	'2'		=> "City Team Lead",
@@ -37,24 +37,24 @@ foreach ($all_cities as $city_id => $city_name) {
 	$applications[$city_id] = $sql->getById("SELECT UGP.group_id, COUNT(DISTINCT UGP.user_id) FROM FAM_UserGroupPreference UGP
 		INNER JOIN User U ON UGP.user_id=U.id
 		INNER JOIN FAM_UserStage US ON US.user_id = U.id
-		WHERE preference=1 AND ((UGP.city_id != 0 AND UGP.city_id=$city_id) OR (UGP.city_id = 0 AND U.city_id=$city_id))
+		WHERE preference=1 AND ((UGP.city_id != 0 AND UGP.city_id=$city_id) OR (UGP.city_id = 0 AND U.city_id=$city_id)) AND UGP.year=$year
 		AND (
-			(US.stage_id=1 AND US.status='selected')
-			OR
-			(US.stage_id=2 AND US.status='selected')
-		)
+				(US.stage_id=1 AND US.status='selected')
+				OR
+				(US.stage_id=2 AND US.status='selected')
+			)
 		GROUP BY UGP.group_id");
 
 	$submitted[$city_id] = $sql->getById("SELECT UGP.group_id, COUNT(DISTINCT UGP.user_id) FROM FAM_UserGroupPreference UGP
 		INNER JOIN User U ON UGP.user_id=U.id
 		INNER JOIN FAM_UserStage US ON US.user_id = U.id
 		INNER JOIN FAM_UserTask UT ON UT.user_id = U.id
-		WHERE preference=1 AND ((UGP.city_id != 0 AND UGP.city_id=$city_id) OR (UGP.city_id = 0 AND U.city_id=$city_id))
+		WHERE preference=1 AND ((UGP.city_id != 0 AND UGP.city_id=$city_id) OR (UGP.city_id = 0 AND U.city_id=$city_id)) AND UGP.year=$year
 		AND (
-			(US.stage_id=1 AND US.status='selected')
-			OR
-			(US.stage_id=2 AND US.status='selected')
-		)
+				(US.stage_id=1 AND US.status='selected')
+				OR
+				(US.stage_id=2 AND US.status='selected')
+			)
 		AND (UT.preference_1_task_files <> '' OR UT.preference_1_video_files<>'')
 		GROUP BY UGP.group_id");
 
@@ -62,7 +62,7 @@ foreach ($all_cities as $city_id => $city_name) {
 		INNER JOIN User U ON UGP.user_id=U.id
 		INNER JOIN FAM_UserStage US ON US.user_id = U.id
 		INNER JOIN FAM_UserTask UT ON UT.user_id = U.id
-		WHERE preference=1 AND ((UGP.city_id != 0 AND UGP.city_id=$city_id) OR (UGP.city_id = 0 AND U.city_id=$city_id))
+		WHERE preference=1 AND ((UGP.city_id != 0 AND UGP.city_id=$city_id) OR (UGP.city_id = 0 AND U.city_id=$city_id)) AND UGP.year=$year
 		AND US.stage_id=5 AND US.status<>'' AND US.status<>'pending'
 		AND (UT.preference_1_task_files <> '' OR UT.preference_1_video_files<>'')
 		GROUP BY UGP.group_id");
@@ -87,7 +87,7 @@ if($city_id) {
 $total_volunteers = $sql->getOne("SELECT COUNT(U.id) FROM User U
 	INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id = U.id
 	INNER JOIN FAM_UserStage US ON US.user_id = U.id
-  WHERE $city_check U.status='1' AND U.user_type='volunteer'
+  	WHERE $city_check U.status='1' AND U.user_type='volunteer' AND UGP.year=$year
 	AND (
 		(US.stage_id=1 AND US.status='selected')
 		OR
@@ -98,7 +98,7 @@ $total_filled = $sql->getOne("SELECT COUNT(DISTINCT UGP.user_id)
 	FROM FAM_UserGroupPreference UGP
 	INNER JOIN User U ON UGP.user_id=U.id
 	INNER JOIN FAM_UserStage US ON US.user_id = U.id
-	WHERE $city_check_ugp preference=1
+	WHERE $city_check_ugp preference=1 AND UGP.year=$year
 	AND (
 		(US.stage_id=1 AND US.status='selected')
 		OR
@@ -109,7 +109,7 @@ $fellowship_applications = $sql->getOne("SELECT COUNT(DISTINCT UGP.user_id)
 	FROM FAM_UserGroupPreference UGP
 	INNER JOIN User U ON UGP.user_id=U.id
 	INNER JOIN FAM_UserStage US ON US.user_id = U.id
-	WHERE $city_check_ugp preference=1 AND UGP.group_id IN (SELECT id FROM `Group` WHERE type='fellow' OR type='strat')");
+	WHERE $city_check_ugp preference=1 AND UGP.year=$year AND UGP.group_id IN (SELECT id FROM `Group` WHERE type='fellow' OR type='strat')");
 
 $shortlisted = [];
 $total_submitted = [];
@@ -119,7 +119,7 @@ foreach ($verticals as $group_id => $name) {
 		FROM FAM_UserGroupPreference UGP
 		INNER JOIN User U ON UGP.user_id=U.id
 		INNER JOIN FAM_UserStage US ON US.user_id = U.id
-		WHERE $city_check_ugp preference=1 AND UGP.group_id=$group_id
+		WHERE $city_check_ugp preference=1 AND UGP.group_id=$group_id AND UGP.year=$year
 		AND (
 			(US.stage_id=1 AND US.status='selected')
 			OR
@@ -131,7 +131,7 @@ foreach ($verticals as $group_id => $name) {
 		INNER JOIN User U ON UGP.user_id=U.id
 		INNER JOIN FAM_UserStage US ON US.user_id = U.id
 		INNER JOIN FAM_UserTask UT ON UT.user_id = U.id
-		WHERE $city_check_ugp preference=1 AND UGP.group_id=$group_id
+		WHERE $city_check_ugp preference=1 AND UGP.group_id=$group_id AND UGP.year=$year
 		AND (
 			(US.stage_id=1 AND US.status='selected')
 			OR
@@ -143,7 +143,7 @@ foreach ($verticals as $group_id => $name) {
 		INNER JOIN User U ON UGP.user_id=U.id
 		INNER JOIN FAM_UserStage US ON US.user_id = U.id
 		INNER JOIN FAM_UserTask UT ON UT.user_id = U.id
-		WHERE $city_check_ugp preference=1 AND UGP.group_id=$group_id
+		WHERE $city_check_ugp preference=1 AND UGP.group_id=$group_id AND UGP.year=$year
 		AND US.stage_id=5 AND US.status<>'' AND US.status<>'pending'
 		AND (UT.preference_1_task_files <> '' OR UT.preference_1_video_files<>'')";
 
@@ -156,7 +156,7 @@ $selected = [];
 foreach ($verticals as $group_id => $name) {
 	$selected[$group_id] = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupPreference UGP
 		INNER JOIN User U ON UGP.user_id=U.id
-		WHERE $city_check preference=1 AND group_id=$group_id AND UGP.status='selected'");
+		WHERE $city_check preference=1 AND group_id=$group_id AND UGP.status='selected' AND UGP.year=$year");
 }
 
 

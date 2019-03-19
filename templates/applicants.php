@@ -5,7 +5,6 @@
 <div class="clearfix"></div>
 </div>
 
-
 <div class="x_content">
 <form action="applicants.php" method="post">
 <?php $html->buildInput("group_id", 'Applicants for ', 'select', $group_id, ['options' => $all_groups, 'no_br' => 1]); ?> &nbsp;
@@ -39,14 +38,14 @@ foreach($applicants as $u) {
 	<?php if($group_id) { ?><td><?php echo $u['preference'] ?></td><?php } ?>
 	<td><?php echo i($u, 'evaluator'); ?></td>
 	<?php if($is_director) { ?>
-		<td><a href="evaluate.php?stage_id=1&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-primary">Kindness Challenge</a> <?php showApplicantStatus($u['id'], 1); ?><br />
+		<td><!-- <a href="evaluate.php?stage_id=1&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-primary">Kindness Challenge</a> <?php showApplicantStatus($u['id'], 1); ?><br /> -->
 			<a href="evaluate.php?stage_id=2&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-success">Applicant Feedback</a> <?php showApplicantStatus($u['id'], 2); ?><br />
 			<a href="evaluate.php?stage_id=3&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-warning">Common Tasks</a> <?php showApplicantStatus($u['id'], 3); ?><br />
 			<a href="evaluate_vertical.php?stage_id=5&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-default">Vertical Tasks</a> <?php showApplicantStatus($u['id'], 5); ?><br />
 			<a href="evaluate_vertical.php?stage_id=4&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-info">Personal Interview</a> <?php showApplicantStatus($u['id'], 4); ?></td>
 
-		<td><a href="applicants.php?action=delete&ugp_id=<?php echo $u['ugp_id'] ?>&city_id=<?php echo $city_id ?>&group_id=<?php echo $group_id ?>"
-									 class="delete confirm icon">Delete</a></td><?php } ?>
+		<td><a href="<?php echo getLink('applicants.php',['action'=>'delete','ugp_id'=>$u['ugp_id'],'city_id'=>$city_id,'group_id'=>$group_id]) ?>" class="delete confirm icon">Delete</a></td><?php } ?>
+
 </tr>
 <?php } ?>
 </table>
