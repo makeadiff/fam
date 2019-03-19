@@ -91,7 +91,7 @@ function getRequirementFromSheet($sheet_url) {
 
 			$requirements[$city_id][$group_id] = 0;
 			foreach ($columns as $column_index) {
-				$requirements[$city_id][$group_id] += $row[$column_index];
+				@$requirements[$city_id][$group_id] += $row[$column_index];
 			}
 
 			if(!isset($total_by_group[$group_id])) $total_by_group[$group_id] = 0;

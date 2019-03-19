@@ -39,7 +39,7 @@
           <div class="left_col scroll-view">
 
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.php" class="site_title"><span><small>Applicant Management</small></span></a>
+              <a href="index.php" class="site_title"><span><small>FAM</small></span></a>
             </div>
 
             <div class="clearfix"></div>
