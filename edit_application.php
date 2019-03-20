@@ -26,17 +26,20 @@ if($action == 'Find Applicant') {
 	if(count($found_applicants) == 1) $applicant = $found_applicants[0];
 
 } elseif($action == 'Update') {
-	$sql->remove("FAM_UserGroupPreference", ['user_id' => $applicant_id]);
+	$sql->update("FAM_UserGroupPreference", ['status' => 'withdrawn'], ['user_id' => $applicant_id, 'year' => $year]);
 
 	$preferences = $QUERY['preference'];
 
 	foreach ($preferences as $preference => $group_id) {
+		if(!$group_id) continue;
+		
 		$sql->insert("FAM_UserGroupPreference", [
 			'user_id'	=> $applicant_id,
 			'group_id'	=> $group_id,
 			'preference'=> $preference,
 			'city_id'	=> $QUERY['city_id'],
-			'added_on'	=> 'NOW()'
+			'added_on'	=> 'NOW()',
+			'year'		=> $year
 		]);
 	}
 

@@ -27,19 +27,32 @@ foreach($user['groups'] as $grp) {
 	}
 }
 
+define('GROUP_ID_CTL', 2);
+define('GROUP_ID_ED', 19);
+define('GROUP_ID_AFTERCARE', 378);
+define('GROUP_ID_TR', 272);
+define('GROUP_ID_FR', 370);
+define('GROUP_ID_OPS', 269);
+define('GROUP_ID_SOF', 4);
+define('GROUP_ID_HC', 5);
+define('GROUP_ID_FINANCE', 15);
+define('GROUP_ID_PR', 11);
+define('GROUP_ID_FP', 375);
+define('GROUP_ID_MENTOR', 8);
+
 $verticals = [
-	'2'		=> "City Team Lead",
-	'19'	=> "Ed Support",
-	'378'	=> "Aftercare",
-	'272'	=> "Transition Readiness",
-	'370'	=> "Fundraising",
-	'269'	=> "Shelter Operations",
-	'4'		=> "Shelter Support",
-	'5'		=> "Human Capital",
-	'15'	=> "Finance",
-	'11'	=> "Campaigns and Communications",
-	'375'	=> "Foundational Programme",
-	'8'		=> 'Mentors'
+	GROUP_ID_CTL		=> "City Team Lead",
+	GROUP_ID_ED			=> "Ed Support",
+	GROUP_ID_AFTERCARE	=> "Aftercare",
+	GROUP_ID_TR			=> "Transition Readiness",
+	GROUP_ID_FR			=> "Fundraising",
+	GROUP_ID_OPS		=> "Shelter Operations",
+	GROUP_ID_SOF		=> "Shelter Support",
+	GROUP_ID_HC			=> "Human Capital",
+	GROUP_ID_FINANCE	=> "Finance",
+	GROUP_ID_PR			=> "Campaigns and Communications",
+	GROUP_ID_FP			=> "Foundational Programme",
+	GROUP_ID_MENTOR		=> 'Mentors'
 ];
 
 
@@ -54,8 +67,14 @@ function showApplicantStatus($user_id, $stage_id) {
 }
 
 /// This will fetch the google spreadsheet PUBLISHED csv and convert it into a array.
-function getRequirementFromSheet($sheet_url) {
+function getRequirementFromSheet($sheet_url = '') {
 	global $common;
+	// Data source
+	// 2018-19 Requirement Sheet - https://docs.google.com/spreadsheets/d/150mVAUvisYObaW2MVUZfi2tjbKxvd2tZalB3gfr091o/edit?ts=5aacf12d#gid=675197629
+	// 2018-19 CSV - https://docs.google.com/spreadsheets/d/e/2PACX-1vTf7uqEdn1CWZjwG8YALAS52jGVMABAfo1Xpb6YR3g69jSHir_govSZvFz_F_J_ACX1W50byaNE0ibS/pub?output=csv
+	// 2019-20 Requirement Sheet - https://docs.google.com/spreadsheets/d/1FsypDbY5KDpTwD5696Hz0ZSd1UZpMyrFNauoDWvLBGQ/edit?ts=5c90f9b4#gid=675197629
+	$sheet_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRzSwv2Yr5vT9YCjqRpraem2ZBpVKy2VT_UU9L2iA3364MIBiN1zhdVCX2bIq_3CIg7owI2yQx86q1q/pub?gid=675197629&single=true&output=csv";
+
 	require 'includes/classes/ParseCSV.php';
 	$sheet = new ParseCSV($sheet_url);
 

@@ -45,6 +45,8 @@ function handleSubmit(e) {
 			action.val("Saved");
 			action.prop("disabled", false);
 			// console.log(message);
+			// $("#main-content").growl({title: "Data Saved", text: "Your data has been saved to the database successfully.", growlClass: "success"});
+			$.notify({title: '<strong>Data Saved</strong>', message: 'Your data has been saved to the database successfully.',icon: 'glyphicon glyphicon-ok'}, {type: "success", delay: 3000});
 			window.setTimeout(function () {
 				action.val("Save");
 			}, 2000);
@@ -67,6 +69,7 @@ function siteInit() {
 	});
 
 	$("form.ajaxify").submit(handleSubmit);
+	// $( document ).tooltip();
 
 	if(window.init && typeof window.init == "function") init(); //If there is a function called init(), call it on load
 }

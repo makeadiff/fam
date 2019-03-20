@@ -27,7 +27,7 @@ class FAM {
 	}
 	public function getStages()
 	{
-		return $this->sql->getAll("SELECT * FROM FAM_Stage WHERE name!='Done'");
+		return $this->sql->getAll("SELECT * FROM FAM_Stage WHERE name!='Done' AND status='1'");
 	}
 
 	public function getCategory($category_id)
@@ -63,7 +63,8 @@ class FAM {
 		// Clear existing evaluations, if any.
 		$this->sql->remove("FAM_Evaluation", [
 			'user_id'		=> $data['applicant_id'],
-			'parameter_id'	=> $data['parameter_id']
+			'parameter_id'	=> $data['parameter_id'],
+			'year'			=> $this->year
 		]);
 
 		$this->sql->insert('FAM_Evaluation', [
@@ -71,13 +72,14 @@ class FAM {
 			'parameter_id'	=> $data['parameter_id'],
 			'evaluator_id'	=> $data['evaluator_id'],
 			'response'		=> $data['response'],
-			'added_on'		=> 'NOW()'
+			'added_on'		=> 'NOW()',
+			'year'			=> $this->year,
 		]);
 	}
 
 	public function resetAssignments($evaluator_id, $amount_users)
 	{
-		$this->sql->execQuery("DELETE FROM FAM_UserEvaluator WHERE evaluator_id=$evaluator_id AND user_id IN (" . implode(',', $amount_users) . ")");
+		$this->sql->execQuery("DELETE FROM FAM_UserEvaluator WHERE year={$this->year} AND evaluator_id=$evaluator_id AND user_id IN (" . implode(',', $amount_users) . ")");
 	}
 
 	public function assignEvaluators($user_id, $evaluator_id, $group_id)
@@ -105,6 +107,7 @@ class FAM {
 	public function saveStageStatus($data)
 	{
 		$existing = $this->getStageStatus($data['user_id'], $data['stage_id'],$data['group_id']);
+		$data['year'] = $this->year;
 
 		if(!isset($existing['id'])) $this->sql->insert("FAM_UserStage", $data);
 		else $this->sql->update("FAM_UserStage", [
@@ -123,7 +126,7 @@ class FAM {
 										INNER JOIN User U ON U.id=UGP.user_id
 										LEFT JOIN FAM_UserEvaluator UE ON UE.user_id=U.id
 										INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
-										WHERE UE.evaluator_id IS NULL AND U.status='1' AND UGP.year={$this->year} 
+										WHERE UE.evaluator_id IS NULL AND U.status='1' AND UGP.year={$this->year} AND UE.year={$this->year}
 											AND (U.user_type='volunteer' OR U.user_type='alumni') AND UGP.status != 'withdrawn'
 										GROUP BY UGP.user_id");
 	}
@@ -137,26 +140,28 @@ class FAM {
 		if(isset($source['evaluator_id'])) {
 			if(!$source['evaluator_id']) return [];
 	 		$checks[] = "UE.evaluator_id=" . $source['evaluator_id'];
+	 		$checks[] = 'UE.year='.$this->year;
 	 		$join .= "INNER JOIN FAM_UserEvaluator UE ON U.id=UE.user_id";
 	 	}
 		if(isset($source['stage_id']) && $source['stage_id']!=0){
 			$selects .= ', US.status, US.stage_id';
 			$join .= 'LEFT JOIN FAM_UserStage US ON US.user_id = U.id';
 			$checks[] = 'US.stage_id='.$source['stage_id'];
+			$checks[] = 'US.year='.$this->year;
 			if(isset($source['status']) && $source['status']!='0'){
 				$checks[] = 'US.status="'.$source['status'].'"';
 			}
 		}
 
-
-	 	$query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS groups, UGP.preference, C.name AS city, UGP.id AS ugp_id $selects
-				FROM User U
-				INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
-				$join
-				INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
-				WHERE " . implode(" AND ", $checks) . " AND UGP.status != 'withdrawn' AND UGP.year={$this->year}
-				GROUP BY UGP.user_id
-				ORDER BY C.name, U.name";
+	 	$query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS groups, 
+	 					UGP.preference, C.name AS city, UGP.id AS ugp_id $selects
+					FROM User U
+					INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
+					$join
+					INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
+					WHERE " . implode(" AND ", $checks) . " AND UGP.status != 'withdrawn' AND UGP.year={$this->year}
+					GROUP BY UGP.user_id
+					ORDER BY C.name, U.name";
 
 
 		return $this->sql->getAll($query);
@@ -177,13 +182,13 @@ class FAM {
 
 	public function getApplications($applicant_id)
 	{
-		return $this->sql->getAll("SELECT preference, group_id, city_id FROM FAM_UserGroupPreference WHERE user_id=$applicant_id");
+		return $this->sql->getAll("SELECT preference, group_id, city_id FROM FAM_UserGroupPreference WHERE user_id=$applicant_id AND year={$this->year}");
 	}
 
 	public function getTask($applicant_id, $type = 'common', $group_id = 0)
 	{
 		if($type == 'common') {
-			return $this->sql->getOne("SELECT common_task_url FROM FAM_UserTask WHERE user_id=$applicant_id");
+			return $this->sql->getOne("SELECT common_task_url FROM FAM_UserTask WHERE user_id=$applicant_id AND year={$this->year}");
 		} elseif($type == 'vertical') {
 			return $this->sql->getOne("SELECT CASE $group_id
 												WHEN preference_1_group_id THEN preference_1_task_files
@@ -191,7 +196,7 @@ class FAM {
 												WHEN preference_3_group_id THEN preference_3_task_files
 												ELSE ''
 												END
-											FROM FAM_UserTask WHERE user_id=$applicant_id");
+											FROM FAM_UserTask WHERE user_id=$applicant_id AND year={$this->year}");
 		} elseif($type == 'vertical_video_task') {
 			return $this->sql->getOne("SELECT CASE $group_id
 												WHEN preference_1_group_id THEN preference_1_video_files
@@ -199,7 +204,7 @@ class FAM {
 												WHEN preference_3_group_id THEN preference_3_video_files
 												ELSE ''
 												END
-											FROM FAM_UserTask WHERE user_id=$applicant_id");
+											FROM FAM_UserTask WHERE user_id=$applicant_id AND year={$this->year}");
 		}
 
 		return false;
@@ -223,7 +228,7 @@ class FAM {
 
 	public function getApplicantFeedback($applicant_id)
 	{
-		$feedback = $this->sql->getAll("SELECT reviewer_user_id, question_id, feedback, comment FROM FAM_ApplicantFeedback WHERE applicant_user_id=$applicant_id");
+		$feedback = $this->sql->getAll("SELECT reviewer_user_id, question_id, feedback, comment FROM FAM_ApplicantFeedback WHERE applicant_user_id=$applicant_id AND year={$this->year}");
 
 		$return = [];
 
@@ -244,12 +249,12 @@ class FAM {
 
 	public function statusSelectOption($name,$label,$status){
 		$status_array = array(
-			'0'=>'Any',
-			'pending'=>'Pending',
-			'free-pool'=>'Free Pool',
-			'maybe'=>'Maybe',
-			'rejected'=>'Rejected',
-			'selected'=>'Selected',
+			'0'			=>	'Any',
+			'pending'	=>	'Pending',
+			'free-pool'	=>	'Free Pool',
+			'maybe'		=>	'Maybe',
+			'rejected'	=>	'Rejected',
+			'selected'	=>	'Selected',
 		);
 
 		$input = '<label for="'.$name.'">'.$label.'</label>'.'<select id="'.$name.'" name="'.$name.'">';

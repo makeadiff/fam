@@ -23,11 +23,7 @@ $fellowship_applications = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM
 	INNER JOIN User U ON UGP.user_id=U.id
 	WHERE $city_check_ugp preference=1 AND UGP.year=$year AND UGP.group_id IN (SELECT id FROM `Group` WHERE type='fellow' OR type='strat')");
 
-// Data source
-// 2018-19 Requirement Sheet - https://docs.google.com/spreadsheets/d/150mVAUvisYObaW2MVUZfi2tjbKxvd2tZalB3gfr091o/edit?ts=5aacf12d#gid=675197629
-// 2018-19 CSV - https://docs.google.com/spreadsheets/d/e/2PACX-1vTf7uqEdn1CWZjwG8YALAS52jGVMABAfo1Xpb6YR3g69jSHir_govSZvFz_F_J_ACX1W50byaNE0ibS/pub?output=csv
-// 2019-20 Requirement Sheet - https://docs.google.com/spreadsheets/d/1FsypDbY5KDpTwD5696Hz0ZSd1UZpMyrFNauoDWvLBGQ/edit?ts=5c90f9b4#gid=675197629
-$requirements = getRequirementFromSheet("https://docs.google.com/spreadsheets/d/e/2PACX-1vRzSwv2Yr5vT9YCjqRpraem2ZBpVKy2VT_UU9L2iA3364MIBiN1zhdVCX2bIq_3CIg7owI2yQx86q1q/pub?gid=675197629&single=true&output=csv");
+$requirements = getRequirementFromSheet();
 $requirements['total_group'][0] = array_sum($requirements['total_group']);
 $requirements['total_city'][0] = array_sum($requirements['total_city']);
 

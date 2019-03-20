@@ -1,4 +1,10 @@
-<div class="x_panel">
+<?php
+$colors = [
+  'green'   => '#a62c37',
+  'orange'  => '#f6b26b',
+  'red'     => '#26B99A'
+];
+?><div class="x_panel">
 	<div class="x_title">
 		<h2>City Data</h2>
 		<div class="clearfix"></div>
@@ -44,30 +50,34 @@
       <?php
       if($group_id == 0) {
         foreach($verticals as $this_group_id => $title) {
+          $multiplication_factor_for_group = $multiplication_factor;
+          if($this_group_id == GROUP_ID_MENTOR) $multiplication_factor_for_group = 1; // Special treatment for Mentors - target is the requirement count.
           if(!$requirements[$city_id][$this_group_id]) continue;
       ?>
       <div class="col-md-2 boxes">
         <p class="vertical-name"><a href="applicants.php?vertical_group_id=<?php echo $this_group_id ?>&city_id=<?php echo $city_id ?>&action=Filter"><?php echo $title ?></a></p>
         <input class="knob" data-width="100" data-height="120" data-angleOffset="0" data-min="0" data-max="<?php 
-            $target = $requirements[$city_id][$this_group_id] * $multiplication_factor;
+            $target = $requirements[$city_id][$this_group_id] * $multiplication_factor_for_group;
             if($applicants[$city_id][$this_group_id] > $target) echo $applicants[$city_id][$this_group_id];
             else echo $target;
           ?>" data-linecap="round" data-fgColor="<?php 
-            if($requirements[$city_id][$this_group_id] > $applicants[$city_id][$this_group_id]) echo '#a62c37';
-            elseif(($requirements[$city_id][$this_group_id] * 2) > $applicants[$city_id][$this_group_id]) echo '#f6b26b';
-            else echo '#26B99A'; 
+            if($requirements[$city_id][$this_group_id] > $applicants[$city_id][$this_group_id]) echo $colors['green'];
+            elseif(($requirements[$city_id][$this_group_id] * 2) > $applicants[$city_id][$this_group_id]) echo $colors['orange'];
+            else echo $colors['red']; 
              ?>" value="<?php echo $applicants[$city_id][$this_group_id] ?>" data-readOnly="true" /><br />
+        Target: <strong><?php echo ($requirements[$city_id][$this_group_id] * $multiplication_factor_for_group) ?></strong><br />
         Requirement: <strong><?php echo $requirements[$city_id][$this_group_id] ?></strong><br />
         Applicant Count: <strong><?php echo $applicants[$city_id][$this_group_id] ?></strong><br />
-        Target: <strong><?php echo ($requirements[$city_id][$this_group_id] * $multiplication_factor) ?></strong><br />
       </div>
       <?php 
         }
       } else {
         foreach($all_cities as $this_city_id => $city_name) {
+          $multiplication_factor_for_group = $multiplication_factor;
+          if($this_group_id == GROUP_ID_MENTOR) $multiplication_factor_for_group = 1; // Special treatment for Mentors - target is the requirement count.
           if($city_id and $this_city_id != $city_id) continue;
           if(!isset($requirements[$this_city_id]) or !$requirements[$this_city_id][$group_id]) continue;
-           $target = $requirements[$this_city_id][$group_id] * $multiplication_factor;
+           $target = $requirements[$this_city_id][$group_id] * $multiplication_factor_for_group;
       ?>
       <div class="col-md-2 boxes">
         <p class="vertical-name"><a href="applicants.php?group_id=<?php $group_id ?>&city_id=<?php echo $this_city_id ?>&action=Filter"><?php echo $city_name ?></a></p>
@@ -75,21 +85,21 @@
             if($applicants[$this_city_id][$group_id] > $target) echo $applicants[$this_city_id][$group_id];
             else echo $target;
           ?>" data-linecap="round" data-fgColor="<?php 
-            if($requirements[$this_city_id][$group_id] > $applicants[$this_city_id][$group_id]) echo '#a62c37';
-            elseif(($requirements[$this_city_id][$group_id] * 2) > $applicants[$this_city_id][$group_id]) echo '#f6b26b';
-            else echo '#26B99A'; 
+            if($requirements[$this_city_id][$group_id] > $applicants[$this_city_id][$group_id]) echo $colors['green'];
+            elseif(($requirements[$this_city_id][$group_id] * 2) > $applicants[$this_city_id][$group_id]) echo $colors['orange'];
+            else echo $colors['red']; 
              ?>" value="<?php echo $applicants[$this_city_id][$group_id] ?>" data-readOnly="true" /><br />
+        Target: <strong><?php echo ($requirements[$this_city_id][$group_id] * $multiplication_factor_for_group) ?></strong><br />
         Requirement: <strong><?php echo $requirements[$this_city_id][$group_id] ?></strong><br />
         Applicant Count: <strong><?php echo $applicants[$this_city_id][$group_id] ?></strong><br />
-        Target: <strong><?php echo ($requirements[$this_city_id][$group_id] * $multiplication_factor) ?></strong><br />
       </div>
       <?php }
       } ?>
     </div> 
 
     <strong>Legend</strong><br />
-    <span style="background-color:#a62c37; border:1px solid #000;"> &nbsp; </span>&nbsp; Number of Applicants are <strong>less than requirements</strong>.<br />
-    <span style="background-color:#f6b26b; border:1px solid #000;"> &nbsp; </span>&nbsp; Number of Applicants are <strong>less than 2 x</strong> the requirements.<br />
-    <span style="background-color:#26B99A; border:1px solid #000;"> &nbsp; </span>&nbsp; Number of Applicants are <strong>more than 2 x</strong> the requirements.<br />
+    <span style="background-color:<?php echo $colors['red'] ?>; border:1px solid #000;"> &nbsp; </span>&nbsp; Number of Applicants are <strong>less than requirements</strong>.<br />
+    <span style="background-color:<?php echo $colors['orange'] ?>; border:1px solid #000;"> &nbsp; </span>&nbsp; Number of Applicants are <strong>less than 2 x</strong> the requirements.<br />
+    <span style="background-color:<?php echo $colors['green'] ?>; border:1px solid #000;"> &nbsp; </span>&nbsp; Number of Applicants are <strong>more than 2 x</strong> the requirements.<br />
   </div>
 </div>

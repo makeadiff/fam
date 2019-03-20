@@ -26,9 +26,9 @@
   <?php echo $css_includes; ?>
 
   <!--Autofill functionality  -->
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   </head>
 
   <body class="nav-md">
@@ -76,7 +76,7 @@
                         <li><a href="edit_application.php"><i class="fa fa-edit"></i> Add/Edit Applications</a></li>
                         <li><a href="selected_fellows.php"><i class="fa fa-user"></i> Selected Fellows</a></li>
                         <li><a href="shelter_selection.php"><i class="fa fa-user"></i>Shelter Selection (SOFs)</a></li>
-                        <li><a href="update_madapp.php"><i class="fa fa-lock"></i><em>Update MADApp</em></a></li>
+                        <!-- <li><a href="update_madapp.php"><i class="fa fa-lock"></i><em>Update MADApp</em></a></li> -->
                       </ul></li>
                       <?php } ?>
                   </ul>
@@ -102,7 +102,7 @@
         <!-- /top navigation -->
 
 <!-- page content -->
-<div class="right_col" role="main">
+<div class="right_col" role="main" id="main-content">
 
 <?php if(i($QUERY, 'error') or i($QUERY, 'success')) { ?>
 <div class="x_panel">
@@ -129,7 +129,6 @@
       </div>
     </div>
 
-    <script src="<?php echo $config['site_home'] ?>/js/library/jquery.min.js"></script>
     <script src="<?php echo $config['site_home'] ?>/js/library/bootstrap.min.js"></script>
     <script src="<?php echo $config['site_home'] ?>/js/library/fastclick.js"></script>
     <script src="<?php echo $config['site_home'] ?>/js/library/nprogress.js"></script>
@@ -156,8 +155,7 @@
     <script src="<?php echo $config['site_home'] ?>/js/library/jquery.knob.min.js"></script>
     <script src="<?php echo $config['site_home'] ?>/js/library/custom.min.js"></script>
     <script src="<?php echo $config['site_home'] ?>/js/gridviewscroll.js"></script>
-<!-- <script src="<?php echo $config['common_library_url'] ?>bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
-<script src="<?php echo $config['common_library_url'] ?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
+    <script src="<?php echo $config['site_home'] ?>/js/library/bootstrap-notify-3.1.3/dist/bootstrap-notify.min.js"></script>
 	<script src="<?php echo $config['site_home'] ?>js/application.js" type="text/javascript"></script>
 	<?php echo $js_includes; ?>
 
