@@ -42,7 +42,7 @@ foreach ($verticals as $this_group_id => $name) {
 	
 	foreach($applicant_counts as $row) {
 		$user_or_ugp_city_id = ($row['ugp_city_id']) ? $row['ugp_city_id'] : $row['u_city_id'];
-		$applicants[$user_or_ugp_city_id][$this_group_id] = $row['applicant_count'];
+		$applicants[$user_or_ugp_city_id][$this_group_id] += $row['applicant_count'];
 		$applicants[0][$this_group_id] += $row['applicant_count'];
 	}
 

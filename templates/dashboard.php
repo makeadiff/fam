@@ -74,7 +74,7 @@ $colors = [
       } else {
         foreach($all_cities as $this_city_id => $city_name) {
           $multiplication_factor_for_group = $multiplication_factor;
-          if($this_group_id == GROUP_ID_MENTOR) $multiplication_factor_for_group = 1; // Special treatment for Mentors - target is the requirement count.
+          if($group_id == GROUP_ID_MENTOR) $multiplication_factor_for_group = 1; // Special treatment for Mentors - target is the requirement count.
           if($city_id and $this_city_id != $city_id) continue;
           if(!isset($requirements[$this_city_id]) or !$requirements[$this_city_id][$group_id]) continue;
            $target = $requirements[$this_city_id][$group_id] * $multiplication_factor_for_group;
@@ -89,7 +89,7 @@ $colors = [
             elseif(($requirements[$this_city_id][$group_id] * 2) > $applicants[$this_city_id][$group_id]) echo $colors['orange'];
             else echo $colors['red']; 
              ?>" value="<?php echo $applicants[$this_city_id][$group_id] ?>" data-readOnly="true" /><br />
-        Target: <strong><?php echo ($requirements[$this_city_id][$group_id] * $multiplication_factor_for_group) ?></strong><br />
+        Target: <strong><?php echo ($requirements[$this_city_id][$group_id] * $multiplication_factor_for_group); ?></strong><br />
         Requirement: <strong><?php echo $requirements[$this_city_id][$group_id] ?></strong><br />
         Applicant Count: <strong><?php echo $applicants[$this_city_id][$group_id] ?></strong><br />
       </div>
