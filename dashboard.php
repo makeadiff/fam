@@ -10,29 +10,28 @@ $group_id = i($QUERY, 'group_id', 0);
 
 $city_check = '';
 $city_check_ugp = '';
+$group_check_ugp = '';
 if($city_id) {
 	$city_check = "U.city_id=$city_id AND ";
 	$city_check_ugp = "((UGP.city_id != 0 AND UGP.city_id=$city_id) OR (UGP.city_id = 0 AND U.city_id=$city_id)) AND ";
 }
+if($group_id) {
+	$group_check_ugp = "UGP.group_id=$group_id AND ";
+}
 
 $total_volunteers = $sql->getOne("SELECT COUNT(id) FROM User U WHERE $city_check U.status='1' AND U.user_type='volunteer'");
-$total_filled = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupPreference UGP
-	INNER JOIN User U ON UGP.user_id=U.id
-	WHERE $city_check_ugp preference=1 AND year=$year");
-$fellowship_applications = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupPreference UGP
-	INNER JOIN User U ON UGP.user_id=U.id
-	WHERE $city_check_ugp preference=1 AND UGP.year=$year AND UGP.group_id IN (SELECT id FROM `Group` WHERE type='fellow' OR type='strat')");
 
 $requirements = getRequirementFromSheet();
 $requirements['total_group'][0] = array_sum($requirements['total_group']);
 $requirements['total_city'][0] = array_sum($requirements['total_city']);
 
 $applicants = [];
+$total_filled = 0;
 foreach ($verticals as $this_group_id => $name) {
-	$applicant_counts = $sql->getAll("SELECT U.city_id,COUNT(DISTINCT user_id) AS applicant_count FROM FAM_UserGroupPreference UGP
+	// We have a U.city_id and a UGP.city_id because we want to capture details of people who are moving to the given city as well.
+	$applicant_counts = $sql->getAll("SELECT U.city_id AS u_city_id, UGP.city_id AS ugp_city_id,COUNT(DISTINCT user_id) AS applicant_count FROM FAM_UserGroupPreference UGP
 		INNER JOIN User U ON UGP.user_id=U.id
-		WHERE $city_check_ugp preference=1 AND UGP.year=$year AND UGP.group_id=$this_group_id
-		GROUP BY U.city_id");
+		WHERE $city_check_ugp preference=1 AND UGP.year=$year AND UGP.group_id=$this_group_id");
 
 	// Initialize the array
 	$applicants[0][$this_group_id] = 0;
@@ -41,11 +40,13 @@ foreach ($verticals as $this_group_id => $name) {
 	}
 	
 	foreach($applicant_counts as $row) {
-		$applicants[$row['city_id']][$this_group_id] = $row['applicant_count'];
+		$user_or_ugp_city_id = ($row['ugp_city_id']) ? $row['ugp_city_id'] : $row['u_city_id'];
+		$applicants[$user_or_ugp_city_id][$this_group_id] = $row['applicant_count'];
 		$applicants[0][$this_group_id] += $row['applicant_count'];
+		$total_filled += $row['applicant_count'];
 	}
 }
-// dump($applicants);
+// dump($applicants); exit;
 
 // $selected = [];
 // foreach ($verticals as $this_group_id => $name) {

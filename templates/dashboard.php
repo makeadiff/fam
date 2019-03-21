@@ -80,7 +80,7 @@ $colors = [
            $target = $requirements[$this_city_id][$group_id] * $multiplication_factor_for_group;
       ?>
       <div class="col-md-2 boxes">
-        <p class="vertical-name"><a href="applicants.php?group_id=<?php $group_id ?>&city_id=<?php echo $this_city_id ?>&action=Filter"><?php echo $city_name ?></a></p>
+        <p class="vertical-name"><a href="applicants.php?group_id=<?php echo $group_id ?>&city_id=<?php echo $this_city_id ?>&action=Filter"><?php echo $city_name ?></a></p>
         <input class="knob" data-width="100" data-height="120" data-angleOffset="0" data-min="0" data-max="<?php 
             if($applicants[$this_city_id][$group_id] > $target) echo $applicants[$this_city_id][$group_id];
             else echo $target;
