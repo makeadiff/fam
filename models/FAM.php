@@ -210,17 +210,34 @@ class FAM {
 		return false;
 	}
 
-	public function findUser($parameters, $and_or = ' AND ')
+	public function findUser($parameters, $and_or = ' AND ', $include_application_info = false)
 	{
+		global $year;
 		$checks = [];
 		foreach ($parameters as $field => $value) {
-			$checks[] = "`$field` = '" . $this->sql->escape($value) . "'";
+			if($field == 'name') {
+				$checks[] = "U.`$field` LIKE '%" . $this->sql->escape($value) . "%'";
+			} else {
+				$checks[] = "U.`$field` = '" . $this->sql->escape($value) . "'";
+			}
 		}
 
-		$query = "SELECT id,name,email,mad_email,phone,user_type FROM User
-					WHERE (user_type='volunteer' OR user_type='alumni') AND status='1'";
-
+		$query = "SELECT id,name,email,mad_email,phone,user_type FROM User U WHERE (user_type='volunteer' OR user_type='alumni') AND status='1'";
 		if($checks) $query .= " AND (" . implode($and_or, $checks) . ")";
+
+		if($include_application_info) {
+			$query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTINCT G.name ORDER BY UGP.preference SEPARATOR ', ') AS applied_groups,
+								C.name AS city, UGP.preference, UGP.id AS ugp_id, E.name AS evaluator
+						FROM User U
+						INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
+						INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
+						LEFT JOIN FAM_UserEvaluator UE ON U.id=UE.user_id
+						LEFT JOIN User E ON E.id=UE.evaluator_id
+						INNER JOIN `Group` G ON UGP.group_id=G.id
+						WHERE UGP.status != 'withdrawn' AND UGP.year=$year ";
+			if($checks) $query .= " AND (" . implode($and_or, $checks) . ") ";
+			$query .= "GROUP BY UGP.user_id";
+		}
 
 		return $this->sql->getAll($query);
 	}
