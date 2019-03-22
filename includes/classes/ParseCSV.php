@@ -30,7 +30,7 @@ class ParseCSV implements Iterator
 	public function loadFile($file = '')
 	{
 		if($file) $this->csv_location =  $file;
-		if(!$this->csv_location) die("Please specify a GoogleSpreadsheet CSV URL as the argument to this function");
+		if(!$this->csv_location) die("Please specify a CSV file as the argument to this function");
 
 		$this->contents = file_get_contents($this->csv_location);
 		$this->lines = explode("\n", $this->contents);
@@ -131,7 +131,7 @@ class ParseCSV implements Iterator
 	    $letter = chr(65 + $numeric);
 	    $num2 = intval($num / 26);
 	    if ($num2 > 0) {
-	        return numberToColumnLetterIndex($num2 - 1) . $letter;
+	        return $this->numberToColumnLetterIndex($num2 - 1) . $letter;
 	    } else {
 	        return $letter;
 	    }

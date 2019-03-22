@@ -5,7 +5,6 @@
 <div class="clearfix"></div>
 </div>
 
-
 <div class="x_content">
 <form action="applicants.php" method="post">
 <?php $html->buildInput("group_id", 'Applicants for ', 'select', $group_id, ['options' => $all_groups, 'no_br' => 1]); ?> &nbsp;
@@ -19,7 +18,7 @@
 <tr><th>Count</th><th>Applicant</th><th>City</th><th>Current Roles</th><th>Applied For</th>
 	<?php if($group_id) { ?><th>Preference</th><?php } ?>
 	<th>Evaluator</th>
-	<?php if($is_director) { ?><th>Evaluations</th><th>Action</th><?php } ?>
+	<?php if($is_director) { ?><th width="250">Evaluations</th><th>Action</th><?php } ?>
 </tr>
 <?php
 $count = ($applicants_pager->page - 1) * $applicants_pager->items_per_page;
@@ -35,18 +34,32 @@ foreach($applicants as $u) {
 				$names = [];
 				foreach($groups as $g) $names[] = $g['name'];
 				echo implode(", ", $names); ?></td>
-	<td><?php echo $u['applied_groups']; ?></td>
+	<td><?php 
+	$applied_groups_split = explode(",", $u['applied_groups']);
+	echo "<ol><li>" . implode("</li><li>", $applied_groups_split) . "</li></ol>";
+	?></td>
 	<?php if($group_id) { ?><td><?php echo $u['preference'] ?></td><?php } ?>
 	<td><?php echo i($u, 'evaluator'); ?></td>
 	<?php if($is_director) { ?>
-		<td><a href="evaluate.php?stage_id=1&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-primary">Kindness Challenge</a> <?php showApplicantStatus($u['id'], 1); ?><br />
+		<td><!-- <a href="evaluate.php?stage_id=1&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-primary">Kindness Challenge</a> <?php showApplicantStatus($u['id'], 1); ?><br /> -->
 			<a href="evaluate.php?stage_id=2&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-success">Applicant Feedback</a> <?php showApplicantStatus($u['id'], 2); ?><br />
 			<a href="evaluate.php?stage_id=3&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-warning">Common Tasks</a> <?php showApplicantStatus($u['id'], 3); ?><br />
 			<a href="evaluate_vertical.php?stage_id=5&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-default">Vertical Tasks</a> <?php showApplicantStatus($u['id'], 5); ?><br />
-			<a href="evaluate_vertical.php?stage_id=4&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-info">Personal Interview</a> <?php showApplicantStatus($u['id'], 4); ?></td>
-
-		<td><a href="applicants.php?action=delete&ugp_id=<?php echo $u['ugp_id'] ?>&city_id=<?php echo $city_id ?>&group_id=<?php echo $group_id ?>"
-									 class="delete confirm icon">Delete</a></td><?php } ?>
+			<a href="evaluate_vertical.php?stage_id=4&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-info">Personal Interview</a> <?php showApplicantStatus($u['id'], 4); ?>
+		</td>
+		<td><!-- <a href="<?php echo getLink('applicants.php',[
+											'action'		=>	'free-pool',
+											'applicant_id'	=>	$u['id'],
+											'city_id'		=>	$city_id,
+											'group_id'		=>	$group_id]); ?>" class="confirm btn btn-xs btn-primary" title="Move <?php echo $u['name'] ?> to free pool">Free Pool</a><br /><br /> -->
+			<a href="<?php echo getLink('applicants.php',[
+											'action'		=>	'delete',
+											'applicant_id'	=>	$u['id'],
+											'ugp_id'		=>	$u['ugp_id'],
+											'city_id'		=>	$city_id,
+											'group_id'		=>	$group_id]); ?>" class="delete confirm icon">Delete</a><br /><br />
+		</td>
+	<?php } ?>
 </tr>
 <?php } ?>
 </table>

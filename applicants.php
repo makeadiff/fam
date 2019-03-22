@@ -23,10 +23,16 @@ $all_stages_input[0] = 'Any';
 if($action == 'delete') {
 	if(!$is_director) die("You have to be a director to delete applicants.");
 
-	$sql->update("FAM_UserGroupPreference", ['status' => 'withdrawn'], ['id' => i($QUERY, 'ugp_id')]);
+	$sql->update("FAM_UserGroupPreference", ['status' => 'withdrawn'], ['user_id' => i($QUERY, 'applicant_id'), 'year' => $year]);
 	$QUERY['success'] = "Applicant Deleted Successfully";
 	// header("Location: applicants.php?city_id=$city_id&group_id=$group_id");
 }
+// elseif($action == 'free-pool') {
+// 	if(!$is_director) die("You have to be a director to delete applicants.");
+
+// 	$sql->update("FAM_UserGroupPreference", ['status' => 'withdrawn'], ['user_id' => i($QUERY, 'applicant_id'), 'year' => $year]);
+// 	$QUERY['success'] = "Applicant Deleted Successfully";
+// }
 
 $checks = ['1=1'];
 $join = '';
@@ -34,18 +40,18 @@ $selects = '';
 $join_condition = '';
 if($group_id) {
 	$checks[] = "UGP.group_id=$group_id";
-	$join_condition = "AND UE.group_id=$group_id";
+	$join_condition = "AND UE.group_id=$group_id AND UE.year=$year";
 }
 if($city_id) $checks[] = "((UGP.city_id != 0 AND UGP.city_id={$city_id}) OR (UGP.city_id = 0 AND U.city_id={$city_id}))";
 if($stage_id){
 	$selects .= ', US.status, US.stage_id';
 	$join .= 'INNER JOIN FAM_UserStage US ON US.user_id = U.id';
 	$checks[] = 'US.stage_id='.$stage_id;
+	$checks[] = 'US.year='.$year;
 	if($status){
 		$checks[] = 'US.status="'.$status.'"';
 	}
 }
-
 
 $query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTINCT G.name ORDER BY UGP.preference SEPARATOR ', ') AS applied_groups,
 					C.name AS city, UGP.preference, UGP.id AS ugp_id, E.name AS evaluator $selects
@@ -61,7 +67,6 @@ if($group_id) $query .= " ORDER BY UGP.preference, U.name";
 else $query .= " ORDER BY C.name, U.name";
 
 $applicants_pager = new SqlPager($query, 25);
-
 $applicants = $applicants_pager->getPage();
 
 render();

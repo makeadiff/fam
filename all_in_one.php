@@ -9,22 +9,8 @@ $total_filled = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupP
 	INNER JOIN User U ON UGP.user_id=U.id
 	WHERE preference=1 AND UGP.year=$year");
 
-$verticals = [
-	'2'		=> "City Team Lead",
-	'19'	=> "Ed Support",
-	'378'	=> "Aftercare",
-	'272'	=> "Transition",
-	'370'	=> "Fundraising",
-	'269'	=> "Shelter Ops",
-	'4'		=> "Shelter Support",
-	'5'		=> "Human Capital",
-	'15'	=> "Finance",
-	'11'	=> "Campaigns",
-	'375'	=> "Foundational",
-];
-
-// Data source - https://docs.google.com/spreadsheets/d/150mVAUvisYObaW2MVUZfi2tjbKxvd2tZalB3gfr091o/edit?ts=5aacf12d#gid=675197629
-$requirements = getRequirementFromSheet("https://docs.google.com/spreadsheets/d/e/2PACX-1vTf7uqEdn1CWZjwG8YALAS52jGVMABAfo1Xpb6YR3g69jSHir_govSZvFz_F_J_ACX1W50byaNE0ibS/pub?output=csv");
+// Data source
+$requirements = getRequirementFromSheet("https://docs.google.com/spreadsheets/d/e/2PACX-1vRzSwv2Yr5vT9YCjqRpraem2ZBpVKy2VT_UU9L2iA3364MIBiN1zhdVCX2bIq_3CIg7owI2yQx86q1q/pub?gid=675197629&single=true&output=csv");
 
 $applications = [];
 $selected = [];

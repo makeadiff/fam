@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?php echo $title . (isset($page_title) ? " : $page_title" : '') ?></title>
 
-	<link href="<?php echo $config['site_url'] ?>css/style.css" rel="stylesheet" type="text/css" />
-	<link href="<?php echo $config['site_url'] ?>bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link href="<?php echo $config['site_url'] ?>bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
+	<link href="<?php echo $config['common_library_url'] ?>css/style.css" rel="stylesheet" type="text/css" />
+	<link href="<?php echo $config['common_library_url'] ?>bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="<?php echo $config['common_library_url'] ?>bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
 	<link href="<?php echo $config['site_home'] ?>css/style.css" rel="stylesheet" type="text/css" />
   <link href="<?php echo $config['site_home'] ?>images/silk_theme.css" rel="stylesheet" type="text/css" />
 
@@ -26,9 +26,9 @@
   <?php echo $css_includes; ?>
 
   <!--Autofill functionality  -->
-  <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.min.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   </head>
 
   <body class="nav-md">
@@ -39,7 +39,7 @@
           <div class="left_col scroll-view">
 
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.php" class="site_title"><span><small>Applicant Management</small></span></a>
+              <a href="index.php" class="site_title"><span><small>FAM</small></span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -68,15 +68,16 @@
                       <?php if($is_director) { ?>
                       <li><a><i class="fa fa-home"></i>Tools <span class="fa fa-chevron-left"></span></a>
                       <ul class="nav child_menu">
-                        <li><a href="applicants.php"><i class="fa fa-user"></i> Applicants</a></li>
+                        <li><a href="applicants.php"><i class="fa fa-users"></i> Applicants</a></li>
+                        <li><a href="find_applicant.php"><i class="fa fa-search"></i> Find Applicants</a></li>
                         <li><a href="all_in_one.php"><i class="fa fa-table"></i> All in One View</a></li>
                         <li><a href="assign_evaluators_applicants.php"><i class="fa fa-edit"></i> Assign Evaluators</a></li>
-                        <li><a href="no_data.php"><i class="fa fa-search"></i> Show Evaluators Who haven't entered Data</a></li>
-                        <li><a href="evaluators.php"><i class="fa fa-user"></i> Evaluators</a></li>
+                        <li><a href="no_data.php"><i class="fa fa-exclamation-triangle"></i> Show Evaluators Who haven't entered Data</a></li>
+                        <li><a href="evaluators.php"><i class="fa fa-clipboard"></i> Evaluators</a></li>
                         <li><a href="edit_application.php"><i class="fa fa-edit"></i> Add/Edit Applications</a></li>
                         <li><a href="selected_fellows.php"><i class="fa fa-user"></i> Selected Fellows</a></li>
                         <li><a href="shelter_selection.php"><i class="fa fa-user"></i>Shelter Selection (SOFs)</a></li>
-                        <li><a href="update_madapp.php"><i class="fa fa-lock"></i><em>Update MADApp</em></a></li>
+                        <!-- <li><a href="update_madapp.php"><i class="fa fa-lock"></i><em>Update MADApp</em></a></li> -->
                       </ul></li>
                       <?php } ?>
                   </ul>
@@ -102,7 +103,7 @@
         <!-- /top navigation -->
 
 <!-- page content -->
-<div class="right_col" role="main">
+<div class="right_col" role="main" id="main-content">
 
 <?php if(i($QUERY, 'error') or i($QUERY, 'success')) { ?>
 <div class="x_panel">
@@ -119,17 +120,16 @@
 </div>
 
         <!-- footer content -->
-        <footer>
+        <!-- <footer>
           <div class="pull-right">
             Bootstrap Admin Template
           </div>
           <div class="clearfix"></div>
-        </footer>
+        </footer> -->
         <!-- /footer content -->
       </div>
     </div>
 
-    <script src="<?php echo $config['site_home'] ?>/js/library/jquery.min.js"></script>
     <script src="<?php echo $config['site_home'] ?>/js/library/bootstrap.min.js"></script>
     <script src="<?php echo $config['site_home'] ?>/js/library/fastclick.js"></script>
     <script src="<?php echo $config['site_home'] ?>/js/library/nprogress.js"></script>
@@ -156,8 +156,7 @@
     <script src="<?php echo $config['site_home'] ?>/js/library/jquery.knob.min.js"></script>
     <script src="<?php echo $config['site_home'] ?>/js/library/custom.min.js"></script>
     <script src="<?php echo $config['site_home'] ?>/js/gridviewscroll.js"></script>
-<!-- <script src="<?php echo $config['site_url'] ?>bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
-<script src="<?php echo $config['site_url'] ?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script> -->
+    <script src="<?php echo $config['site_home'] ?>/js/library/bootstrap-notify-3.1.3/dist/bootstrap-notify.min.js"></script>
 	<script src="<?php echo $config['site_home'] ?>js/application.js" type="text/javascript"></script>
 	<?php echo $js_includes; ?>
 

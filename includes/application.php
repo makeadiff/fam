@@ -27,18 +27,32 @@ foreach($user['groups'] as $grp) {
 	}
 }
 
+define('GROUP_ID_CTL', 2);
+define('GROUP_ID_ED', 19);
+define('GROUP_ID_AFTERCARE', 378);
+define('GROUP_ID_TR', 272);
+define('GROUP_ID_FR', 370);
+define('GROUP_ID_OPS', 269);
+define('GROUP_ID_SOF', 4);
+define('GROUP_ID_HC', 5);
+define('GROUP_ID_FINANCE', 15);
+define('GROUP_ID_PR', 11);
+define('GROUP_ID_FP', 375);
+define('GROUP_ID_MENTOR', 8);
+
 $verticals = [
-	'2'		=> "City Team Lead",
-	'19'	=> "Ed Support",
-	'378'	=> "Aftercare",
-	'272'	=> "Transition Readiness",
-	'370'	=> "Fundraising",
-	'269'	=> "Shelter Operations",
-	'4'		=> "Shelter Support",
-	'5'		=> "Human Capital",
-	'15'	=> "Finance",
-	'11'	=> "Campaigns and Communications",
-	'375'	=> "Foundational Programme",
+	GROUP_ID_CTL		=> "City Team Lead",
+	GROUP_ID_ED			=> "Ed Support",
+	GROUP_ID_AFTERCARE	=> "Aftercare",
+	GROUP_ID_TR			=> "Transition Readiness",
+	GROUP_ID_FR			=> "Fundraising",
+	GROUP_ID_OPS		=> "Shelter Operations",
+	GROUP_ID_SOF		=> "Shelter Support",
+	GROUP_ID_HC			=> "Human Capital",
+	GROUP_ID_FINANCE	=> "Finance",
+	GROUP_ID_PR			=> "Campaigns and Communications",
+	GROUP_ID_FP			=> "Foundational Programme",
+	GROUP_ID_MENTOR		=> 'Mentors'
 ];
 
 
@@ -53,8 +67,14 @@ function showApplicantStatus($user_id, $stage_id) {
 }
 
 /// This will fetch the google spreadsheet PUBLISHED csv and convert it into a array.
-function getRequirementFromSheet($sheet_url) {
+function getRequirementFromSheet($sheet_url = '') {
 	global $common;
+	// Data source
+	// 2018-19 Requirement Sheet - https://docs.google.com/spreadsheets/d/150mVAUvisYObaW2MVUZfi2tjbKxvd2tZalB3gfr091o/edit?ts=5aacf12d#gid=675197629
+	// 2018-19 CSV - https://docs.google.com/spreadsheets/d/e/2PACX-1vTf7uqEdn1CWZjwG8YALAS52jGVMABAfo1Xpb6YR3g69jSHir_govSZvFz_F_J_ACX1W50byaNE0ibS/pub?output=csv
+	// 2019-20 Requirement Sheet - https://docs.google.com/spreadsheets/d/1FsypDbY5KDpTwD5696Hz0ZSd1UZpMyrFNauoDWvLBGQ/edit?ts=5c90f9b4#gid=675197629
+	$sheet_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRzSwv2Yr5vT9YCjqRpraem2ZBpVKy2VT_UU9L2iA3364MIBiN1zhdVCX2bIq_3CIg7owI2yQx86q1q/pub?gid=675197629&single=true&output=csv";
+
 	require 'includes/classes/ParseCSV.php';
 	$sheet = new ParseCSV($sheet_url);
 
@@ -62,38 +82,42 @@ function getRequirementFromSheet($sheet_url) {
 
 	// Transilation table for group_id => index in the spreadsheet.
 	$keys = [
-		'city_name'	=> 'A',
-		'2'		=> 'G',	// City Team Lead
-		'19'	=> 'I',	// Ed Support
-		'378'	=> 'K',	// Aftercare
-		'272'	=> 'J',	// Transition Readiness
-		'370'	=> 'O',	// Fundraising
-		'269'	=> 'L',	// Shelter Operations
-		'4'		=> 'M',	// Shelter Support
-		'5'		=> 'N',	// Human Capital
-		'15'	=> 'P',	// Finance
-		'11'	=> 'Q',	// Campaigns and Communications
-		'375'	=> 'H',	// Foundational Programme
+		'city_name'	=> ['A'],
+		'2'		=> ['H','I','J'],	// City Team Lead
+		'375'	=> ['K','L','M'],	// Foundation
+		'19'	=> ['N','O','P'],	// Ed Support
+		'272'	=> ['Q','R','S'],	// Transition Readiness
+		'378'	=> ['T','U','V'],	// Aftercare
+		'269'	=> ['W','X','Y'],	// Shelter Operations
+		'4'		=> ['Z','AA','AB'],	// Shelter Support
+		'5'		=> ['AC','AD','AE'],	// Human Capital
+		'370'	=> ['AF','AG','AH'],	// Fundraising
+		'15'	=> ['AI','AJ','AK'],	// Finance
+		'11'	=> ['AL','AM','AN'],	// Campaigns and Communications
+		'8'		=> ['AP','AQ','AR'],	// Mentors
 	];
 
 	$requirements = [];
 	$total_by_group = [];
 	$total_by_city = [];
 	foreach($sheet as $row_index => $row) {
-		$city_name = $row[$keys['city_name']];
+		$city_name = $row[$keys['city_name'][0]];
 		if(!isset($all_cities[$city_name])) continue;
 		$city_id = $all_cities[$city_name];
 
-		foreach($keys as $group_id => $column_name) {
+		foreach($keys as $group_id => $columns) {
 			if($group_id == 'city_name') continue;
 
-			$requirements[$city_id][$group_id] = $row[$column_name];
+			$requirements[$city_id][$group_id] = 0;
+			foreach ($columns as $column_index) {
+				@$requirements[$city_id][$group_id] += $row[$column_index];
+			}
 
 			if(!isset($total_by_group[$group_id])) $total_by_group[$group_id] = 0;
-			$total_by_group[$group_id] += $row[$column_name];
+			$total_by_group[$group_id] += $requirements[$city_id][$group_id];
 		}
 
-		$total_by_city[$city_id] = $row['R'];
+		$total_by_city[$city_id] = $row['AO'];
 	}
 
 	$requirements['total_group'] = $total_by_group;

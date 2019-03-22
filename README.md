@@ -6,3 +6,5 @@ FAM is Fellowship Application Management - a tool to help in managing the fellow
 
 * Binny V A
 
+## Questions
+Is Campaigns role open this year
