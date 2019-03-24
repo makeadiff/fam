@@ -60,13 +60,13 @@
                 <br>
                 <h3>Navigation Panel</h3>
                 <ul class="nav side-menu">
-                  <li><a href="dashboard.php"><i class="fa fa-table"></i> Dashboard</a></li>
+                  <li><a href="dashboard.php"><i class="fa fa-home"></i> Dashboard</a></li>
                   <li><a href="task-dashboard.php"><i class="fa fa-table"></i> Task Upload Status</a></li>
                   <li><a href="my_applicants.php"><i class="fa fa-edit"></i> My Applicants</a></li>
 
                   <li><a href="all_stages.php"><i class="fa fa-server"></i> Bulk Enter Data for All Applicants</a></li>
                       <?php if($is_director) { ?>
-                      <li><a><i class="fa fa-home"></i>Tools <span class="fa fa-chevron-left"></span></a>
+                      <li><a><i class="fa fa-wrench"></i>Tools <span class="fa fa-chevron-left"></span></a>
                       <ul class="nav child_menu">
                         <li><a href="applicants.php"><i class="fa fa-users"></i> Applicants</a></li>
                         <li><a href="find_applicant.php"><i class="fa fa-search"></i> Find Applicants</a></li>
@@ -74,6 +74,7 @@
                         <li><a href="assign_evaluators_applicants.php"><i class="fa fa-edit"></i> Assign Evaluators</a></li>
                         <li><a href="no_data.php"><i class="fa fa-exclamation-triangle"></i> Show Evaluators Who haven't entered Data</a></li>
                         <li><a href="evaluators.php"><i class="fa fa-clipboard"></i> Evaluators</a></li>
+                        <li><a href="free_pool.php"><i class="fa fa-tree"></i> Free Pool</a></li>
                         <li><a href="edit_application.php"><i class="fa fa-edit"></i> Add/Edit Applications</a></li>
                         <li><a href="selected_fellows.php"><i class="fa fa-user"></i> Selected Fellows</a></li>
                         <li><a href="shelter_selection.php"><i class="fa fa-user"></i>Shelter Selection (SOFs)</a></li>
