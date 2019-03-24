@@ -13,12 +13,12 @@ $participation_content = load($config['site_url'] . 'apps/participation-profile-
 $participation = json_decode($participation_content, true);
 
 foreach ($participation as $key => $data) {
-	if($key == 'name' or $key == 'vertical') continue;
+	if($key == 'name' or $key == 'vertical' or $key == 'participation_additional_consideration') continue;
 
 	$db_value = i($data, 'madapp');
 	$correct  = i($data, 'is_correct');
 	$user_value=i($data, 'user_updated');
-	
+
 	if($key == 'cpp') {
 		$title = 'Child Protection Policy Signed';
 	} else $title = ucfirst(format($key));
@@ -33,5 +33,7 @@ foreach ($participation as $key => $data) {
 }
 ?>
 		</table>
+
+		<p><?php echo i($participation, 'participation_additional_consideration'); ?></p>
 	</div>
 </div>
