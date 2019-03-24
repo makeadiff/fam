@@ -60,6 +60,19 @@
       <th class="bordered">Total</th>
   </tr>
   </tbody>
+
+  <thead>
+    <tr><th class="city-name">&nbsp;</th>
+      <?php for($i = 0; $i <= count($verticals); $i++) { ?><th class="bordered">Req.</th><th>Applied</th><?php } ?>
+      <th class="city-name bordered">&nbsp;</th>
+    </tr>
+    <tr><th class="city-name">City</th>
+      <?php foreach($verticals as $group_id => $group_name) { ?><th class="bordered" colspan="2"><?php echo $group_name ?></th><?php } ?>
+      <th class="bordered" colspan="2">Total</th>
+      <th class="city-name bordered">City</th>
+    </tr>
+  </thead>
+
   </table>
 
   <strong>Legend</strong><br />
