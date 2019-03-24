@@ -5,21 +5,33 @@
 	</div>
 
  	<div class="x_content">
- 		<dl><?php
-// $participation_content = load($config['site_url'] . '../apps/participation-profile-update/?user_id=' . $appicant_id);
-$participation_content = '{"credit":"-2","user_credit":"-2","vertical":"Ed Support","training":"","cpp":"signed","city_circle":"0\/0","shelter_sensitisation":"1\/1"}';
-$participation = json_decode($participation_content);
+ 		<table class="table table-striped">
+			<tr><th>Parameter</th><th>Value in Database</th><th>Volunteer Approved</th><th>Updated Value</th></tr>
+	<?php
+$participation_content = load($config['site_url'] . 'apps/participation-profile-update/?user_id=' . $applicant_id);
+// $participation_content = '{"credit":"-2","user_credit":"-2","vertical":"Ed Support","training":"","cpp":"signed","city_circle":"0\/0","shelter_sensitisation":"1\/1"}';
+$participation = json_decode($participation_content, true);
 
-foreach ($participation as $key => $value) {
+foreach ($participation as $key => $data) {
+	if($key == 'name' or $key == 'vertical') continue;
+
+	$db_value = i($data, 'madapp');
+	$correct  = i($data, 'is_correct');
+	$user_value=i($data, 'user_updated');
+	
 	if($key == 'cpp') {
 		$title = 'Child Protection Policy Signed';
-		$value = ucfirst($value);
 	} else $title = ucfirst(format($key));
+	if(!$db_value) continue;
 
-	echo "<dt>" . $title . "</dt>";
-	echo "<dd>" . $value . "</dd>";
+	echo "<tr>";
+	echo "<td>" . $title . "</td>";
+	echo "<td>" . $db_value . "</td>";
+	echo "<td>" . $correct . "</td>";
+	echo "<td>" . $user_value . "</td>";
+	echo "</tr>";
 }
 ?>
-		</dl>
+		</table>
 	</div>
 </div>

@@ -19,10 +19,14 @@ foreach($applicants as $u) {
 	<td><?php 
 	$applied_groups_split = explode(",", $u['groups']);
 	$evaluators = keyFormat($fam->getEvaluatorsByGroup($u['id']), ['group_id', 'name']);
+	$application_info = keyFormat($fam->getApplicationInfo($u['id']), 'group_id');
+
 	echo "<ol>";
 	foreach($applied_groups_split as $this_group_id) {
 		echo "<li>" . $verticals[$this_group_id];
 		if(isset($evaluators[$this_group_id])) echo " (" . $evaluators[$this_group_id] . ")";
+		if(isset($application_info[$this_group_id]) and $application_info[$this_group_id]['user_stage_status'] == 'free-pool') 
+			echo ' <span class="fa fa-info-circle" style="color: #397eb9;">Free Pooled</span>';
 		echo "</li>";
 	}
 	echo "</ol>";

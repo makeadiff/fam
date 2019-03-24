@@ -1,10 +1,4 @@
-<?php
-$colors = [
-  'green'   => '#a62c37',
-  'orange'  => '#f6b26b',
-  'red'     => '#26B99A'
-];
-?><div class="x_panel">
+<div class="x_panel">
 	<div class="x_title">
 		<h2>City Data</h2>
 		<div class="clearfix"></div>
@@ -104,9 +98,9 @@ $colors = [
             if($applicants[$city_id][$this_group_id] > $target) echo $applicants[$city_id][$this_group_id];
             else echo $target;
           ?>" data-linecap="round" data-fgColor="<?php
-            if($requirements[$city_id][$this_group_id] > $applicants[$city_id][$this_group_id]) echo $colors['green'];
+            if($requirements[$city_id][$this_group_id] > $applicants[$city_id][$this_group_id]) echo $colors['red'];
             elseif(($requirements[$city_id][$this_group_id] * 2) > $applicants[$city_id][$this_group_id]) echo $colors['orange'];
-            else echo $colors['red'];
+            else echo $colors['green'];
              ?>" value="<?php echo $applicants[$city_id][$this_group_id] ?>" data-readOnly="true" /><br />
         Target: <strong><?php echo ($requirements[$city_id][$this_group_id] * $multiplication_factor_for_group) ?></strong><br />
         Requirement: <strong><?php echo $requirements[$city_id][$this_group_id] ?></strong><br />
@@ -128,9 +122,9 @@ $colors = [
             if($applicants[$this_city_id][$group_id] > $target) echo $applicants[$this_city_id][$group_id];
             else echo $target;
           ?>" data-linecap="round" data-fgColor="<?php
-            if($requirements[$this_city_id][$group_id] > $applicants[$this_city_id][$group_id]) echo $colors['green'];
+            if($requirements[$this_city_id][$group_id] > $applicants[$this_city_id][$group_id]) echo $colors['red'];
             elseif(($requirements[$this_city_id][$group_id] * 2) > $applicants[$this_city_id][$group_id]) echo $colors['orange'];
-            else echo $colors['red'];
+            else echo $colors['green'];
              ?>" value="<?php echo $applicants[$this_city_id][$group_id] ?>" data-readOnly="true" /><br />
         Target: <strong><?php echo ($requirements[$this_city_id][$group_id] * $multiplication_factor_for_group); ?></strong><br />
         Requirement: <strong><?php echo $requirements[$this_city_id][$group_id] ?></strong><br />

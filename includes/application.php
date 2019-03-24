@@ -54,7 +54,11 @@ $verticals = [
 	GROUP_ID_FP			=> "Foundational Programme",
 	GROUP_ID_MENTOR		=> 'Mentors'
 ];
-
+$colors = [
+  'green'   => '#26B99A',
+  'orange'  => '#f6b26b',
+  'red'     => '#a62c37'
+];
 
 function showApplicantStatus($user_id, $stage_id) {
 	global $fam;
