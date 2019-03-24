@@ -205,6 +205,8 @@ class FAM {
 												ELSE ''
 												END
 											FROM FAM_UserTask WHERE user_id=$applicant_id AND year={$this->year}");
+		} elseif($type == 'common_task_file') {
+			return $this->sql->getOne("SELECT common_task_files FROM FAM_UserTask WHERE user_id=$applicant_id AND year={$this->year}");
 		}
 
 		return false;
