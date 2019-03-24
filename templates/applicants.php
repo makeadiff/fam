@@ -6,7 +6,7 @@
 </div>
 
 <div class="x_content">
-<form action="applicants.php" method="post">
+<form action="applicants.php" method="get">
 <?php $html->buildInput("group_id", 'Applicants for ', 'select', $group_id, ['options' => $all_groups, 'no_br' => 1]); ?> &nbsp;
 <span id="preference-area"><?php $html->buildInput("preference", 'Preference ', 'select', $preference, ['options' => ['Any', '1', '2', '3'], 'no_br' => 1]); ?> &nbsp;</span>
 <?php $html->buildInput("city_id", 'City ', 'select', $city_id, ['options' => $all_cities, 'no_br' => 1]); ?> &nbsp;

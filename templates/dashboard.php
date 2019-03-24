@@ -5,7 +5,7 @@
 	</div>
 
 	<div class="x_content">
-	<form action="dashboard.php" method="post" class="form-area">
+	<form action="dashboard.php" method="get" class="form-area">
 		<?php $html->buildInput("city_id", "Select City", 'select', $city_id, ['options' => $all_cities, 'no_br' => true]); ?> &nbsp;
     <?php $html->buildInput("group_id", "Select Vertical", 'select', $group_id, ['options' => $all_verticals, 'no_br' => true]); ?> &nbsp;
 		<input type="submit" class="btn btn-success btn-xs" value="Filter" />

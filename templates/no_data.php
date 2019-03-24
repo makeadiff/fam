@@ -5,7 +5,7 @@
 	</div>
 
 	<div class="x_content">
-		<form action="" method="post" class="form-area">
+		<form action="" method="get" class="form-area">
 			<label for="stage">Stage</label>
 			<select name="stage">
 			<?php foreach ($all_stages as $stage) { ?>
