@@ -92,7 +92,7 @@
           if(!$requirements[$city_id][$this_group_id]) continue;
       ?>
       <div class="col-md-2 boxes">
-        <p class="vertical-name"><a href="applicants.php?vertical_group_id=<?php echo $this_group_id ?>&city_id=<?php echo $city_id ?>&action=Filter"><?php echo $title ?></a></p>
+        <p class="vertical-name"><a href="applicants.php?group_id=<?php echo $this_group_id ?>&city_id=<?php echo $city_id ?>&action=Filter"><?php echo $title ?></a></p>
         <input class="knob" data-width="100" data-height="120" data-angleOffset="0" data-min="0" data-max="<?php
             $target = $requirements[$city_id][$this_group_id] * $multiplication_factor_for_group;
             if($applicants[$city_id][$this_group_id] > $target) echo $applicants[$city_id][$this_group_id];

@@ -12,6 +12,7 @@ $participation_content = load($config['site_url'] . 'apps/participation-profile-
 // $participation_content = '{"credit":"-2","user_credit":"-2","vertical":"Ed Support","training":"","cpp":"signed","city_circle":"0\/0","shelter_sensitisation":"1\/1"}';
 $participation = json_decode($participation_content, true);
 
+if($participation)
 foreach ($participation as $key => $data) {
 	if($key == 'name' or $key == 'vertical' or $key == 'participation_additional_consideration') continue;
 
