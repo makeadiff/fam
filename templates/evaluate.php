@@ -13,17 +13,29 @@
 			if($stage_id == 3) {
 				echo 'For more details on the scale used in this evaluation, refer to <a target="_blank" href="https://docs.google.com/document/d/1DBwtJRK-W6l2WFQm4QKUX9b-rWfjT1Nz2UhSA5tz-B4/edit?usp=sharing">this document</a>';
 				$task_url = $fam->getTask($applicant_id, 'common');
+				$task_files = $fam->getTask($applicant_id, 'common_task_file');
 				if($task_url) {
-					echo "<h4>Click on the link(s) below to see $applicant[name]'s Common Task </h4>";
+					echo "<h4>Click on the link(s) below to see $applicant[name]'s Common Task Videos & Task Files </h4>";
 					$task = explode('http',str_replace(', ','',str_replace('#','%23',$task_url)));
 					$i=0;
 					foreach ($task as $file) {
 						if($file!=''){
 							$i++;
-							echo '<a target="_blank" class="badge badge-info" href="http'.$file.'">'.'Common Task '.$i.'</a>';
+							echo '<a target="_blank" class="badge badge-info" href="http'.$file.'">'.'Common Task Video</a>';
 						}
 					}
-				} else {
+					if($task_files){
+						$task = explode('http',str_replace(', ','',str_replace('#','%23',$task_files)));
+						$i=0;
+						foreach ($task as $file) {
+							if($file!=''){
+								$i++;
+								echo '<a target="_blank" class="badge badge-primary" href="http'.$file.'">'.'Common Task Attachment '.$i.'</a>';
+							}
+						}
+					}
+				}
+				else{
 					echo "<h4 class='alert alert-warning'> $applicant[name] <strong>hasn't updated</strong> Common Task yet</h4>";
 				}
 			}
@@ -54,7 +66,7 @@
 					foreach ($task as $file) {
 						if($file!=''){
 							$i++;
-							echo '<a target="_blank" class="badge badge-info" href="http'.$file.'">'.$verticals[$group_id].' Task URL '.$i.'</a>';
+							echo '<a target="_blank" class="badge badge-primary" href="http'.$file.'">'.$verticals[$group_id].' Task URL '.$i.'</a>';
 						}
 					}
 
@@ -113,7 +125,7 @@
 
 } elseif ($stage_id == 6) {
 	// Show Participation data...
-	require 'templates/partials/volunteer_participation.php';	
+	require 'templates/partials/volunteer_participation.php';
 } ?>
 
 <?php foreach($categories as $category) {
