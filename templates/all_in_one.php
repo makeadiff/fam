@@ -60,15 +60,34 @@
       <th class="bordered">Total</th>
   </tr>
   </tbody>
+
+  <thead>
+    <tr><th class="city-name">&nbsp;</th>
+      <?php for($i = 0; $i <= count($verticals); $i++) { ?><th class="bordered">Req.</th><th>Applied</th><?php } ?>
+      <th class="city-name bordered">&nbsp;</th>
+    </tr>
+    <tr><th class="city-name">City</th>
+      <?php foreach($verticals as $group_id => $group_name) { ?><th class="bordered" colspan="2"><?php echo $group_name ?></th><?php } ?>
+      <th class="bordered" colspan="2">Total</th>
+      <th class="city-name bordered">City</th>
+    </tr>
+  </thead>
+
   </table>
+
+  <strong>Legend</strong><br />
+  <span style="background-color:<?php echo $colors['red'] ?>; border:1px solid #000;"> &nbsp; </span>&nbsp; Number of Applicants are <strong>less than requirements</strong>.<br />
+  <span style="background-color:<?php echo $colors['orange'] ?>; border:1px solid #000;"> &nbsp; </span>&nbsp; Number of Applicants are <strong>less than 2 x</strong> the requirements.<br />
+  <span style="background-color:<?php echo $colors['green'] ?>; border:1px solid #000;"> &nbsp; </span>&nbsp; Number of Applicants are <strong>more than 2 x</strong> the requirements.<br />
   </div> 
 </div>
 
 <?php
 
 function highlight($applications, $requirements) {
-    global $multiplication_factor;
+    global $multiplication_factor, $colors;
 
-    if($applications < $requirements * $multiplication_factor) echo ' class="error-message"';
-    else echo ' class="success-message"';
+    if($applications > $requirements * $multiplication_factor) echo " style='color:{$colors['green']}; font-weight:bold;'";
+    else if($applications > $requirements) echo " style='color:{$colors['orange']}; font-weight:bold;'";
+    else echo " style='color:{$colors['red']}; font-weight:bold;'";
 }

@@ -122,6 +122,10 @@
 </div>
 <?php } elseif ($stage_id == 2) {
 	require 'templates/partials/applicant_feedback.php';
+
+} elseif ($stage_id == 6) {
+	// Show Participation data...
+	require 'templates/partials/volunteer_participation.php';
 } ?>
 
 <?php foreach($categories as $category) {
@@ -167,8 +171,10 @@ require(joinPath($config['site_folder'], 'templates', 'partials', 'parameters.ph
     	<input name="status" type="radio" class="input-na" value="pending" <?php if($stage_info['status'] == 'pending') echo 'checked="true"'; ?> />Pending</label>
     <label class="btn btn-success <?php if($stage_info['status'] == 'selected') echo 'active'; ?>">
     	<input name="status" type="radio" class="input-yes" value="selected" <?php if($stage_info['status'] == 'selected') echo 'checked="true"'; ?> />Selected</label>
+    <?php if($stage_id == 4 or $stage_id == 5) { ?>
     <label class="btn btn-primary <?php if($stage_info['status'] == 'free-pool') echo 'active'; ?>" title="Your Vertical doesn't need this applicant - but other verticals can take them">
     	<input name="status" type="radio" class="input-no" value="free-pool" <?php if($stage_info['status'] == 'free-pool') echo 'checked="true"'; ?> />Free Pool</label>
+    <?php } ?>
     <label class="btn btn-warning <?php if($stage_info['status'] == 'maybe') echo 'active'; ?>">
     	<input name="status" type="radio" class="input-no" value="maybe" <?php if($stage_info['status'] == 'maybe') echo 'checked="true"'; ?> />Maybe</label>
     <label class="btn btn-danger <?php if($stage_info['status'] == 'rejected') echo 'active'; ?>">

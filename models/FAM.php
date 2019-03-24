@@ -92,7 +92,7 @@ class FAM {
 		]);
 	}
 
-	public function getStageStatus($user_id, $stage_id,$group_id=0)
+	public function getStageStatus($user_id, $stage_id, $group_id=0)
 	{
 		$q = "SELECT * FROM FAM_UserStage WHERE user_id=$user_id AND stage_id=$stage_id AND year={$this->year}";
 		if($group_id!=0){
@@ -173,6 +173,22 @@ class FAM {
 				FROM User U
 				INNER JOIN FAM_UserEvaluator E ON E.evaluator_id=U.id
 				WHERE E.user_id=$applicant_id AND E.group_id=$group_id AND U.status='1' AND U.user_type='volunteer' AND E.year={$this->year}");
+	}
+
+	public function getEvaluatorsByGroup($applicant_id)
+	{
+		return $this->sql->getAll("SELECT E.group_id, U.name
+				FROM User U
+				INNER JOIN FAM_UserEvaluator E ON E.evaluator_id=U.id
+				WHERE E.user_id=$applicant_id AND U.status='1' AND U.user_type='volunteer' AND E.year={$this->year}");
+	}
+
+	public function getApplicationInfo($applicant_id)
+	{
+		return $this->sql->getAll("SELECT US.group_id, U.name AS evaluator, US.status AS user_stage_status, US.stage_id
+				FROM User U
+				LEFT JOIN FAM_UserStage US ON US.evaluator_id=U.id
+				WHERE US.user_id=$applicant_id AND U.status='1' AND U.user_type='volunteer' AND US.year={$this->year}");
 	}
 
 	public function getResponse($applicant_id, $parameter_id)
