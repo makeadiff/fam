@@ -34,6 +34,7 @@ foreach ($participation as $key => $data) {
 ?>
 		</table>
 
-		<p><?php echo i($participation, 'participation_additional_consideration'); ?></p>
+		<p><strong>Volunteer Comments...</strong></p>
+		<p><?php echo nl2br(i($participation, 'participation_additional_consideration')); ?></p>
 	</div>
 </div>
