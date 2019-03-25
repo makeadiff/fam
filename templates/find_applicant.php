@@ -71,17 +71,10 @@
 				<a href="evaluate_vertical.php?stage_id=5&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-default">Vertical Tasks</a> <?php showApplicantStatus($u['id'], 5); ?><br />
 				<a href="evaluate_vertical.php?stage_id=4&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-info">Personal Interview</a> <?php showApplicantStatus($u['id'], 4); ?>
 			</td>
-			<td><!-- <a href="<?php echo getLink('applicants.php',[
-												'action'		=>	'free-pool',
-												'applicant_id'	=>	$u['id'],
-												'city_id'		=>	$city_id,
-												'group_id'		=>	$group_id]); ?>" class="confirm btn btn-xs btn-primary" title="Move <?php echo $u['name'] ?> to free pool">Free Pool</a><br /><br /> -->
-				<a href="<?php echo getLink('applicants.php',[
+			<td><a href="<?php echo getLink('applicants.php',[
 												'action'		=>	'delete',
 												'applicant_id'	=>	$u['id'],
-												'ugp_id'		=>	$u['ugp_id'],
-												'city_id'		=>	$city_id,
-												'group_id'		=>	$group_id]); ?>" class="delete confirm icon">Delete</a><br /><br />
+												'city_id'		=>	$u['city_id']]); ?>" class="delete confirm icon">Delete</a><br /><br />
 			</td>
 		<?php } ?>
 	</tr>

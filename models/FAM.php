@@ -245,7 +245,7 @@ class FAM {
 
 		if($include_application_info) {
 			$query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTINCT G.name ORDER BY UGP.preference SEPARATOR ', ') AS applied_groups,
-								C.name AS city, UGP.preference, UGP.id AS ugp_id, E.name AS evaluator
+								C.name AS city,U.city_id, UGP.preference, UGP.id AS ugp_id, E.name AS evaluator
 						FROM User U
 						INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
 						INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))

@@ -67,7 +67,7 @@ $query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(UGP.g
 			$join
 			WHERE " . implode(" AND ", $checks) . " AND UGP.status != 'withdrawn' AND UGP.year=$year
 			GROUP BY UGP.user_id";
-if($group_id) $query .= " ORDER BY UGP.preference, U.name";
+if($group_id) $query .= " ORDER BY UGP.preference, C.name, U.name";
 else $query .= " ORDER BY C.name, U.name";
 
 $applicants_pager = new SqlPager($query, 25);
