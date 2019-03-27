@@ -5,7 +5,7 @@
 	</div>
 
 	<div class="x_content">
-		<form action="find_applicant.php" method="post" class="form-horizontal form-label-left">
+		<form action="find_applicant.php" method="get" class="form-horizontal form-label-left">
 
 		<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
 			<input type="text" name="name" class="form-control has-feedback-left" placeholder="Name" value="<?php echo i($QUERY, 'name'); ?>" />

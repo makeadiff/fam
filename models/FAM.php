@@ -198,7 +198,7 @@ class FAM {
 
 	public function getApplications($applicant_id)
 	{
-		return $this->sql->getAll("SELECT preference, group_id, city_id FROM FAM_UserGroupPreference WHERE user_id=$applicant_id AND year={$this->year}");
+		return $this->sql->getAll("SELECT preference, group_id, city_id FROM FAM_UserGroupPreference WHERE user_id=$applicant_id AND year={$this->year} AND status!='withdrawn'");
 	}
 
 	public function getTask($applicant_id, $type = 'common', $group_id = 0)
