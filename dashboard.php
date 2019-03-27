@@ -51,7 +51,7 @@ foreach ($verticals as $this_group_id => $name) {
 	if($group_id) {
 		if($this_group_id == $group_id) $total_filled += $applicants[0][$this_group_id];
 	} else {
-		if($this_group_id != 8){
+		if($this_group_id != GROUP_ID_MENTOR){
 			$total_filled += $applicants[0][$this_group_id];
 		}
 	}
@@ -69,36 +69,3 @@ $multiplication_factor = 3;
 $mentor_multiplication_factor = 1;
 
 render();
-
-// SELECT U.city_id AS u_city_id, MAX(UGP.city_id) AS ugp_city_id,COUNT(DISTINCT user_id) AS applicant_count FROM FAM_UserGroupPreference UGP INNER JOIN User U ON UGP.user_id=U.id WHERE  preference=1 AND UGP.year=2018 AND UGP.group_id=2 GROUP BY U.city_id
-
-// [2] => 1
-// [19] => 3
-// [378] => 2
-// [272] => 5
-// [370] => 2
-// [269] => 2
-// [4] => 0
-// [5] => 0
-// [15] => 0
-// [11] => 0
-// [375] => 0
-// [8] => 5
-
-// SELECT U.city_id AS u_city_id, UGP.city_id AS ugp_city_id,COUNT(DISTINCT user_id) AS applicant_count FROM FAM_UserGroupPreference UGP
-// 		INNER JOIN User U ON UGP.user_id=U.id
-// 		WHERE ((UGP.city_id != 0 AND UGP.city_id=16) OR (UGP.city_id = 0 AND U.city_id=16)) AND  preference=1 AND UGP.year=2018 AND UGP.group_id=2
-// 		GROUP BY U.city_id
-
-// [2] => 1
-// [19] => 3
-// [378] => 2
-// [272] => 4
-// [370] => 2
-// [269] => 2
-// [4] => 0
-// [5] => 0
-// [15] => 0
-// [11] => 0
-// [375] => 1
-// [8] => 5
