@@ -1,6 +1,6 @@
 <div class="x_panel">
 
-<form action="assign_evaluators_applicants.php" method="get" class="form-area" id="filter">
+<form action="assign_evaluators_applicants.php" method="post" class="form-area" id="filter">
 
 <div class="x_title">
 <h2>Assign Evaluator to Applicants</h2>
