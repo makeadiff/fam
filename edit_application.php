@@ -10,19 +10,8 @@ $verticals[0] = 'None';
 $all_cities = keyFormat($common->getCities(), ['id', 'name']);
 $all_cities[0] = 'Not Moving';
 
-
-if($action == 'Find Applicant') {
-	$email = i($QUERY, 'email');
-	$phone = i($QUERY, 'phone');
-
-	$params = [];
-	if($email) {
-		$params['email'] = $email;
-		$params['mad_email'] = $email;
-	}
-	if($phone) $params['phone'] = $phone;
-
-	$found_applicants = $fam->findUser($params, ' OR ');
+if($action == 'edit_application' and $applicant_id) {
+	$found_applicants = $fam->findUser(['id' => $applicant_id], ' AND ', true);
 	if(count($found_applicants) == 1) $applicant = $found_applicants[0];
 
 } elseif($action == 'Update') {
@@ -45,9 +34,6 @@ if($action == 'Find Applicant') {
 
 	$QUERY['success'] = "Updated Application";
 }
-
-
-if($applicant_id and !$applicant) $applicant = $common->getUser($applicant_id);
 
 if($applicant) {
 	$preferences = $fam->getApplications($applicant['id']);

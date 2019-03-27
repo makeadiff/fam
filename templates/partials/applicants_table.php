@@ -1,5 +1,5 @@
 <table class="table table-striped">
-<tr><th>Count</th><th>Applicant</th><th>City</th><th>Current Roles</th><th>Applied Role (Evaluator)</th>
+<tr><th>Count</th><th>Applicant</th><th>City</th><th>Current Roles</th><?php if(isset($applicants[0]['groups'])) { ?><th>Applied Role (Evaluator)</th><?php } ?>
 	<?php if(isset($group_id) and $group_id)  { ?><th>Preference</th><?php } ?>
 	<?php if($is_director) { ?><th width="250">Evaluations</th><th>Action</th><?php } ?>
 </tr>
@@ -16,21 +16,21 @@ foreach($applicants as $u) {
 				$names = [];
 				foreach($groups as $g) $names[] = $g['name'];
 				echo implode(", ", $names); ?></td>
-	<td><?php 
-	$applied_groups_split = explode(",", $u['groups']);
-	$evaluators = keyFormat($fam->getEvaluatorsByGroup($u['id']), ['group_id', 'name']);
-	$application_info = keyFormat($fam->getApplicationInfo($u['id']), 'group_id');
+	<?php if(isset($u['groups'])) { ?><td><?php 
+		$applied_groups_split = explode(",", $u['groups']);
+		$evaluators = keyFormat($fam->getEvaluatorsByGroup($u['id']), ['group_id', 'name']);
+		$application_info = keyFormat($fam->getApplicationInfo($u['id']), 'group_id');
 
-	echo "<ol>";
-	foreach($applied_groups_split as $this_group_id) {
-		echo "<li>" . $verticals[$this_group_id];
-		if(isset($evaluators[$this_group_id])) echo " (" . $evaluators[$this_group_id] . ")";
-		if(isset($application_info[$this_group_id]) and $application_info[$this_group_id]['user_stage_status'] == 'free-pool') 
-			echo ' <span class="fa fa-info-circle" style="color: #397eb9;">Free Pooled</span>';
-		echo "</li>";
-	}
-	echo "</ol>";
-	?></td>
+		echo "<ol>";
+		foreach($applied_groups_split as $this_group_id) {
+			echo "<li>" . $verticals[$this_group_id];
+			if(isset($evaluators[$this_group_id])) echo " (" . $evaluators[$this_group_id] . ")";
+			if(isset($application_info[$this_group_id]) and $application_info[$this_group_id]['user_stage_status'] == 'free-pool') 
+				echo ' <span class="fa fa-info-circle" style="color: #397eb9;">Free Pooled</span>';
+			echo "</li>";
+		}
+		echo "</ol>";
+	?></td><?php } ?>
 	<?php if(isset($group_id) and $group_id) { ?><td><?php echo $u['preference'] ?></td><?php } ?>
 	<?php if($is_director) { ?>
 		<td><!-- <a href="evaluate.php?stage_id=1&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-primary">Kindness Challenge</a> <?php showApplicantStatus($u['id'], 1); ?><br /> -->
@@ -45,7 +45,10 @@ foreach($applicants as $u) {
 											'applicant_id'	=>	$u['id'],
 											'ugp_id'		=>	$u['ugp_id'],
 											'city_id'		=>	$city_id,
-											'group_id'		=>	$group_id]); ?>" class="delete confirm icon">Delete</a><br /><br />
+											'group_id'		=>	$group_id]); ?>" class="delete confirm icon" title="Delete this application">Delete</a><br />
+			<a href="<?php echo getLink('edit_application.php',[
+											'action'		=>	'edit_application',
+											'applicant_id'	=>	$u['id']]); ?>" class="edit icon" title="Edit Application">Edit</a><br /><br />
 		</td>
 	<?php } ?>
 </tr>
