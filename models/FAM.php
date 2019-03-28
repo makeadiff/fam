@@ -244,7 +244,7 @@ class FAM {
 		if($checks) $query .= " AND (" . implode($and_or, $checks) . ")";
 
 		if($include_application_info) {
-			$query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS groups,
+			$query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTINCT UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS groups,
 								C.name AS city,U.city_id, UGP.preference, UGP.id AS ugp_id, E.name AS evaluator
 						FROM User U
 						INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id

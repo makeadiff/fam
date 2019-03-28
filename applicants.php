@@ -28,12 +28,6 @@ if($action == 'delete') {
 	$QUERY['success'] = "Applicant Deleted Successfully";
 	// header("Location: applicants.php?city_id=$city_id&group_id=$group_id");
 }
-// elseif($action == 'free-pool') {
-// 	if(!$is_director) die("You have to be a director to delete applicants.");
-
-// 	$sql->update("FAM_UserGroupPreference", ['status' => 'withdrawn'], ['user_id' => i($QUERY, 'applicant_id'), 'year' => $year]);
-// 	$QUERY['success'] = "Applicant Deleted Successfully";
-// }
 
 $checks = ['1=1'];
 $join = '';
@@ -57,7 +51,7 @@ if($stage_id) {
 	}
 }
 
-$query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS groups,
+$query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTINCT UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS groups,
 					C.name AS city, UGP.preference, UGP.id AS ugp_id, E.name AS evaluator $selects
 			FROM User U
 			INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
