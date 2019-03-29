@@ -280,7 +280,7 @@ class FAM {
 
 	public function getApplicantFeedbackQuestions()
 	{
-		return $this->sql->getById("SELECT id,question,type FROM FAM_ApplicantFeedbackQuestions WHERE status='1'");
+		return $this->sql->getById("SELECT id,question,type FROM FAM_ApplicantFeedbackQuestions WHERE status='1' ORDER BY FIELD(target,'all','fellow')");
 	}
 
 	public function getSurveyOptions($survey_question_id)
