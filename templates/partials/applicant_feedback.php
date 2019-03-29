@@ -12,19 +12,19 @@ foreach ($all_questions as $question_id => $ques) { ?>
 
 	<div class="x_content">
 		<dl>
-		<?php 
+		<?php
 		$count = 1;
 		foreach ($feedback as $reviewer_id => $responses)  {
 			foreach ($responses as $row) {
 				if($row['question_id'] == $question_id) {
 					if(!trim($row['feedback'])) continue;
 				?>
-					<dt>Feedback <?php if($is_director) echo 'by ' . $common->getUserName($reviewer_id); 
+					<dt>Feedback <?php if($is_director) echo 'by ' . $common->getUserName($reviewer_id);
 										else echo '#' . $count; ?></dt>
 					<dd><?php
-						echo $row['feedback']; 
-						if(i($row, 'comment')) 
-							echo ' (' . $row['comment'] . ')'; 
+						echo $row['feedback'];
+						if(i($row, 'comment'))
+							echo ' (' . $row['comment'] . ')';
 					?></dd>
 		<?php 	}
 			}
