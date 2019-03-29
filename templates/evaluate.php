@@ -11,7 +11,7 @@
 
 			<?php
 			if($stage_id == 3) {
-				echo 'For more details on the scale used in this evaluation, refer to <a target="_blank" href="https://docs.google.com/document/d/1DBwtJRK-W6l2WFQm4QKUX9b-rWfjT1Nz2UhSA5tz-B4/edit?usp=sharing">this document</a>';
+				echo 'For more details on the scale used in this evaluation, refer to <a target="_blank" href="https://docs.google.com/document/d/1fUYeM9_FljQ6WN2Wcif1rthEDZKkyLRa9OxfXtYLcQc">this document</a>';
 				$task_url = $fam->getTask($applicant_id, 'common');
 				$task_files = $fam->getTask($applicant_id, 'common_task_file');
 				if($task_url) {
@@ -120,7 +120,32 @@
 		</table>
 	</div>
 </div>
-<?php } elseif ($stage_id == 2) {
+<?php } elseif ($stage_id == 4) { ?>
+<div class="x_panel">
+	<div class="x_title">
+		<h2>Self Screening</h2>
+		<div class="clearfix"></div>
+	</div>
+
+	<div class="x_content">
+		<?php
+			$survey_question_id = 49;
+			$survey_options = $fam->getSurveyOptions($survey_question_id);
+			$survey_response = $fam->getSurveyResponse($survey_question_id, $applicant_id);
+
+			echo "<ul style='list-style:none; padding:0;'>";
+			foreach($survey_options as $option_id => $option) {
+				echo "<li>";
+				if(i($survey_response, $option_id)) echo "<i class='fa fa-check' style='color:{$colors['green']};'></i>";
+				else echo "<i class='fa fa-times' style='color:{$colors['red']};'></i>";
+				echo " $option</li>";
+			}
+			echo "</ul>";
+		?>
+	</div>
+</div>
+<?php
+} elseif ($stage_id == 2) {
 	require 'templates/partials/applicant_feedback.php';
 
 } elseif ($stage_id == 6) {
@@ -187,7 +212,7 @@ require(joinPath($config['site_folder'], 'templates', 'partials', 'parameters.ph
 <div class="x_content">
 	<div class="col-md-7">
 		<label>Comments</label>
-		<textarea rows="3" cols="50" name="comment" class="form-control col-md-7 col-xs-12"><?php echo $stage_info['comment'] ?></textarea>
+		<textarea rows="3" cols="50" name="comment" class="form-control col-md-7 col-xs-12" <?php if($stage_id != 6) { ?>required minlength="100"<?php } ?>><?php echo $stage_info['comment'] ?></textarea>
 	</div>
 	<br /><br />
 	<input type="submit" class="btn btn-primary" value="Save" name="action" />

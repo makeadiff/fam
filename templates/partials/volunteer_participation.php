@@ -16,14 +16,14 @@ if($participation)
 foreach ($participation as $key => $data) {
 	if($key == 'name' or $key == 'vertical' or $key == 'participation_additional_consideration') continue;
 
-	$db_value = i($data, 'madapp');
+	$db_value = i($data, 'madapp', false);
 	$correct  = i($data, 'is_correct');
 	$user_value=i($data, 'user_updated');
 
 	if($key == 'cpp') {
 		$title = 'Child Protection Policy Signed';
 	} else $title = ucfirst(format($key));
-	if(!$db_value) continue;
+	if($db_value === false) continue;
 
 	echo "<tr>";
 	echo "<td>" . $title . "</td>";
