@@ -136,6 +136,7 @@ class FAM {
 		$join = '';
 		$selects = '';
 		if(!empty($source['group_id'])) $checks[] = "UGP.group_id=" . $source['group_id'];
+		if(!empty($source['preference']) and $source['preference']) $checks[] = "UGP.preference=" . $source['preference'];
 		if(!empty($source['city_id'])) $checks[] = "((UGP.city_id != 0 AND UGP.city_id={$source['city_id']}) OR (UGP.city_id = 0 AND U.city_id={$source['city_id']}))";
 		if(isset($source['evaluator_id'])) {
 			if(!$source['evaluator_id']) return [];
@@ -280,6 +281,15 @@ class FAM {
 	public function getApplicantFeedbackQuestions()
 	{
 		return $this->sql->getById("SELECT id,question,type FROM FAM_ApplicantFeedbackQuestions");
+	}
+
+	public function getSurveyOptions($survey_question_id)
+	{
+		return $this->sql->getById("SELECT id,answer FROM SS_Answer WHERE question_id=$survey_question_id AND status='1'");
+	}
+	public function getSurveyResponse($survey_question_id, $applicant_id)
+	{
+		return $this->sql->getById("SELECT answer AS id, 1 AS checked FROM SS_UserAnswer WHERE user_id=$applicant_id AND question_id=$survey_question_id");
 	}
 
 	public function statusSelectOption($name,$label,$status){

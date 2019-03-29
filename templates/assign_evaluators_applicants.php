@@ -15,6 +15,7 @@
 </p>
 
 <?php $html->buildInput("group_id", 'Applicants for ', 'select', $group_id, ['options' => $all_groups, 'no_br' => 1]); ?> &nbsp;
+<span id="preference-area"><?php $html->buildInput("preference", 'Preference ', 'select', $preference, ['options' => ['Any', '1', '2', '3'], 'no_br' => 1]); ?> &nbsp;</span>
 <?php $html->buildInput("city_id", 'City ', 'select', $city_id, ['options' => $all_cities, 'no_br' => 1]); ?> &nbsp;
 <?php $html->buildInput("stage_id", 'Stage ', 'select', $stage_id, ['options' => $all_stages_input, 'no_br' => 1]); ?> &nbsp;
 <?php echo $fam->statusSelectOption('status','Status ',$status); ?> &nbsp;

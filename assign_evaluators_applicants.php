@@ -26,12 +26,13 @@ $city_id = i($QUERY, 'city_id');
 $evaluator_id = i($QUERY, 'evaluator_id', 0);
 $stage_id = i($QUERY, 'stage_id', 0);
 $status = i($QUERY, 'status', '0');
+$preference = i($QUERY, 'preference', 0);
 
 if(i($QUERY, 'show_unassigned')) {
 	$applicants = $fam->getUnassignedApplicants();
 	$group_id = 0;
 } else {
-	$applicants = $fam->getApplicants(['group_id' => $group_id, 'city_id' => $city_id,'stage_id'=>$stage_id,'status'=>$status]);
+	$applicants = $fam->getApplicants(['group_id' => $group_id, 'preference'=> $preference, 'city_id' => $city_id,'stage_id'=>$stage_id,'status'=>$status]);
 }
 
 if(i($QUERY, 'action') == 'Assign' and $evaluator_id) {
