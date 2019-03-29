@@ -12,7 +12,7 @@
 </p>
 
 <?php
-require 'templates/partials/applicants_table.php'; 
+require 'templates/partials/applicants_table.php';
 ?>
 </div>
 

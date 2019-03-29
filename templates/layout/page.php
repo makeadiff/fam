@@ -64,7 +64,7 @@
                   <li><a href="task-dashboard.php"><i class="fa fa-table"></i> Task Upload Status</a></li>
                   <li><a href="my_applicants.php"><i class="fa fa-edit"></i> My Applicants</a></li>
 
-                  <li><a href="all_stages.php"><i class="fa fa-server"></i> Bulk Enter Data for All Applicants</a></li>
+                  <!-- <li><a href="all_stages.php"><i class="fa fa-server"></i> Bulk Enter Data for All Applicants</a></li> -->
                       <?php if($is_director) { ?>
                       <li><a><i class="fa fa-wrench"></i>Tools <span class="fa fa-chevron-left"></span></a>
                       <ul class="nav child_menu">
