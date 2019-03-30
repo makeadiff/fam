@@ -1,8 +1,19 @@
-<table class="table table-striped">
-<tr><th>Count</th><th>Applicant</th><th>City</th><th>Current Roles</th><?php if(isset($applicants[0]['groups'])) { ?><th>Applied Role (Evaluator)</th><?php } ?>
-	<?php if(isset($group_id) and $group_id)  { ?><th>Preference</th><?php } ?>
-	<?php if($is_director) { ?><th width="250">Evaluations</th><th>Action</th><?php } ?>
-</tr>
+<?php
+	if(!empty($applicants)){
+?>
+		<table class="table table-striped">
+		<tr><th>Count</th><th>Applicant</th><th>City</th><th>Current Roles</th><?php if(isset($applicants[0]['groups'])) { ?><th>Applied Role (Evaluator)</th><?php } ?>
+			<?php if(isset($group_id) and $group_id)  { ?><th>Preference</th><?php } ?>
+			<?php if($is_director) { ?><th width="250">Evaluations</th><th>Action</th><?php } ?>
+		</tr>
+<?php
+	}
+	else{
+?>
+		<p><strong>No Applicants Assigned to You.</strong></p>
+<?php
+	}
+?>
 <?php
 if(!isset($count)) $count = 0;
 foreach($applicants as $u) {
