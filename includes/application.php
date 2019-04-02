@@ -54,6 +54,7 @@ $verticals = [
 	GROUP_ID_FP			=> "Foundational Programme",
 	GROUP_ID_MENTOR		=> 'Mentors'
 ];
+
 $colors = [
   'green'   => '#26B99A',
   'orange'  => '#f6b26b',
