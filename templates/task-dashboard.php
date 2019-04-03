@@ -29,19 +29,40 @@
     ?>
       <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
         <span class="count_top"><i class="fa fa-user"></i> Total Fellowship Sign Ups</span>
-        <div class="count"><?php echo $total_filled ?></div>
+        <div class="count">
+					<?php
+						if($group_id==0 && $city_id==0){
+							echo $all_applied;
+						}
+						else if($city_id==0 && $group_id!=0){
+							echo $shortlisted[$this_group_id];
+						}
+						elseif($city_id!=0 && $group_id==0){
+							echo $total_cities[$city_id]['applications'];
+						}
+						else{
+							echo i($applications[$city_id], $group_id, 0);
+						}
+					?>
+				</div>
       </div>
 
       <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
         <span class="count_top"><i class="fa fa-user"></i> Fellowship Tasks Submitted</span>
         <div class="count">
           <?php
-            if($group_id==0){
+						if($group_id==0 && $city_id==0){
 							echo $all_submitted;
-            }
-            else{
-              echo $requirements[$city_id][$group_id];
-            }
+						}
+						else if($city_id==0 && $group_id!=0){
+							echo $total_submitted[$this_group_id];
+						}
+						elseif($city_id!=0 && $group_id==0){
+							echo $total_cities[$city_id]['submitted'];
+						}
+						else{
+							echo i($submitted[$city_id], $group_id, 0);
+						}
           ?>
         </div>
       </div>
@@ -50,12 +71,18 @@
         <span class="count_top"><i class="fa fa-user"></i> Fellowship Tasks Evaluated</span>
         <div class="count">
           <?php
-            if($group_id==0){
-              echo $all_evaluated;
-            }
-            else{
-              echo $requirements[$city_id][$group_id];
-            }
+						if($group_id==0 && $city_id==0){
+							echo $all_evaluated;
+						}
+						else if($city_id==0 && $group_id!=0){
+							echo $total_evaluated[$this_group_id];
+						}
+						elseif($city_id!=0 && $group_id==0){
+							echo $total_cities[$city_id]['evaluated'];
+						}
+						else{
+							echo i($evaluated[$city_id], $group_id, 0);
+						}
           ?>
         </div>
       </div>

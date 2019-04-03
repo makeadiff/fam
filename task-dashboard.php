@@ -45,6 +45,7 @@ $requirements = getRequirementFromSheet();
 $applications = [];
 $submitted = [];
 $evaluated = [];
+$fellow_applicants = [];
 
 foreach ($all_cities as $city => $city_name) {
 	// $applications[$city_id] = array_combine(array_keys($verticals), array_fill(0, count($verticals), 0)); // Create init values.
@@ -54,6 +55,15 @@ foreach ($all_cities as $city => $city_name) {
 		WHERE preference=1 AND ((UGP.city_id != 0 AND UGP.city_id=$city) OR (UGP.city_id = 0 AND U.city_id=$city)) AND UGP.year=$year
 		AND UGP.status <> 'withdrawn' $no_mentor_check
 		GROUP BY UGP.group_id");
+
+	$fellow_applicants[$city] = $sql->getAll("SELECT UGP.user_id, UGP.group_id, GROUP_CONCAT(DISTINCT G.id)
+		FROM FAM_UserGroupPreference UGP
+		INNER JOIN User U ON UGP.user_id=U.id
+		INNER JOIN UserGroup UG ON UG.user_id = U.id
+		INNER JOIN `Group` G ON G.id = UG.group_id
+		INNER JOIN FAM_UserTask UT ON UT.user_id = U.id
+		WHERE preference=1 AND ((UGP.city_id != 0 AND UGP.city_id=$city) OR (UGP.city_id = 0 AND U.city_id=$city)) AND UGP.year=$year AND G.type = 'fellow'
+		AND UGP.status <> 'withdrawn' $no_mentor_check");
 
 	$submitted[$city] = $sql->getById("SELECT UGP.group_id, COUNT(DISTINCT UGP.user_id) FROM FAM_UserGroupPreference UGP
 		INNER JOIN User U ON UGP.user_id=U.id
@@ -157,6 +167,6 @@ foreach($all_cities as $city => $city_name) {
 }
 
 
-// dump($total_verticals);
+// dump($fellow_applicants);
 
 render();
