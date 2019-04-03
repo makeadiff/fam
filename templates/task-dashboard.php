@@ -127,46 +127,63 @@
 		<p class="text-muted font-13 m-b-30">
 
 		</p>
-	<?php
+<?php
+	if($group_id==0){
+		foreach($verticals as $this_group_id => $title) {
+			if(!$requirements[$city_id][$this_group_id]) continue;
+			if($this_group_id == 8) continue;
 
-		if($group_id==0){
-			foreach($verticals as $this_group_id => $title) {
-				if(!$requirements[$city_id][$this_group_id]) continue;
-				if($this_group_id == 8) continue;
-
+			if($city_id==0)
 				$expected = $shortlisted[$this_group_id] - $total_verticals[$this_group_id]['not_required'];
-	?>
+			else
+				$expected = $shortlisted[$this_group_id] - (i($ctl_ctl_applicants[$city_id], $this_group_id, 0) + i($nonctl_fellow_applicants[$city_id], $this_group_id, 0));
+?>
 					<div class="col-md-2 boxes">
 						<p class="vertical-name">
 							<a href="applicants.php?group_id=<?php echo $this_group_id ?>&city_id=<?php echo $city_id ?>&action=Filter">
 								<strong><?php echo $title ?></strong>
 							</a>
 						</p>
-						<?php
-							if($evaluation_status=='all'){
-						?>
-								<input class="knob" data-width="100" data-height="120" data-angleOffset="0" data-min="0" data-max="<?php
-										if($total_submitted[$this_group_id] > ($shortlisted[$this_group_id] - $total_verticals[$this_group_id]['not_required']))
-											echo $total_submitted[$this_group_id];
-										else echo ($shortlisted[$this_group_id] - $total_verticals[$this_group_id]['not_required']);
-									?>" data-linecap="round" data-fgColor="<?php
-										if(($total_submitted[$this_group_id] < ($shortlisted[$this_group_id] - $total_verticals[$this_group_id]['not_required']) || $shortlisted[$this_group_id]==0)) echo '#f6b26b';
-										else echo '#26B99A';
-										 ?>" value="<?php echo $total_submitted[$this_group_id]; ?>" data-readOnly="true" /><br />
-						<?php
-							}
-							else{
-						?>
-								<input class="knob" data-width="100" data-height="120" data-angleOffset="0" data-min="0" data-max="<?php
-										if($total_evaluated[$this_group_id] > $total_submitted[$this_group_id]) echo $total_evaluated[$this_group_id];
-										else echo $total_submitted[$this_group_id];
-									?>" data-linecap="round" data-fgColor="<?php
-										if(($total_evaluated[$this_group_id] < $total_submitted[$this_group_id]) || $total_submitted[$this_group_id]==0) echo '#f6b26b';
-										else echo '#26B99A';
-										 ?>" value="<?php echo $total_evaluated[$this_group_id]; ?>" data-readOnly="true" /><br />
-						<?php
-							}
-						?>
+<?php
+	if($evaluation_status=='all'){
+?>
+								<input class="knob" data-width="100" data-height="120" data-angleOffset="0" data-min="0" data-max="
+<?php
+	if($total_submitted[$this_group_id] > ($shortlisted[$this_group_id] - $total_verticals[$this_group_id]['not_required']))
+		echo $total_submitted[$this_group_id];
+	else
+		echo ($shortlisted[$this_group_id] - $total_verticals[$this_group_id]['not_required']);
+?>
+									" data-linecap="round" data-fgColor="
+<?php
+	if(($total_submitted[$this_group_id] < ($shortlisted[$this_group_id] - $total_verticals[$this_group_id]['not_required']) || $shortlisted[$this_group_id]==0))
+		echo '#f6b26b';
+	else
+		echo '#26B99A';
+?>
+									" value="<?php echo $total_submitted[$this_group_id]; ?>" data-readOnly="true" /><br />
+<?php
+	}
+	else{
+?>
+								<input class="knob" data-width="100" data-height="120" data-angleOffset="0" data-min="0" data-max="
+<?php
+	if($total_evaluated[$this_group_id] > $total_submitted[$this_group_id])
+		echo $total_evaluated[$this_group_id];
+	else
+		echo $total_submitted[$this_group_id];
+?>
+									" data-linecap="round" data-fgColor="
+<?php
+	if(($total_evaluated[$this_group_id] < $total_submitted[$this_group_id]) || $total_submitted[$this_group_id]==0)
+		echo '#f6b26b';
+	else
+		echo '#26B99A';
+?>
+									" value="<?php echo $total_evaluated[$this_group_id]; ?>" data-readOnly="true" /><br />
+<?php
+	}
+?>
 						Total Applicants: <strong><?php echo $shortlisted[$this_group_id]; ?></strong><br />
 						Task(s) Expected: <strong><?php echo $expected ?></strong><br />
 						Task(s) Submitted: <strong><?php echo $total_submitted[$this_group_id]; ?></strong><br />
