@@ -48,7 +48,7 @@
       </div>
 
 			<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-        <span class="count_top"><i class="fa fa-user"></i> Expected Fellowship Tasks</span>
+        <span class="count_top"><i class="fa fa-user"></i> Expected Tasks</span>
         <div class="count">
 					<?php
 						if($group_id==0 && $city_id==0){
@@ -68,7 +68,7 @@
       </div>
 
       <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-        <span class="count_top"><i class="fa fa-user"></i> Fellowship Tasks Submitted</span>
+        <span class="count_top"><i class="fa fa-user"></i> Tasks Submitted</span>
         <div class="count">
           <?php
 						if($group_id==0 && $city_id==0){
@@ -88,7 +88,7 @@
       </div>
 
 			<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-        <span class="count_top"><i class="fa fa-user"></i> Fellowship Tasks Evaluated</span>
+        <span class="count_top"><i class="fa fa-user"></i> Tasks Evaluated</span>
         <div class="count">
           <?php
 						if($group_id==0 && $city_id==0){
