@@ -72,7 +72,7 @@
                         <li><a href="find_applicant.php"><i class="fa fa-search"></i> Find Applicants</a></li>
                         <li><a href="all_in_one.php"><i class="fa fa-table"></i> All in One View</a></li>
                         <li><a href="assign_evaluators_applicants.php"><i class="fa fa-edit"></i> Assign Evaluators</a></li>
-                        <li><a href="task_update.php"><i class="fa fa-edit"></i> Task Update</a></li>
+                        <li><a href="task_update.php"><i class="fa fa-tasks"></i> Task Update</a></li>
                         <li><a href="no_data.php"><i class="fa fa-exclamation-triangle"></i> Show Evaluators Who haven't entered Data</a></li>
                         <li><a href="evaluators.php"><i class="fa fa-clipboard"></i> Evaluators</a></li>
                         <li><a href="free_pool.php"><i class="fa fa-tree"></i> Free Pool</a></li>
