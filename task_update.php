@@ -27,7 +27,9 @@ if($action == 'Find Applicant') {
 	if(i($QUERY, 'city_id')) $params['city_id'] = i($QUERY, 'city_id');
 
 	$applicants = $fam->findUser($params, ' OR ', true);
-	$applicant = $applicants[0];
+	if(!empty($applicants)){
+		$applicant = $applicants[0];
+	}
 }
 
 
