@@ -35,7 +35,7 @@ else if($task_type && $task_type=='vertical'){
 	$task_check = " AND UT.preference_1_task_files<>'' AND UT.year=$year";
 }
 else{
-	$task_check = " AND UT.common_task_url<>'' AND UT.year=$year";
+	$task_check = " AND (UT.common_task_url<>'' OR UT.common_task_files<>'' OR UT.preference_1_task_files <> '') AND UT.year=$year";
 }
 
 $no_mentor_check = " AND UGP.group_id <> 8 ";
