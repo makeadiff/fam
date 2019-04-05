@@ -14,7 +14,7 @@
 				echo 'For more details on the scale used in this evaluation, refer to <a target="_blank" href="https://docs.google.com/document/d/1fUYeM9_FljQ6WN2Wcif1rthEDZKkyLRa9OxfXtYLcQc">this document</a>';
 				$task_url = $fam->getTask($applicant_id, 'common');
 				$task_files = $fam->getTask($applicant_id, 'common_task_file');
-				if($task_url) {
+				if($task_url || $task_files) {
 					echo "<h4>Click on the link(s) below to see $applicant[name]'s Common Task Videos & Task Files </h4>";
 					$task = explode('http',str_replace(', ','',str_replace('#','%23',$task_url)));
 					$i=0;
