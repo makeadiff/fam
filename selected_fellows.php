@@ -36,6 +36,7 @@ foreach ($all_cities as $city_id => $city_name) {
 			WHERE US.stage_id = 4
 				AND US.status = 'selected'
 				AND UGP.year = $year
+				AND US.year = $year
 				AND C.id = $city_id
 				AND US.group_id = $vertical_id
 			ORDER BY C.name, U.name ASC");

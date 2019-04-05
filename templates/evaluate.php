@@ -30,7 +30,7 @@
 						foreach ($task as $file) {
 							if($file!=''){
 								$i++;
-								echo '<a target="_blank" class="badge badge-primary" href="http'.$file.'">'.'Common Task Attachment '.$i.'</a>';
+								echo '<a target="_blank" class="badge badge-primary" href="download.php?file=http'.$file.'">'.'Common Task Attachment '.$i.'</a>';
 							}
 						}
 					}

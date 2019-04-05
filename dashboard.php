@@ -58,13 +58,6 @@ foreach ($verticals as $this_group_id => $name) {
 
 }
 
-// $selected = [];
-// foreach ($verticals as $this_group_id => $name) {
-// 	$selected[$this_group_id] = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupPreference UGP
-// 		INNER JOIN User U ON UGP.user_id=U.id
-// 		WHERE $city_check preference=1 AND group_id=$this_group_id AND UGP.status='selected'");
-// }
-
 $multiplication_factor = 3;
 $mentor_multiplication_factor = 1;
 
