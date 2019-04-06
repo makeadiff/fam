@@ -14,14 +14,14 @@ if(isset($file_name)) {
 		case 'jpg': $mime = 'image/jpg'; header('location: '.$file_name); break;
 		default: $mime = 'application/force-download';
 	}
-	// header('Pragma: public'); 	// required
+	header('Pragma: public'); 	// required
 	// header('Expires: 0');		// no cache
 	// header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 	// header('Cache-Control: private',false);
 	// header('Content-Type: '.$mime);
 	// header('Content-Disposition: attachment; filename="'.basename($file_name).'"');
-	// header('Content-Transfer-Encoding: binary');
-	// header('Connection: close');
+	header('Content-Transfer-Encoding: binary');
+	header('Connection: close');
 	readfile($file_name);		// push it out
 	exit();
 
