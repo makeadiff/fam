@@ -108,3 +108,21 @@ BODY {
 .shelter_selection{
 		width: 200px;
 }
+
+.no-overflow {
+	overflow-y: auto;
+	text-align: center;
+	/* background: #FAFAFA; */
+	border-top: thin solid #CCC;
+	border-radius: 5px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+.no-overflow p{
+	font-size: 10px;
+}
+.no-overflow p.icon{
+	font-size: 25px;
+	color:#d32f2f;
+	margin-top: -10px;
+}

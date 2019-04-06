@@ -74,3 +74,24 @@ function siteInit() {
 	if(window.init && typeof window.init == "function") init(); //If there is a function called init(), call it on load
 }
 jQuery(window).load(siteInit);
+
+
+$('input[type="file"]').change(function(e){
+	var id = this.id;
+	var count = id.substring(5,6);
+	var fileName = '';
+	for(var i=0;i < e.target.files.length; i++){
+		if(i>0){
+			fileName = fileName + ', ';
+		}
+    fileName = fileName + e.target.files[i].name;
+	}
+	if(id!='common_task_files'){
+    document.getElementById('file_name_label_' + count).innerHTML = fileName;
+		$('#file_name_label_' + count).show();
+	}
+	else{
+		document.getElementById('file_name_label_common').innerHTML = fileName;
+		$('#file_name_label_common').show();
+	}
+});

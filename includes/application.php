@@ -144,3 +144,7 @@ function getEmailFromSheet($sheet_url) {
 	unset($data['ID']); //Unset Header Row
 	return $data;
 }
+
+function getCity($city_id,$sql){
+  return $sql->getOne('SELECT name from City where id='.$city_id);
+}

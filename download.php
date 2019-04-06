@@ -1,17 +1,23 @@
 <?php
+require 'common.php';
 
 $file_name = $_GET['file'];
 
-
-https://makeadiff.in/apps/fellowship-signup/files/index.php?p=Delhi%2FCommon%2FTushar+goel&dl=Tushar_goel_common_Blank.docx
-// make sure it's a file before doing anything!
-$base_name = basename($file_name);
-
-
-$directory = str_replace($base_name,'',str_replace('https://makeadiff.in/apps/fellowship-signup/tasks/','',$file_name));
-$url='https://makeadiff.in/apps/fellowship-signup/files/index.php?p='.$directory.'&dl='.$base_name;
-
 if(isset($file_name)) {
+
+  $base_name = basename($file_name);
+
+  if($_SERVER['HTTP_HOST'] == 'makeadiff.in'){
+    $parent = 'https://makeadiff.in/apps/fellowship-signup/files/index.php?p=';
+    $replace = 'http://makeadiff.in/apps/fellowship-signup/tasks/';
+  }
+  else{
+    $parent = 'http://localhost/makeadiff/apps/fellowship-signup/files/index.php?p=';
+    $replace = 'http://localhost/makeadiff/apps/fellowship-signup/tasks/';
+  }
+
+  $directory = str_replace($base_name,'',str_replace($replace,'',$file_name));
+  $url=$parent.$directory.'&dl='.$base_name;
 
   header('location: '.$url);
   exit;
