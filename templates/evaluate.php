@@ -204,15 +204,22 @@ require(joinPath($config['site_folder'], 'templates', 'partials', 'parameters.ph
     	<input name="status" type="radio" class="input-no" value="maybe" <?php if($stage_info['status'] == 'maybe') echo 'checked="true"'; ?> />Maybe</label>
     <label class="btn btn-danger <?php if($stage_info['status'] == 'rejected') echo 'active'; ?>">
     	<input name="status" type="radio" class="input-no" value="rejected" <?php if($stage_info['status'] == 'rejected') echo 'checked="true"'; ?> />Rejected</label>
-
   </div>
 </div>
+<?php if ($stage_id == 3) { ?>
+	<br/>
+	<p>If the applicant is rejected for Fellowship, but can be shortlisted for Mentor Profile, mark it below.</p>
+	<div class="clearfix"></div>
+	<div class="row" style="margin-left:10px;">
+		<a href="shortlist.php?group_id=<?php echo GROUP_ID_MENTOR; ?>&applicant_id=<?php echo $applicant_id; ?>" class="btn btn-primary">Shortlist for Mentor Profile</a>
+	</div>
+<?php }?>
 </div>
 
 <div class="x_content">
 	<div class="col-md-7">
 		<label>Comments</label>
-		<textarea rows="3" cols="50" name="comment" class="form-control col-md-7 col-xs-12" <?php if($stage_id != 6) { ?>required minlength="100"<?php } ?>><?php echo $stage_info['comment'] ?></textarea>
+		<textarea rows="3" cols="50" name="comment" class="form-control col-md-7 col-xs-12" <?php if($stage_id != 6) { if($stage_id != 2){ ?> minlength="100" <?php } ?> required<?php }?>><?php echo $stage_info['comment'] ?></textarea>
 	</div>
 	<br /><br />
 	<input type="submit" class="btn btn-primary" value="Save" name="action" />
