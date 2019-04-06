@@ -10,7 +10,7 @@ $base_name = basename($file_name);
 
 $directory = str_replace($base_name,'',str_replace('https://makeadiff.in/apps/fellowship-signup/tasks/','',$file_name));
 $url='https://makeadiff.in/apps/fellowship-signup/files/index.php?p='.$directory.'&dl='.$base_name;
-exit;
+
 if(isset($file_name)) {
 
   header('location: '.$url); break;
