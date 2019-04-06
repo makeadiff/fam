@@ -18,7 +18,7 @@ if(isset($file_name)) {
 	// header('Expires: 0');		// no cache
 	// header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 	// header('Cache-Control: private',false);
-	// header('Content-Type: '.$mime);
+	header('Content-Type: '.$mime);
 	// header('Content-Disposition: attachment; filename="'.basename($file_name).'"');
 	header('Content-Transfer-Encoding: binary');
 	header('Connection: close');
