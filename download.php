@@ -13,7 +13,7 @@ $url='https://makeadiff.in/apps/fellowship-signup/files/index.php?p='.$directory
 
 if(isset($file_name)) {
 
-  header('location: '.$url); break;
+  header('location: '.$url);
   exit;
 
 	switch(strtolower(substr(strrchr($file_name, '.'), 1))) {
