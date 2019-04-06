@@ -29,10 +29,8 @@
 						$i=0;
 						foreach ($task as $file) {
 							if($file!=''){
-								$i++;
-								// dump('https'.str_replace(':/makeadiff.in/apps/fel')$file);
-								// $file_name = https://makeadiff.in/apps/fellowship-signup/files/index.php?p=Delhi%2FCommon%2FTushar+goel&dl=Tushar_goel_common_Blank.docx
-								echo '<a target="_blank" class="badge badge-primary" href="download.php?file=http'.$file.'">'.'Common Task Attachment '.$i.'</a>';
+								$i++;																
+								echo '<a target="_blank" class="badge badge-primary" href="download.php?file=https'.$file.'">'.'Common Task Attachment '.$i.'</a>';
 							}
 						}
 					}
