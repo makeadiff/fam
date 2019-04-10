@@ -1,7 +1,5 @@
 <?php
-require 'common.php';
-
-$referer_url = $_SERVER['HTTP_REFERER'];
+require '../common.php';
 
 $file_name = $_GET['file'];
 $applicant_id = $_GET['applicant_id'];
@@ -37,7 +35,5 @@ if(isset($file_name) && isset($applicant_id)) {
         }
     }
     closedir($dirHandle);
-    echo $referer_url;
-    header('location: '.$referer_url);
   }
 }

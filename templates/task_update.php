@@ -61,11 +61,11 @@
 
 <?php
 			}
-
-			if($all_tasks['common_task_files']){
 ?>
-					<p>Common Task: Written</p>
+					<p>Common Task: Written Task Files</p>
 <?php
+			if($all_tasks['common_task_files']){
+
 				$task = explode('http',str_replace(', ','',str_replace('#','%23',$all_tasks['common_task_files'])));
 				$i=0;
 ?>
@@ -77,23 +77,25 @@
 						$file = 'http'.$file;
 						$file_name = basename($file);
 ?>
-						<div class="col-md-2 col-sm-2 col-xs-2 no-overflow">
+						<div class="col-md-2 col-sm-2 col-xs-2 no-overflow" id="task<?php echo $i; ?>">
 							<a target="_blank" href="download.php?file=<?php echo $file?>"><h1><span class="fa fa-file" aria-hidden="true"></span><h1></a>
 							<a target="_blank" href="download.php?file=<?php echo $file?>"><p><?php echo str_replace("_"," ",$file_name); ?></p></a>
-							<a href="delete.php?applicant_id=<?php echo $applicant['id'] ?>&file=<?php echo $file?>"><p class="icon"><span class="fa fa-trash" aria-hidden="true"></span></p></a>
+							<a class="delete_task" id="<?php echo $i; ?>" href="api/delete_task.php?applicant_id=<?php echo $applicant['id'] ?>&file=<?php echo $file?>"><p class="icon"><span class="fa fa-trash" aria-hidden="true"></span></p></a>
 			      </div>
 <?php
 					}
 				}
 ?>
-					</div>
-					<div class="box__input">
-						<input type="button" class="btn btn-warning" id="loadFileXml" value="Select File(s)" onclick="document.getElementById('common_task_files').click();" />
-						<span class="file_name_label" id="file_name_label_common"></span>
-            <input type="file" id="common_task_files" name="common_task_files[]" class="hidden" multiple accept="application/msword,application/msexcel,application/pdf,application/rtf,image/pdf,image/jpeg,image/tiff,image/x-png,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,.pdf, .xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx"/>
-				  </div>
 <?php
 			}
+?>
+			</div>
+			<div class="box__input">
+				<input type="button" class="btn btn-warning" id="loadFileXml" value="Select File(s)" onclick="document.getElementById('common_task_files').click();" />
+				<span class="file_name_label" id="file_name_label_common"></span>
+				<input type="file" id="common_task_files" name="common_task_files[]" class="hidden" multiple accept="application/msword,application/msexcel,application/pdf,application/rtf,image/pdf,image/jpeg,image/tiff,image/x-png,text/plain,application/vnd.openxmlformats-officedocument.wordprocessingml.document,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel,.pdf, .xlsx,.xls,image/*,.doc, .docx,.ppt, .pptx"/>
+			</div>
+<?php
 			echo '<hr/>';
 			$html->buildInput("action", "&nbsp", 'submit', 'Update Tasks', ['class' => 'btn btn-primary']);
 ?>

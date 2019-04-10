@@ -76,6 +76,18 @@ function siteInit() {
 jQuery(window).load(siteInit);
 
 
+
+$('.delete_task').click(function(e){
+	var url = this.href;
+	var id = this.id;
+	$.ajax(url).done(function(){
+		$('#task'+id).hide();
+		$.notify({title: '<strong>Data Saved</strong>', message: 'The selected task has been deleted.',icon: 'glyphicon glyphicon-ok'}, {type: "success", delay: 3000});
+	}).fail(function(){
+		$.notify({title: '<strong>Error</strong>', message: 'Server not reachable.',icon: 'glyphicon glyphicon-remove'}, {type: "warning", delay: 3000});
+	});
+});
+
 $('input[type="file"]').change(function(e){
 	var id = this.id;
 	var count = id.substring(5,6);
