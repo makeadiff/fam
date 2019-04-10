@@ -8,26 +8,11 @@ $total_filled = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupP
 	INNER JOIN User U ON UGP.user_id=U.id
 	WHERE preference=1 AND UGP.year=$year");
 
-$verticals = [
-	'2'		=> "City Team Lead",
-	'19'	=> "Ed Support",
-	'378'	=> "Aftercare",
-	'272'	=> "Transition",
-	'370'	=> "Fundraising",
-	'269'	=> "Shelter Ops",
-	'4'		=> "Shelter Support",
-	'5'		=> "Human Capital",
-	'15'	=> "Finance",
-	'11'	=> "Campaigns",
-	'375'	=> "Foundational Programme",
-];
-
 $applications = [];
 $selected = [];
 
 foreach ($all_cities as $city_id => $city_name) {
 	foreach ($verticals as $vertical_id => $vertical_name) {
-
 		$applications[$city_id][$vertical_id] = $sql->getOne("SELECT GROUP_CONCAT(DISTINCT U.name) as fellow_names
 			FROM User U
 			INNER JOIN FAM_UserStage US ON US.user_id = U.id
@@ -40,7 +25,6 @@ foreach ($all_cities as $city_id => $city_name) {
 				AND C.id = $city_id
 				AND US.group_id = $vertical_id
 			ORDER BY C.name, U.name ASC");
-
 	}
 }
 

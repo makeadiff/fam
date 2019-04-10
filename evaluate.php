@@ -36,6 +36,7 @@ $all_reference_links = [
 	'15'	=> 'https://docs.google.com/document/d/1UF8cBAM1Nw01CXbQcsXsosSKB_EqOTZpgTJwLoJ5jkc', //Finance
 	'11'	=> 'https://docs.google.com/document/d/1scKQ4y7yHWdWifxXuarMnY2mMLELi4RVnQxGpRDqI8M', //Campaigns and Communications
 	'375'	=> 'https://docs.google.com/document/d/1ilaYYMsJ0oldG_MMaqn9xdnISmEWVCCMcL8eA3Q-8Gw', //Foundational Programme
+	'9'		=> '', // Mentors
 ];
 if($group_id) $reference_link = $all_reference_links[$group_id];
 

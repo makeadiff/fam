@@ -24,98 +24,95 @@
 
 	<div class="row tile_count">
     <div class="fellowship-signup">
-    <?php
-      if($group_id!=8){
-    ?>
-      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-        <span class="count_top"><i class="fa fa-user"></i> Total Fellowship Sign Ups</span>
-        <div class="count">
-					<?php
-						if($group_id==0 && $city_id==0){
-							echo $all_applied;
-						}
-						else if($city_id==0 && $group_id!=0){
-							echo $shortlisted[$group_id];
-						}
-						elseif($city_id!=0 && $group_id==0){
-							echo $total_cities[$city_id]['applications'];
-						}
-						else{
-							echo i($applications[$city_id], $group_id, 0);
-						}
-					?>
-				</div>
-      </div>
+    <?php if($group_id != 8) { ?>
+	    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+	        <span class="count_top"><i class="fa fa-user"></i> Total Fellowship Sign Ups</span>
+	        <div class="count">
+				<?php
+					if($group_id==0 && $city_id==0){
+						echo $all_applied;
+					}
+					else if($city_id==0 && $group_id!=0){
+						echo $shortlisted[$group_id];
+					}
+					elseif($city_id!=0 && $group_id==0){
+						echo $total_cities[$city_id]['applications'];
+					}
+					else{
+						echo i($applications[$city_id], $group_id, 0);
+					}
+				?>
+			</div>
+	    </div>
 
-			<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-        <span class="count_top"><i class="fa fa-user"></i> Expected Tasks</span>
-        <div class="count">
-					<?php
-						if($group_id==0 && $city_id==0){
-							echo $all_applied - $all_not_required;;
-						}
-						else if($city_id==0 && $group_id!=0){
-							echo $shortlisted[$group_id] - $total_verticals[$group_id]['not_required'];
-						}
-						elseif($city_id!=0 && $group_id==0){
-							echo $total_cities[$city_id]['applications'] - $total_cities[$city_id]['not_required'];
-						}
-						else{
-							echo i($applications[$city_id], $group_id, 0) - (i($ctl_ctl_applicants[$city_id], $group_id, 0) + i($nonctl_fellow_applicants[$city_id], $group_id, 0));
-						}
-					?>
-				</div>
-      </div>
+		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+	        <span class="count_top"><i class="fa fa-user"></i> Expected Tasks</span>
+	        <div class="count">
+				<?php
+					if($group_id==0 && $city_id==0){
+						echo $all_applied - $all_not_required;;
+					}
+					else if($city_id==0 && $group_id!=0){
+						echo $shortlisted[$group_id] - $total_verticals[$group_id]['not_required'];
+					}
+					elseif($city_id!=0 && $group_id==0){
+						echo $total_cities[$city_id]['applications'] - $total_cities[$city_id]['not_required'];
+					}
+					else{
+						echo i($applications[$city_id], $group_id, 0) - (i($ctl_ctl_applicants[$city_id], $group_id, 0) + i($nonctl_fellow_applicants[$city_id], $group_id, 0));
+					}
+				?>
+			</div>
+	    </div>
 
-      <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-        <span class="count_top"><i class="fa fa-user"></i> Tasks Submitted</span>
-        <div class="count">
-          <?php
-						if($group_id==0 && $city_id==0){
-							echo $all_submitted;
-						}
-						else if($city_id==0 && $group_id!=0){
-							echo $total_submitted[$group_id];
-						}
-						elseif($city_id!=0 && $group_id==0){
-							echo $total_cities[$city_id]['submitted'];
-						}
-						else{
-							echo i($submitted[$city_id], $group_id, 0);
-						}
-          ?>
-        </div>
-      </div>
+	    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+	        <span class="count_top"><i class="fa fa-user"></i> Tasks Submitted</span>
+	        <div class="count">
+	        <?php
+				if($group_id==0 && $city_id==0){
+					echo $all_submitted;
+				}
+				else if($city_id==0 && $group_id!=0){
+					echo $total_submitted[$group_id];
+				}
+				elseif($city_id!=0 && $group_id==0){
+					echo $total_cities[$city_id]['submitted'];
+				}
+				else{
+					echo i($submitted[$city_id], $group_id, 0);
+				}
+	        ?>
+	        </div>
+	    </div>
 
-			<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-        <span class="count_top"><i class="fa fa-user"></i> Tasks Evaluated</span>
-        <div class="count">
-          <?php
-						if($group_id==0 && $city_id==0){
-							echo $all_evaluated;
-						}
-						else if($city_id==0 && $group_id!=0){
-							echo $total_evaluated[$group_id];
-						}
-						elseif($city_id!=0 && $group_id==0){
-							echo $total_cities[$city_id]['evaluated'];
-						}
-						else{
-							echo i($evaluated[$city_id], $group_id, 0);
-						}
-          ?>
-        </div>
-      </div>
-    </div>
-    <?php
-      }
-    ?>
-  </div>
+		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+	        <span class="count_top"><i class="fa fa-user"></i> Tasks Evaluated</span>
+	        <div class="count">
+	          <?php
+				if($group_id==0 && $city_id==0){
+					echo $all_evaluated;
+				}
+				else if($city_id==0 && $group_id!=0){
+					echo $total_evaluated[$group_id];
+				}
+				elseif($city_id!=0 && $group_id==0){
+					echo $total_cities[$city_id]['evaluated'];
+				}
+				else{
+					echo i($evaluated[$city_id], $group_id, 0);
+				}
+	          ?>
+	        </div>
+	    </div>
+    
+    <?php } ?>
+  	</div>
+  	</div>
 
 	<div class="x_title">
 		<?php if($group_id==0){ ?>
 			<h2>Vertical Wise Task Upload/Evaluated Information</h2>
-		<?php }else{ ?>
+		<?php } else { ?>
 			<h2>City Wise Task Upload/Evaluated Information</h2>
 		<?php } ?>
 		<br/>
@@ -140,102 +137,78 @@
 ?>
 					<div class="col-md-2 boxes">
 						<p class="vertical-name">
-							<a href="applicants.php?group_id=<?php echo $this_group_id ?>&city_id=<?php echo $city_id ?>&action=Filter">
+							<a href="task-status.php?group_id=<?php echo $this_group_id ?>&city_id=<?php echo $city_id ?>&task-status=submitted&action=Filter">
 								<strong><?php echo $title ?></strong>
 							</a>
 						</p>
-<?php
-	if($evaluation_status=='all'){
-?>
-								<input class="knob" data-width="100" data-height="120" data-angleOffset="0" data-min="0" data-max="
-<?php
+<?php if($evaluation_status=='all'){ ?>
+	<input class="knob" data-width="100" data-height="120" data-angleOffset="0" data-min="0" data-max="<?php
 	if($total_submitted[$this_group_id] > ($shortlisted[$this_group_id] - $total_verticals[$this_group_id]['not_required']))
 		echo $total_submitted[$this_group_id];
 	else
 		echo ($shortlisted[$this_group_id] - $total_verticals[$this_group_id]['not_required']);
-?>
-									" data-linecap="round" data-fgColor="
-<?php
+?>" data-linecap="round" data-fgColor="<?php
 	if(($total_submitted[$this_group_id] < ($shortlisted[$this_group_id] - $total_verticals[$this_group_id]['not_required']) || $shortlisted[$this_group_id]==0))
 		echo '#f6b26b';
 	else
 		echo '#26B99A';
-?>
-									" value="<?php echo $total_submitted[$this_group_id]; ?>" data-readOnly="true" /><br />
-<?php
-	}
-	else{
-?>
-								<input class="knob" data-width="100" data-height="120" data-angleOffset="0" data-min="0" data-max="
-<?php
+?>" value="<?php echo $total_submitted[$this_group_id]; ?>" data-readOnly="true" /><br />
+<?php } else { ?>
+	<input class="knob" data-width="100" data-height="120" data-angleOffset="0" data-min="0" data-max="<?php
 	if($total_evaluated[$this_group_id] > $total_submitted[$this_group_id])
 		echo $total_evaluated[$this_group_id];
 	else
 		echo $total_submitted[$this_group_id];
-?>
-									" data-linecap="round" data-fgColor="
-<?php
+?>" data-linecap="round" data-fgColor="<?php
 	if(($total_evaluated[$this_group_id] < $total_submitted[$this_group_id]) || $total_submitted[$this_group_id]==0)
 		echo '#f6b26b';
 	else
 		echo '#26B99A';
-?>
-									" value="<?php echo $total_evaluated[$this_group_id]; ?>" data-readOnly="true" /><br />
-<?php
-	}
-?>
-						Total Applicants: <strong><?php echo $shortlisted[$this_group_id]; ?></strong><br />
-						Task(s) Expected: <strong><?php echo $expected ?></strong><br />
-						Task(s) Submitted: <strong><?php echo $total_submitted[$this_group_id]; ?></strong><br />
-						Task(s) Evaluated: <strong><?php echo $total_evaluated[$this_group_id]; ?></strong><br />
-						<hr>
-					</div>
+?>" value="<?php echo $total_evaluated[$this_group_id]; ?>" data-readOnly="true" /><br />
+<?php } ?>
+			Total Applicants: <strong><?php echo $shortlisted[$this_group_id]; ?></strong><br />
+			Task(s) Expected: <strong><?php echo $expected ?></strong><br />
+			Task(s) Submitted: <strong><?php echo $total_submitted[$this_group_id]; ?></strong><br />
+			Task(s) Evaluated: <strong><?php echo $total_evaluated[$this_group_id]; ?></strong><br />
+			<hr>
+		</div>
 	<?php
 			}
-		}else{
+		} else {
 			foreach($all_cities as $this_city_id => $title) {
-
 				if($this_city_id == 0 || $this_city_id >= 26) continue;
 				if(!$requirements[$this_city_id][$group_id]) continue;
 				if($city_id!=0 && $city_id!=$this_city_id) continue;
 
 				$expected = i($applications[$this_city_id], $group_id, 0) - (i($ctl_ctl_applicants[$this_city_id], $group_id, 0) + i($nonctl_fellow_applicants[$this_city_id], $group_id, 0));
 	?>
-					<div class="col-md-2 boxes">
-						<p class="vertical-name"><a href="applicants.php?group_id=<?php echo $this_city_id ?>&city_id=<?php echo $this_city_id ?>&action=Filter"><strong><?php echo $title ?></strong></a></p>
-						<?php
-							if($evaluation_status=='all'){
-						?>
-							<input class="knob" data-width="100" data-height="120" data-angleOffset="0" data-min="0" data-max="<?php
-									if(i($submitted[$this_city_id], $group_id, 0) > i($applications[$this_city_id], $group_id, 0)) echo i($submitted[$this_city_id], $group_id, 0);
-									else echo i($applications[$this_city_id], $group_id, 0);
-								?>" data-linecap="round" data-fgColor="<?php
-									if((i($submitted[$this_city_id], $group_id, 0) < i($applications[$this_city_id], $group_id, 0)) && $expected != 0) echo '#f6b26b';
-									else echo '#26B99A';
-									 ?>" value="<?php echo i($submitted[$this_city_id], $group_id, 0); ?>" data-readOnly="true" /><br />
-					  <?php
- 							}
- 							else{
-						?>
-							<input class="knob" data-width="100" data-height="120" data-angleOffset="0" data-min="0" data-max="<?php
-									if(i($evaluated[$this_city_id], $group_id, 0) > i($submitted[$this_city_id], $group_id, 0)) echo i($evaluated[$this_city_id], $group_id, 0);
-									else echo i($submitted[$this_city_id], $group_id, 0);
-								?>" data-linecap="round" data-fgColor="<?php
-									if((i($evaluated[$this_city_id], $group_id, 0) < i($submitted[$this_city_id], $group_id, 0)) && $expected != 0 ) echo '#f6b26b';
-									else echo '#26B99A';
-									 ?>" value="<?php echo i($evaluated[$this_city_id], $group_id, 0); ?>" data-readOnly="true" /><br />
-						<?php
-							}
- 						?>
+			<div class="col-md-2 boxes">
+				<p class="vertical-name"><a href="task-status.php?group_id=<?php echo $this_city_id ?>&city_id=<?php echo $this_city_id ?>&action=Filter"><strong><?php echo $title ?></strong></a></p>
+				<?php if($evaluation_status=='all') { ?>
+					<input class="knob" data-width="100" data-height="120" data-angleOffset="0" data-min="0" data-max="<?php
+							if(i($submitted[$this_city_id], $group_id, 0) > i($applications[$this_city_id], $group_id, 0)) echo i($submitted[$this_city_id], $group_id, 0);
+							else echo i($applications[$this_city_id], $group_id, 0);
+						?>" data-linecap="round" data-fgColor="<?php
+							if((i($submitted[$this_city_id], $group_id, 0) < i($applications[$this_city_id], $group_id, 0)) && $expected != 0) echo '#f6b26b';
+							else echo '#26B99A';
+							 ?>" value="<?php echo i($submitted[$this_city_id], $group_id, 0); ?>" data-readOnly="true" /><br />
+				<?php } else { ?>
+					<input class="knob" data-width="100" data-height="120" data-angleOffset="0" data-min="0" data-max="<?php
+							if(i($evaluated[$this_city_id], $group_id, 0) > i($submitted[$this_city_id], $group_id, 0)) echo i($evaluated[$this_city_id], $group_id, 0);
+							else echo i($submitted[$this_city_id], $group_id, 0);
+						?>" data-linecap="round" data-fgColor="<?php
+							if((i($evaluated[$this_city_id], $group_id, 0) < i($submitted[$this_city_id], $group_id, 0)) && $expected != 0 ) echo '#f6b26b';
+							else echo '#26B99A';
+							 ?>" value="<?php echo i($evaluated[$this_city_id], $group_id, 0); ?>" data-readOnly="true" /><br />
+				<?php } ?>
 
-						Total Applicants: <strong><?php echo i($applications[$this_city_id], $group_id, 0); ?></strong><br />
-						Task(s) Expected: <strong><?php echo $expected; ?></strong><br />
-						Task(s) Submitted: <strong><?php echo i($submitted[$this_city_id], $group_id, 0); ?></strong><br />
-						Task(s) Evaluated: <strong><?php echo i($evaluated[$this_city_id], $group_id, 0); ?></strong><br />
+			Total Applicants: <strong><?php echo i($applications[$this_city_id], $group_id, 0); ?></strong><br />
+			Task(s) Expected: <strong><?php echo $expected; ?></strong><br />
+			Task(s) Submitted: <strong><?php echo i($submitted[$this_city_id], $group_id, 0); ?></strong><br />
+			Task(s) Evaluated: <strong><?php echo i($evaluated[$this_city_id], $group_id, 0); ?></strong><br />
 
-
-						<hr>
-					</div>
+			<hr>
+			</div>
 	<?php
 			}
 		}
@@ -316,22 +289,9 @@
   </tbody>
   </table>
   </div>
-
-
-	<script type="text/javascript">
-	    // window.onload = function () {
-		  //   var gridViewScroll = new GridViewScroll({
-		  //       elementID : "data-table", // String
-		  //       freezeColumn : true, // Boolean
-		  //       freezeColumnCount : 1
-		  //   });
-      //   gridViewScroll.enhance();
-			// };
-	</script>
 </div>
 
 <?php
-
 function highlight($applications, $requirements) {
     global $multiplication_factor;
 

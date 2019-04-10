@@ -13,16 +13,15 @@ class FAM {
 
 	public function addApplicant($user_id,$group_id,$preference,$city_id=0)
 	{
-
 		return $this->sql->insert('FAM_UserGroupPreference',array(
-				'user_id'	=> $user_id,
-				'group_id' => $group_id,
+				'user_id'		=> $user_id,
+				'group_id' 		=> $group_id,
 				'evaluator_id'	=> 0,
 				'preference'	=> $preference,
 				'city_id'		=> $city_id,
-				'added_on'	=> 'NOW()',
-				'year'		=> $this->year,
-				'status'	=> 'pending'
+				'added_on'		=> 'NOW()',
+				'year'			=> $this->year,
+				'status'		=> 'pending'
 		));
 	}
 
@@ -35,7 +34,6 @@ class FAM {
 	{
 		return $this->sql->execQuery("UPDATE FAM_UserGroupPreference SET status='$status' WHERE user_id=$user_id AND group_id=$group_id AND year={$this->year}");
 	}
-
 
 	public function getStage($stage_id)
 	{
@@ -65,7 +63,6 @@ class FAM {
 		return $this->sql->getAll("SELECT * FROM FAM_Parameter WHERE stage_id=$stage_id AND status='1' AND category_id=$category_id ORDER BY sort ASC");
 	}
 
-
 	public function getGroups($vertical_id = 0)
 	{
 		$vertical_check = '';
@@ -92,8 +89,6 @@ class FAM {
 			'year'			=> $this->year,
 		]);
 	}
-
-
 
 	public function resetAssignments($evaluator_id, $amount_users)
 	{
@@ -280,7 +275,6 @@ class FAM {
 
 		return $this->sql->getAll($query);
 	}
-
 
 	public function getApplicantFeedback($applicant_id)
 	{

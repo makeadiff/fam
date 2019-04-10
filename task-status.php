@@ -9,11 +9,11 @@ $all_cities[0] = 'Any';
 
 $group_id = i($QUERY, 'group_id', 0);
 $city_id = i($QUERY, 'city_id', 0);
-$stage_id = i($QUERY, 'stage_id', 0);
-$status = i($QUERY, 'status', '0');
 $task_status = i($QUERY, 'task-status', '');
-$action = i($QUERY, 'action', '');
-$preference = i($QUERY, 'preference', 0);
+$stage_id = i($QUERY, 'stage_id', 0);
+$common_video_task= i($QUERY, 'common_video_task', 'any');
+$common_written_task= i($QUERY, 'common_written_task', 'any');
+$vertical_task= i($QUERY, 'vertical_task', 'any');
 
 $all_stages = $fam->getStages();
 $all_stages_input = [];
@@ -22,13 +22,11 @@ foreach ($all_stages as $key => $stages) {
 }
 $all_stages_input[0] = 'Any';
 
-if($action == 'delete') {
-	if(!$is_director) die("You have to be a director to delete applicants.");
-
-	$sql->update("FAM_UserGroupPreference", ['status' => 'withdrawn'], ['user_id' => i($QUERY, 'applicant_id'), 'year' => $year]);
-	$QUERY['success'] = "Applicant Deleted Successfully";
-	// header("Location: applicants.php?city_id=$city_id&group_id=$group_id");
-}
+$all_tasks_status = [
+	'submitted'		=> 'Submitted',
+	'not-submitted'	=> 'Not Submitted',
+	'any'			=> 'Any'
+];
 
 $checks = ['1=1'];
 $join = '';
@@ -36,7 +34,6 @@ $selects = '';
 $join_condition = '';
 if($group_id) {
 	$checks[] = "UGP.group_id=$group_id";
-	if($preference) $checks[] = "UGP.preference=$preference";
 	$join_condition = "AND UE.group_id=$group_id AND UE.year=$year";
 }
 if($city_id) {
@@ -51,22 +48,24 @@ if($stage_id) {
 		$checks[] = 'US.status="'.$status.'"';
 	}
 }
-if($task_status) {
-	$selects .= ', UT.common_task_url, UT.common_task_files, UT.preference_1_task_files';
-	$join .= 'INNER JOIN FAM_UserTask UT ON UGP.user_id = UT.user_id';
 
-	if($task_status == 'common_video') {
-		$checks[] = "UT.common_task_url<>'' AND UT.year=$year";
+$selects .= ', UT.common_task_url, UT.common_task_files, UT.preference_1_task_files';
+$join .= 'LEFT JOIN FAM_UserTask UT ON UGP.user_id = UT.user_id';
 
-	} else if($task_status == 'common_written') {
-		$checks[] = "UT.common_task_files<>'' AND UT.year=$year";
-
-	} else if($task_status == 'vertical') {
-		$checks[] = "UT.preference_1_task_files<>'' AND UT.year=$year";
-
-	} else {
-		$checks[] = "(UT.common_task_url<>'' OR UT.common_task_files<>'' OR UT.preference_1_task_files <> '') AND UT.year=$year";
-	}
+if($common_video_task == 'not-submitted') {
+	$checks[] = "(UT.common_task_url IS NULL OR UT.common_task_url='')";
+} elseif($common_video_task == 'submitted') {
+	$checks[] = "UT.common_task_url != ''";
+}
+if($common_written_task == 'not-submitted') {
+	$checks[] = "(UT.common_task_files IS NULL OR UT.common_task_files='')";
+} elseif($common_written_task == 'submitted') {
+	$checks[] = "UT.common_task_files != ''";
+}
+if($vertical_task == 'not-submitted') {
+	$checks[] = "(UT.preference_1_task_files IS NULL OR UT.preference_1_task_files='')";
+} elseif($vertical_task == 'submitted') {
+	$checks[] = "UT.preference_1_task_files != ''";
 }
 
 $query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTINCT UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS groups,
@@ -77,7 +76,7 @@ $query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTI
 			LEFT JOIN FAM_UserEvaluator UE ON U.id=UE.user_id $join_condition
 			LEFT JOIN User E ON E.id=UE.evaluator_id
 			$join
-			WHERE " . implode(" AND ", $checks) . " AND UGP.status != 'withdrawn'  AND UGP.status != 'rejected' AND UGP.year=$year
+			WHERE " . implode(" AND ", $checks) . " AND UGP.status != 'withdrawn' AND UGP.status != 'rejected' AND UGP.year=$year AND (UT.year=$year OR UT.year IS NULL)
 			GROUP BY UGP.user_id";
 if($group_id) $query .= " ORDER BY UGP.preference, C.name, U.name";
 else $query .= " ORDER BY C.name, U.name";
