@@ -10,7 +10,7 @@ $total_filled = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupP
 	WHERE preference=1 AND UGP.year=$year");
 
 // Data source
-$requirements = getRequirementFromSheet("https://docs.google.com/spreadsheets/d/e/2PACX-1vRzSwv2Yr5vT9YCjqRpraem2ZBpVKy2VT_UU9L2iA3364MIBiN1zhdVCX2bIq_3CIg7owI2yQx86q1q/pub?gid=675197629&single=true&output=csv");
+$requirements = getRequirementFromSheet();
 
 $applications = [];
 $selected = [];
@@ -23,14 +23,18 @@ foreach ($all_cities as $city_id => $city_name) {
 		WHERE preference=1 AND UGP.year=$year AND ((UGP.city_id != 0 AND UGP.city_id=$city_id) OR (UGP.city_id = 0 AND U.city_id=$city_id))
 		GROUP BY UGP.group_id");
 
-	// $selected[$city_id] = $sql->getById("SELECT UGP.group_id, COUNT(DISTINCT user_id) FROM FAM_UserGroupPreference UGP
-	// 	INNER JOIN User U ON UGP.user_id=U.id
-	// 	WHERE U.city_id=$city_id AND preference=1 AND UGP.status='selected'
-	// 	GROUP BY UGP.group_id");
-}
+	$selected[$city_id] = $sql->getById("SELECT UGP.group_id, COUNT(DISTINCT UGP.user_id)
+			FROM User U
+			INNER JOIN FAM_UserStage US ON US.user_id = U.id
+			INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id = U.id
+			INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
+			WHERE US.stage_id = 4
+				AND US.status = 'selected'
+				AND UGP.year = $year
+				AND US.year = $year
+				AND C.id = $city_id");
 
-// $template->addResource("js/library/DataTables/datatables.min.css", 'css');
-// $template->addResource("js/library/DataTables/datatables.js", 'js');
+}
 
 $multiplication_factor = 3;
 render();

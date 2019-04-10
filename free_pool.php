@@ -49,8 +49,9 @@ $query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTI
 			INNER JOIN FAM_UserStage US ON US.user_id=UGP.user_id 
 			LEFT JOIN FAM_UserEvaluator UE ON U.id=UE.user_id $join_condition
 			LEFT JOIN User E ON E.id=UE.evaluator_id
+			LEFT JOIN FAM_UserStage US_SEL ON US_SEL.user_id=UGP.user_id AND US_SEL.year=$year AND US_SEL.stage_id=4 AND US_SEL.status='selected' -- This to make sure selelected applicants don't show up in free pool
 			$join
-			WHERE " . implode(" AND ", $checks) . " AND UGP.status != 'withdrawn' AND UGP.year=$year AND US.status='free-pool' AND US.year=$year
+			WHERE " . implode(" AND ", $checks) . " AND UGP.status != 'withdrawn' AND UGP.year=$year AND US.status='free-pool' AND US.year=$year AND US_SEL.id IS NULL
 			GROUP BY UGP.user_id";
 if($group_id) $query .= " ORDER BY UGP.preference, U.name";
 else $query .= " ORDER BY C.name, U.name";

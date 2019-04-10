@@ -3,9 +3,6 @@ $user_info = check_user();
 
 $user_id = $user_info['user_id'];
 $fam = new FAM;
-// $year = 2017;
-
-// require dirname(__FILE__) . '/../../driller/models/Common.php';
 $common = new Common;
 $html = new HTML;
 
@@ -82,6 +79,7 @@ function getRequirementFromSheet($sheet_url = '') {
 
 	require 'includes/classes/ParseCSV.php';
 	$sheet = new ParseCSV($sheet_url);
+	// dump($sheet);
 
 	$all_cities = keyFormat($common->getCities(), ['name', 'id']);
 

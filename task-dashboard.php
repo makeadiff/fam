@@ -5,15 +5,15 @@ $all_cities = keyFormat($common->getCities(), ['id', 'name']);
 $all_verticals = $verticals; unset($all_verticals[8]);
 
 $all_tasks = array(
-	'common_video' 	 		=> 'Common Task (Video)',
-	'common_written' 	 	=> 'Common Task (Written)',
-	'vertical'	 				=> 'Vertical Task',
-	'all'				 					=> 'All'
+	'common_video' 	=> 'Common Task (Video)',
+	'common_written'=> 'Common Task (Written)',
+	'vertical'		=> 'Vertical Task',
+	'all'			=> 'All'
 );
 
 $evaluation_statuses = array(
-	'evaluated'					=> 'Evaluated',
-	'all'								=> 'All'
+	'evaluated'	=> 'Evaluated',
+	'all'		=> 'All'
 );
 
 
@@ -117,23 +117,23 @@ $total_evaluated = [];
 foreach ($verticals as $id => $name) {
 	if($id == 8) continue;
 	$shortlisted[$id] = $sql->getOne("SELECT COUNT(DISTINCT UGP.user_id)
-																					FROM FAM_UserGroupPreference UGP
-																					INNER JOIN User U ON UGP.user_id=U.id
-																					WHERE $city_check_ugp preference=1 AND UGP.group_id=$id AND UGP.year=$year AND UGP.status <> 'withdrawn'");
+											FROM FAM_UserGroupPreference UGP
+											INNER JOIN User U ON UGP.user_id=U.id
+											WHERE $city_check_ugp preference=1 AND UGP.group_id=$id AND UGP.year=$year AND UGP.status <> 'withdrawn'");
 
 	$total_submitted[$id] = $sql->getOne("SELECT COUNT(DISTINCT UGP.user_id)
-																							FROM FAM_UserGroupPreference UGP
-																							INNER JOIN User U ON UGP.user_id=U.id
-																							INNER JOIN FAM_UserTask UT ON UT.user_id = U.id
-																							WHERE $city_check_ugp preference=1 AND UGP.group_id=$id AND UGP.year=$year AND UGP.status <> 'withdrawn' $task_check");
+											FROM FAM_UserGroupPreference UGP
+											INNER JOIN User U ON UGP.user_id=U.id
+											INNER JOIN FAM_UserTask UT ON UT.user_id = U.id
+											WHERE $city_check_ugp preference=1 AND UGP.group_id=$id AND UGP.year=$year AND UGP.status <> 'withdrawn' $task_check");
 
 	$total_evaluated[$id] = $sql->getOne("SELECT COUNT(DISTINCT UGP.user_id)
-																							FROM FAM_UserGroupPreference UGP
-																							INNER JOIN User U ON UGP.user_id=U.id
-																							INNER JOIN FAM_UserStage US ON US.user_id = U.id
-																							INNER JOIN FAM_UserTask UT ON UT.user_id = U.id
-																							WHERE $city_check_ugp preference=1 AND UGP.group_id=$id AND UGP.year=$year AND US.year=$year AND UGP.status <> 'withdrawn'
-																							AND US.stage_id=5 AND US.status<>'' AND US.status<>'pending' $task_check");
+											FROM FAM_UserGroupPreference UGP
+											INNER JOIN User U ON UGP.user_id=U.id
+											INNER JOIN FAM_UserStage US ON US.user_id = U.id
+											INNER JOIN FAM_UserTask UT ON UT.user_id = U.id
+											WHERE $city_check_ugp preference=1 AND UGP.group_id=$id AND UGP.year=$year AND US.year=$year AND UGP.status <> 'withdrawn'
+											AND US.stage_id=5 AND US.status<>'' AND US.status<>'pending' $task_check");
 }
 
 $selected = [];
