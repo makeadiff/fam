@@ -78,11 +78,22 @@ jQuery(window).load(siteInit);
 
 
 $('.delete_task').click(function(e){
+	e.preventDefault();
 	var url = this.href;
 	var id = this.id;
 	$.ajax(url).done(function(){
 		$('#task'+id).hide();
 		$.notify({title: '<strong>Data Saved</strong>', message: 'The selected task has been deleted.',icon: 'glyphicon glyphicon-ok'}, {type: "success", delay: 3000});
+	}).fail(function(){
+		$.notify({title: '<strong>Error</strong>', message: 'Server not reachable.',icon: 'glyphicon glyphicon-remove'}, {type: "warning", delay: 3000});
+	});
+});
+
+$('.reject_applicant').click(function(e){
+	e.preventDefault();
+	var url = this.href;	
+	$.ajax(url).done(function(){
+		$.notify({title: '<strong>Data Saved</strong>', message: 'The selected applicant has been marked rejected and can be apply to be a mentor once volunteer continuation form is rolled out.',icon: 'glyphicon glyphicon-ok'}, {type: "success", delay: 3000});
 	}).fail(function(){
 		$.notify({title: '<strong>Error</strong>', message: 'Server not reachable.',icon: 'glyphicon glyphicon-remove'}, {type: "warning", delay: 3000});
 	});

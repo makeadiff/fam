@@ -17,7 +17,7 @@ foreach ($applicant_eval_connections as $conn) {
 		'evaluator_id'	=> $conn['evaluator_id'],
 		'group_id'		=> $conn['group_id'],
 	]);
-	
+
 	progessBar($i, $total_connections, 3);
 	$i++;
 }
@@ -37,7 +37,6 @@ function progessBar($current, $total, $once_every = 1) {
 	// dump($progress_bar_blocks, $space_count); exit;
 	$progress_bar = '|' . @str_repeat('=', $progress_bar_blocks) . '>';
 	$progress_bar.= str_repeat(' ', $space_count) . '|';
-	
+
 	print "Progress: $current / $total		$progress_bar	$percentage%\r";
 }
-

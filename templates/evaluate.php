@@ -211,7 +211,7 @@ require(joinPath($config['site_folder'], 'templates', 'partials', 'parameters.ph
 	<p>If the applicant is rejected for Fellowship, but can be shortlisted for Mentor Profile, mark it below.</p>
 	<div class="clearfix"></div>
 	<div class="row" style="margin-left:10px;">
-		<a href="shortlist.php?group_id=<?php echo GROUP_ID_MENTOR; ?>&applicant_id=<?php echo $applicant_id; ?>" class="btn btn-primary">Shortlist for Mentor Profile</a>
+		<a title="reject applicant and recommend for Mentor" href="api/reject_applicant.php?group_id=<?php echo GROUP_ID_MENTOR; ?>&applicant_id=<?php echo $applicant_id; ?>" class="confirm reject_applicant btn btn-primary">Shortlist for Mentor Profile</a>
 	</div>
 <?php }?>
 </div>
