@@ -13,16 +13,24 @@ class FAM {
 
 	public function addApplicant($user_id,$group_id,$preference,$city_id=0)
 	{
-		return $this->sql->insert('FAM_UserGroupPreference',array(
-				'user_id'		=> $user_id,
-				'group_id' 		=> $group_id,
-				'evaluator_id'	=> 0,
-				'preference'	=> $preference,
-				'city_id'		=> $city_id,
-				'added_on'		=> 'NOW()',
-				'year'			=> $this->year,
-				'status'		=> 'pending'
-		));
+		$check_entry = $this->sql->getOne("SELECT id FROM FAM_UserGroupPreference WHERE user_id=$user_id AND preference=$preference AND group_id=$group_id AND year=$this->year AND status<>'withdrawn' AND status<>'rejected'");
+
+		if(!$check_entry){
+			return $this->sql->insert('FAM_UserGroupPreference',array(
+					'user_id'		=> $user_id,
+					'group_id' 		=> $group_id,
+					'evaluator_id'	=> 0,
+					'preference'	=> $preference,
+					'city_id'		=> $city_id,
+					'added_on'		=> 'NOW()',
+					'year'			=> $this->year,
+					'status'		=> 'pending'
+			));
+		}
+		else{
+			return false;
+		}
+
 	}
 
 	public function getSelectionStatus($user_id, $group_id)
