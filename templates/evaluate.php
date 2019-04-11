@@ -4,7 +4,7 @@
 		<div class="clearfix"></div>
 	</div>
 
-	<div class="alert alert-warning <?php echo $applicant_status ?>">
+	<div class="alert alert-warning rejected <?php echo ($applicant_status=='rejected')?'':'hidden_status'?>">
 		The Applicant has been <strong>Rejected for Fellowship Profiles</strong> and has been marked for <strong>Shortlisted as a Mentor</strong>.
 	</div>
 

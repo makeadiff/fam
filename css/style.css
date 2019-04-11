@@ -127,12 +127,12 @@ BODY {
 	margin-top: -10px;
 }
 
-tr.rejected{
+tr.rejected, tr.rejected td, tr.rejected th{
 	background: #ffcdd2;
 	color: #555;
 }
 
-.alert.pending{
+.alert.hidden_status{
 	display: none;
 }
 

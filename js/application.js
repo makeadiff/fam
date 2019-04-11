@@ -112,7 +112,7 @@ $('.reject_applicant').click(function(e){
 	var url = this.href;
 	$.ajax(url).done(function(){
 		$.notify({title: '<strong>Data Saved</strong>', message: 'The selected applicant has been marked rejected and can be apply to be a mentor once volunteer continuation form is rolled out.',icon: 'glyphicon glyphicon-ok'}, {type: "success", delay: 3000});
-		$('.alert.pending').show();
+		$('.alert.rejected').show();
 		$('.row.pending').hide();
 		$('.row.pending_applicant').hide();
 		$('.row.rejected').show();
@@ -136,7 +136,7 @@ $('.revoke_applicant').click(function(e){
 	var url = this.href;
 	$.ajax(url).done(function(){
 		$.notify({title: '<strong>Data Saved</strong>', message: 'The selected applicant\'s status has been revoked from <strong>Rejected</strong> to <strong>Pending</strong>.',icon: 'glyphicon glyphicon-ok'}, {type: "success", delay: 3000});
-		$('.alert.pending').hide();
+		$('.alert.rejected').hide();
 		$('.row.rejected').hide();
 		$('.row.rejected_applicant').hide();
 		$('.row.pending').show();
