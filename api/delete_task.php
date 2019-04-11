@@ -35,5 +35,6 @@ if(isset($file_name) && isset($applicant_id)) {
         }
     }
     closedir($dirHandle);
+    echo json_encode(['status' => 'success']);
   }
 }

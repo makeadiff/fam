@@ -78,6 +78,15 @@ jQuery(window).load(siteInit);
 
 
 $('.delete_task').click(function(e){
+	var action = (this.title) ? this.title : "do this";
+	action = action.substr(0,1).toLowerCase() + action.substr(1); //Lowercase the first char.
+	var user_action = confirm("Are you sure you want to " + action + "?");
+
+	if(!user_action) {
+		e.stopPropagation();
+		e.preventDefault();
+		return false;
+	}
 	e.preventDefault();
 	var url = this.href;
 	var id = this.id;
@@ -90,10 +99,48 @@ $('.delete_task').click(function(e){
 });
 
 $('.reject_applicant').click(function(e){
+	var action = (this.title) ? this.title : "do this";
+	action = action.substr(0,1).toLowerCase() + action.substr(1); //Lowercase the first char.
+	var user_action = confirm("Are you sure you want to " + action + "?");
+
+	if(!user_action) {
+		e.stopPropagation();
+		e.preventDefault();
+		return false;
+	}
 	e.preventDefault();
-	var url = this.href;	
+	var url = this.href;
 	$.ajax(url).done(function(){
 		$.notify({title: '<strong>Data Saved</strong>', message: 'The selected applicant has been marked rejected and can be apply to be a mentor once volunteer continuation form is rolled out.',icon: 'glyphicon glyphicon-ok'}, {type: "success", delay: 3000});
+		$('.alert.pending').show();
+		$('.row.pending').hide();
+		$('.row.pending_applicant').hide();
+		$('.row.rejected').show();
+		$('.row.rejected_applicant').show();
+	}).fail(function(){
+		$.notify({title: '<strong>Error</strong>', message: 'Server not reachable.',icon: 'glyphicon glyphicon-remove'}, {type: "warning", delay: 3000});
+	});
+});
+
+$('.revoke_applicant').click(function(e){
+	var action = (this.title) ? this.title : "do this";
+	action = action.substr(0,1).toLowerCase() + action.substr(1); //Lowercase the first char.
+	var user_action = confirm("Are you sure you want to " + action + "?");
+
+	if(!user_action) {
+		e.stopPropagation();
+		e.preventDefault();
+		return false;
+	}
+	e.preventDefault();
+	var url = this.href;
+	$.ajax(url).done(function(){
+		$.notify({title: '<strong>Data Saved</strong>', message: 'The selected applicant\'s status has been revoked from <strong>Rejected</strong> to <strong>Pending</strong>.',icon: 'glyphicon glyphicon-ok'}, {type: "success", delay: 3000});
+		$('.alert.pending').hide();
+		$('.row.rejected').hide();
+		$('.row.rejected_applicant').hide();
+		$('.row.pending').show();
+		$('.row.pending_applicant').show();
 	}).fail(function(){
 		$.notify({title: '<strong>Error</strong>', message: 'Server not reachable.',icon: 'glyphicon glyphicon-remove'}, {type: "warning", delay: 3000});
 	});

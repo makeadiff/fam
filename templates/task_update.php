@@ -80,7 +80,7 @@
 						<div class="col-md-2 col-sm-2 col-xs-2 no-overflow" id="task<?php echo $i; ?>">
 							<a target="_blank" href="download.php?file=<?php echo $file?>"><h1><span class="fa fa-file" aria-hidden="true"></span><h1></a>
 							<a target="_blank" href="download.php?file=<?php echo $file?>"><p><?php echo str_replace("_"," ",$file_name); ?></p></a>
-							<a title="delete tasks" class="confirm delete_task" id="<?php echo $i; ?>" href="api/delete_task.php?applicant_id=<?php echo $applicant['id'] ?>&file=<?php echo $file?>"><p class="icon"><span class="fa fa-trash" aria-hidden="true"></span></p></a>
+							<a title="delete tasks" class="delete_task" id="<?php echo $i; ?>" href="api/delete_task.php?applicant_id=<?php echo $applicant['id'] ?>&file=<?php echo $file?>"><p class="icon"><span class="fa fa-trash" aria-hidden="true"></span></p></a>
 			      </div>
 <?php
 					}

@@ -70,14 +70,14 @@ if($task_status) {
 }
 
 $query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTINCT UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS groups,
-					C.name AS city, UGP.preference, UGP.id AS ugp_id, E.name AS evaluator $selects
+					C.name AS city, UGP.preference, UGP.id AS ugp_id, UGP.status as status, E.name AS evaluator $selects
 			FROM User U
 			INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
 			INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
 			LEFT JOIN FAM_UserEvaluator UE ON U.id=UE.user_id $join_condition
 			LEFT JOIN User E ON E.id=UE.evaluator_id
 			$join
-			WHERE " . implode(" AND ", $checks) . " AND UGP.status != 'withdrawn'  AND UGP.status != 'rejected' AND UGP.year=$year
+			WHERE " . implode(" AND ", $checks) . " AND UGP.status != 'withdrawn' AND UGP.year=$year
 			GROUP BY UGP.user_id";
 if($group_id) $query .= " ORDER BY UGP.preference, C.name, U.name";
 else $query .= " ORDER BY C.name, U.name";

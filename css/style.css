@@ -126,3 +126,21 @@ BODY {
 	color:#d32f2f;
 	margin-top: -10px;
 }
+
+tr.rejected{
+	background: #ffcdd2;
+	color: #555;
+}
+
+.alert.pending{
+	display: none;
+}
+
+.row.rejected_applicant, .row.pending_applicant{
+	display: none;
+}
+/*
+.x_panel.rejected{
+	filter: grayscale(1);
+	-webkit-filter: grayscale(1);
+} */

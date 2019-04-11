@@ -69,7 +69,7 @@ if(i($QUERY, 'action') == 'Save') {
 }
 $stage_info = $fam->getStageStatus($applicant_id, $stage_id, $group_id);
 
-// dump($stage_info);
+$applicant_status = $fam->getSelectionStatus($applicant_id);
 
 if(i($QUERY, 'ajaxify')) {
 	print json_encode(['status' => 'success', 'data' => $QUERY['success']]);

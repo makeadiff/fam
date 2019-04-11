@@ -33,9 +33,12 @@ class FAM {
 
 	}
 
-	public function getSelectionStatus($user_id, $group_id)
+	public function getSelectionStatus($user_id,$group_id = false)
 	{
-		return $this->sql->getOne("SELECT status FROM FAM_UserGroupPreference WHERE user_id=$user_id AND group_id=$group_id AND year={$this->year}");
+		if($group_id)
+			return $this->sql->getOne("SELECT status FROM FAM_UserGroupPreference WHERE user_id=$user_id AND status<>'withdrawn' AND  group_id=$group_id AND year={$this->year}");
+		else
+			return $this->sql->getOne("SELECT status FROM FAM_UserGroupPreference WHERE user_id=$user_id AND status<>'withdrawn' AND year={$this->year}");
 	}
 
 	public function setSelectionStatus($user_id, $group_id, $status)
@@ -220,7 +223,7 @@ class FAM {
 
 	public function getApplications($applicant_id)
 	{
-		return $this->sql->getAll("SELECT preference, group_id, city_id FROM FAM_UserGroupPreference WHERE user_id=$applicant_id AND year={$this->year} AND status!='withdrawn' AND status!='rejected'");
+		return $this->sql->getAll("SELECT preference, group_id, city_id FROM FAM_UserGroupPreference WHERE user_id=$applicant_id AND year={$this->year} AND status!='withdrawn'");
 	}
 
 	public function getTask($applicant_id, $type = 'common', $group_id = 0)

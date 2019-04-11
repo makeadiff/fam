@@ -4,6 +4,10 @@
 		<div class="clearfix"></div>
 	</div>
 
+	<div class="alert alert-warning <?php echo $applicant_status ?>">
+		The Applicant has been <strong>Rejected for Fellowship Profiles</strong> and has been marked for <strong>Shortlisted as a Mentor</strong>.
+	</div>
+
 	<div class="x_content">
 		<p class="text-muted font-13 m-b-30">
 			City: <?php echo $applicant['city'] ?><br />
@@ -160,21 +164,20 @@ if(!$parameters) continue;
 ?>
 <form action="" method="post" class="ajaxify">
 <div class="x_panel">
+	<div class="x_title">
+	<h2><?php echo $category['name'] ?></h2>
+	<div class="clearfix"></div>
+	</div>
 
-<div class="x_title">
-<h2><?php echo $category['name'] ?></h2>
-<div class="clearfix"></div>
-</div>
+	<div class="x_content">
+	<?php
+	require(joinPath($config['site_folder'], 'templates', 'partials', 'parameters.php'));
+	?>
+	</div>
 
-<div class="x_content">
-<?php
-require(joinPath($config['site_folder'], 'templates', 'partials', 'parameters.php'));
-?>
-</div>
-
-<div class="x-content">
-	<input type="submit" class="btn btn-primary" value="Save" name="action" />
-</div>
+	<div class="x-content">
+		<input type="submit" class="btn btn-primary" value="Save" name="action" />
+	</div>
 </div>
 </form>
 <?php } ?>
@@ -206,13 +209,25 @@ require(joinPath($config['site_folder'], 'templates', 'partials', 'parameters.ph
     	<input name="status" type="radio" class="input-no" value="rejected" <?php if($stage_info['status'] == 'rejected') echo 'checked="true"'; ?> />Rejected</label>
   </div>
 </div>
-<?php if ($stage_id == 3) { ?>
+<?php if ($stage_id == 3 || $stage_id == 4 || $stage_id == 5) { ?>
 	<br/>
 	<p>If the applicant is rejected for Fellowship, but can be shortlisted for Mentor Profile, mark it below.</p>
 	<div class="clearfix"></div>
-	<div class="row" style="margin-left:10px;">
-		<a title="reject applicant and recommend for Mentor" href="api/reject_applicant.php?group_id=<?php echo GROUP_ID_MENTOR; ?>&applicant_id=<?php echo $applicant_id; ?>" class="confirm reject_applicant btn btn-primary">Shortlist for Mentor Profile</a>
+<?php if($applicant_status=='pending'){ ?>
+	<div class="row <?php echo $applicant_status; ?>" style="margin-left:10px;">
+		<a title="reject applicant and recommend for Mentor" href="api/reject_applicant.php?group_id=<?php echo GROUP_ID_MENTOR; ?>&applicant_id=<?php echo $applicant_id; ?>" class="reject_applicant btn btn-primary">Shortlist for Mentor Profile</a>
 	</div>
+	<div class="row rejected_applicant" style="margin-left:10px;">
+		<a title="Revoke rejected status of Applicant" href="api/revoke_applicant.php?applicant_id=<?php echo $applicant_id; ?>" class="revoke_applicant btn btn-primary">Revoke Applicant Status</a>
+	</div>
+<?php }else if($applicant_status=='rejected'){ ?>
+	<div class="row <?php echo $applicant_status; ?>" style="margin-left:10px;">
+		<a title="Revoke rejected status of Applicant" href="api/revoke_applicant.php?applicant_id=<?php echo $applicant_id; ?>" class="revoke_applicant btn btn-primary">Revoke Applicant Status</a>
+	</div>
+	<div class="row pending_applicant" style="margin-left:10px;">
+		<a title="reject applicant and recommend for Mentor" href="api/reject_applicant.php?group_id=<?php echo GROUP_ID_MENTOR; ?>&applicant_id=<?php echo $applicant_id; ?>" class="reject_applicant btn btn-primary">Shortlist for Mentor Profile</a>
+	</div>
+<?php } ?>
 <?php }?>
 </div>
 
