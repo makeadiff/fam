@@ -15,6 +15,7 @@ $task_status = i($QUERY, 'task-status', '');
 $action = i($QUERY, 'action', '');
 $preference = i($QUERY, 'preference', 0);
 $overall_status = i($QUERY,'overall_status','');
+$added_on = i($QUERY,'added_on','');
 
 $all_stages = $fam->getStages();
 $all_stages_input = [];
@@ -77,7 +78,7 @@ if($overall_status!=''){
 }
 
 $query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTINCT UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS groups,
-					C.name AS city, UGP.preference, UGP.id AS ugp_id, UGP.status as status, E.name AS evaluator $selects
+					C.name AS city, UGP.preference, UGP.id AS ugp_id, UGP.status as status, UGP.added_on as added_on, E.name AS evaluator $selects
 			FROM User U
 			INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
 			INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
