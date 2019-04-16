@@ -128,7 +128,7 @@ BODY {
 }
 
 tr.rejected, tr.rejected td, tr.rejected th{
-	background: #ffcdd2;
+	background: #ffcdd2 !important;
 	color: #555;
 }
 
