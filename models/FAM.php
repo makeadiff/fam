@@ -179,7 +179,7 @@ class FAM {
 		}
 
 	 	$query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS groups,
-	 					UGP.preference, C.name AS city, UGP.id AS ugp_id, UGP.status as status, $selects
+	 					UGP.preference, C.name AS city, UGP.id AS ugp_id, UGP.status as status $selects
 					FROM User U
 					INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
 					$join
