@@ -12,12 +12,22 @@
 <?php $html->buildInput("city_id", 'City ', 'select', $city_id, ['options' => $all_cities, 'no_br' => 1]); ?> &nbsp;
 <?php if($is_director) { $html->buildInput("stage_id", 'Stage ', 'select', $stage_id, ['options' => $all_stages_input, 'no_br' => 1]); } ?> &nbsp;
 <?php if($is_director) { echo $fam->statusSelectOption('status','Status ',$status); } ?> &nbsp;
+<?php if($is_director) { $html->buildInput("overall_status", 'Overall Status ', 'select', $overall_status, ['options' => $overall_statuses, 'no_br' => 1]); }?> &nbsp;
 <button class="btn btn-success btn-sm" value="Filter" name="action">Filter</button>
+<button class="btn btn-primary btn-sm" value="Export" name="action"><i class="fa fa-download"></i> Export</button>
 </form>
 
 <?php
 $count = ($applicants_pager->page - 1) * $applicants_pager->items_per_page;
-require 'templates/partials/applicants_table.php'; 
+require 'templates/partials/applicants_table.php';
+?>
+
+<?php
+	if(isset($export) && !$export){
+?>
+	<div class="alert alert-warning">Nothing to Export</div>
+<?php
+	}
 ?>
 
 <?php

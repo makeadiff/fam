@@ -14,6 +14,7 @@ $status = i($QUERY, 'status', '0');
 $task_status = i($QUERY, 'task-status', '');
 $action = i($QUERY, 'action', '');
 $preference = i($QUERY, 'preference', 0);
+$overall_status = i($QUERY,'overall_status','');
 
 $all_stages = $fam->getStages();
 $all_stages_input = [];
@@ -69,6 +70,12 @@ if($task_status) {
 	}
 }
 
+if($overall_status!=''){
+	$checks[] = "UGP.status = '$overall_status'";
+}else{
+	$checks[]	= "UGP.status != 'withdrawn'";
+}
+
 $query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTINCT UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS groups,
 					C.name AS city, UGP.preference, UGP.id AS ugp_id, UGP.status as status, E.name AS evaluator $selects
 			FROM User U
@@ -77,7 +84,7 @@ $query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTI
 			LEFT JOIN FAM_UserEvaluator UE ON U.id=UE.user_id $join_condition
 			LEFT JOIN User E ON E.id=UE.evaluator_id
 			$join
-			WHERE " . implode(" AND ", $checks) . " AND UGP.status != 'withdrawn' AND UGP.year=$year
+			WHERE " . implode(" AND ", $checks) . " AND UGP.year=$year
 			GROUP BY UGP.user_id";
 if($group_id) $query .= " ORDER BY UGP.preference, C.name, U.name";
 else $query .= " ORDER BY C.name, U.name";
@@ -85,4 +92,15 @@ else $query .= " ORDER BY C.name, U.name";
 $applicants_pager = new SqlPager($query, 25);
 $applicants = $applicants_pager->getPage();
 
-render();
+
+if($action == 'Export'){
+	$all_applicants = $sql->getAll($query);
+	$file_export = generateCSV($all_applicants);
+	if(!$file_export){
+		$export = false;
+		render();
+	}
+}
+else{
+	render();
+}

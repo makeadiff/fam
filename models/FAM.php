@@ -221,9 +221,14 @@ class FAM {
 		return $this->sql->getOne("SELECT response FROM FAM_Evaluation WHERE user_id=$applicant_id AND parameter_id=$parameter_id AND year={$this->year}");
 	}
 
-	public function getApplications($applicant_id)
+	public function getApplications($applicant_id,$status=false)
 	{
-		return $this->sql->getAll("SELECT preference, group_id, city_id FROM FAM_UserGroupPreference WHERE user_id=$applicant_id AND year={$this->year} AND status!='withdrawn'");
+		if(!$status){
+			return $this->sql->getAll("SELECT preference, group_id, city_id FROM FAM_UserGroupPreference WHERE user_id=$applicant_id AND year={$this->year} AND status!='withdrawn'");
+		}
+		else{
+			return $this->sql->getAll("SELECT preference, group_id, city_id FROM FAM_UserGroupPreference WHERE user_id=$applicant_id AND year={$this->year} AND status='$status'");
+		}
 	}
 
 	public function getTask($applicant_id, $type = 'common', $group_id = 0)
@@ -272,7 +277,7 @@ class FAM {
 
 		if($include_application_info) {
 			$query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTINCT UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS groups,
-								C.name AS city,U.city_id, UGP.preference, UGP.id AS ugp_id, E.name AS evaluator
+								C.name AS city,U.city_id, UGP.preference, UGP.id AS ugp_id, E.name AS evaluator, UGP.status as status
 						FROM User U
 						INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
 						INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))

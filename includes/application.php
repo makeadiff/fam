@@ -58,6 +58,13 @@ $colors = [
   'red'     => '#a62c37'
 ];
 
+$overall_statuses = [
+	''					=> 'All',
+	'rejected' 	=> 'Shortlisted for Mentor',
+	'pending'		=> 'In Progress',
+	'withdrawn'	=> 'Withdrawn Application'
+];
+
 function showApplicantStatus($user_id, $stage_id) {
 	global $fam;
 
@@ -145,4 +152,26 @@ function getEmailFromSheet($sheet_url) {
 
 function getCity($city_id,$sql){
   return $sql->getOne('SELECT name from City where id='.$city_id);
+}
+
+function generateCSV($array){
+	if(!empty($array)){
+		$output = fopen("php://output",'w') or die("Can't open php://output");
+		header("Content-Type:application/csv");
+		header("Content-Disposition:attachment;filename=FAM_Applicant_Export.csv");
+		$header = [];
+		$first = $array[0];
+		foreach ($first as $key => $value) {
+			$header[] = strtoupper(str_replace('_',' ',$key));
+		}
+		fputcsv($output, $header);
+		foreach($array as $values) {
+		    fputcsv($output, $values);
+		}
+		fclose($output) or die("Can't close php://output");
+		return $output;
+	}
+	else{
+		return false;
+	}
 }
