@@ -43,7 +43,7 @@
 					echo "<h4 class='alert alert-warning'> $applicant[name] <strong>hasn't updated</strong> Common Task yet</h4>";
 				}
 			}
-
+			
 			if($stage_id == 5) {
 				$task_url = $fam->getTask($applicant_id, 'vertical', $group_id);
 				if($task_url){
@@ -209,7 +209,7 @@ if(!$parameters) continue;
     	<input name="status" type="radio" class="input-no" value="rejected" <?php if($stage_info['status'] == 'rejected') echo 'checked="true"'; ?> />Rejected</label>
   </div>
 </div>
-<?php if ($stage_id == 3 || $stage_id == 4 || $stage_id == 5) { ?>
+<?php if (($stage_id == 3 || $stage_id == 4 || $stage_id == 5) && $group_id != GROUP_ID_MENTOR) { ?>
 	<br/>
 	<p>If the applicant is rejected for Fellowship, but can be shortlisted for Mentor Profile, mark it below.</p>
 	<div class="clearfix"></div>

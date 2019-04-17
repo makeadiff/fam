@@ -25,18 +25,18 @@ $group_id = intval(i($QUERY, 'group_id', 0));
 $categories = $fam->getCategories($stage_id, $group_id);
 $reference_link = '';
 $all_reference_links = [
-	'2'		=> 'https://docs.google.com/document/d/1WRj5izax8xEZrCErLT-x4Y7Bq_eyFfdZF_55Kfa1Rrg', //City Team Lead
-	'19'	=> 'https://docs.google.com/document/d/1vDE2Sl3GrozyMD1y0sdWNbNBzucuUrocN2ZXTjg4cEs', //Ed Support
-	'378'	=> 'https://docs.google.com/document/d/1pXXCZMO2y5lEr_iAPXdEccyuIhtEC5CyQtROAU7-XlA', //Aftercare
-	'272'	=> 'https://docs.google.com/document/d/1v4_5ry8xbRL-mc9KZNTaYTll26PlUDItFx_KwMAIfO8', //Transition Readiness
-	'370'	=> 'https://docs.google.com/document/d/1MneFr4BCpnmCfxyL7DFIjHJ6RyKmAapTz3n-UKW3FOo', //Fundraising
-	'269'	=> 'https://docs.google.com/document/d/10CrF5GyExazYvA5glGWPJVUXoRQxabGrvWnCccLh3Tk', //Shelter Operations
-	'4'		=> 'https://docs.google.com/document/d/1BPFTgMY_HEaLyXYa8h4kOkL31NOA5CnHcKVuZsoi1wo', //Shelter Support
-	'5'		=> 'https://docs.google.com/document/d/1x3L2pHKklMP1d5xaVBrXsPPN_phHeavBNBN6VCyVzvY', //Human Capital
-	'15'	=> 'https://docs.google.com/document/d/1UF8cBAM1Nw01CXbQcsXsosSKB_EqOTZpgTJwLoJ5jkc', //Finance
-	'11'	=> 'https://docs.google.com/document/d/1scKQ4y7yHWdWifxXuarMnY2mMLELi4RVnQxGpRDqI8M', //Campaigns and Communications
-	'375'	=> 'https://docs.google.com/document/d/1ilaYYMsJ0oldG_MMaqn9xdnISmEWVCCMcL8eA3Q-8Gw', //Foundational Programme
-	'9'		=> '', // Mentors
+	'2'		=> 'https://drive.google.com/open?id=1iSyOTpJ8WvqcmjRZBUu0peoTdonLKU-wEXcZ4Sd6zyI', //City Team Lead, Updated for 2019
+	'19'	=> 'https://drive.google.com/open?id=1Lr4PS6dnxfIohi66QN1fdxe4l7mwJcRk6V-RtZrsHWk', //Ed Support, Updated for 2019
+	'378'	=> 'https://drive.google.com/open?id=1dtwb0gb1xagSF5ARPSVsaUv06v6sRRs_UELSTRNf-1E', //Aftercare, Updated for 2019
+	'272'	=> 'https://drive.google.com/open?id=1br8QUK-CHkqZ4HxbveBpVGlvXVRveIeNWcHIdVEaFlM', //Transition Readiness, Updated for 2019
+	'370'	=> 'https://drive.google.com/open?id=1r6Q-Ghs4s-Bl6_EoGpuTImO_HV45yqlVbHWpsEaH2kE', //Fundraising, Updated for 2019
+	'269'	=> 'https://drive.google.com/open?id=10CrF5GyExazYvA5glGWPJVUXoRQxabGrvWnCccLh3Tk', //Shelter Operations, Updated for 2019
+	'4'		=> 'https://drive.google.com/open?id=13_RLBONIr_hjJvgjvP7eIhijKoAmaRwf9gXKuFct2V0', //Shelter Support, Updated for 2019
+	'5'		=> 'https://drive.google.com/open?id=1O96IHYGUfHccT43ZzMuBoTZP8fhYX6YPWZXRqZLwXRg', //Human Capital, Updated for 2019
+	'15'	=> 'https://drive.google.com/open?id=1YB5ryflVV0LFLRedo-Sh2Ggdpkf5BZ8up03ovpt-XFY', //Finance, Updated for 2019
+	'11'	=> 'https://drive.google.com/open?id=1KbGYtwkF1TqAw_mHL_6osN0Clf22OB142mfxAKeYsyY', //Campaigns and Communications, Updated for 2019
+	'375'	=> 'https://drive.google.com/open?id=1ilaYYMsJ0oldG_MMaqn9xdnISmEWVCCMcL8eA3Q-8Gw', //Foundational Programme, Updated for 2019
+	'8'		=> 'https://drive.google.com/open?id=1aJLmCeTxNO-YbX7XfAN0m4WFjygc7kooFjCrdAj1npQ', // Mentors, Updated for 2019
 ];
 if($group_id) $reference_link = $all_reference_links[$group_id];
 
