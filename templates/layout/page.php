@@ -60,8 +60,8 @@
                 <br>
                 <h3>Navigation Panel</h3>
                 <ul class="nav side-menu">
-                  <li><a href="dashboard.php"><i class="fa fa-home"></i> Dashboard</a></li>
-                  <li><a href="task-dashboard.php"><i class="fa fa-table"></i> Task Upload Status</a></li>
+                  <li><a href="dashboard.php"><i class="fa fa-home"></i> Overall Dashboard</a></li>
+                  <li><a href="task-dashboard.php"><i class="fa fa-table"></i> Task Dashboard</a></li>
                   <li><a href="my_applicants.php"><i class="fa fa-edit"></i> My Applicants</a></li>
 
                   <!-- <li><a href="all_stages.php"><i class="fa fa-server"></i> Bulk Enter Data for All Applicants</a></li> -->

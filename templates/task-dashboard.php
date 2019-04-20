@@ -20,14 +20,14 @@
 </div>
 
 
-<div class="x_panel">
+<div class="x-panel">
 
 	<div class="row tile_count">
     <div class="fellowship-signup">
     <?php if($group_id != 8) { ?>
 	    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-	        <span class="count_top"><i class="fa fa-user"></i> Total Fellowship Sign Ups</span>
-	        <div class="count">
+        <span class="count_top"><i class="fa fa-user"></i> Total Fellowship Sign Ups</span>
+        <div class="count">
 				<?php
 					if($group_id==0 && $city_id==0){
 						echo $all_applied;
@@ -42,27 +42,41 @@
 						echo i($applications[$city_id], $group_id, 0);
 					}
 				?>
-			</div>
+				</div>
 	    </div>
 
-		<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-	        <span class="count_top"><i class="fa fa-user"></i> Expected Tasks</span>
-	        <div class="count">
+			<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-user"></i> Fellowship Profiles Open</span>
+        <div class="count">
 				<?php
-					if($group_id==0 && $city_id==0){
-						echo $all_applied - $all_not_required;;
-					}
-					else if($city_id==0 && $group_id!=0){
-						echo $shortlisted[$group_id] - $total_verticals[$group_id]['not_required'];
-					}
-					elseif($city_id!=0 && $group_id==0){
-						echo $total_cities[$city_id]['applications'] - $total_cities[$city_id]['not_required'];
+					if($group_id==0){
+						echo $requirements['total_city'][$city_id];
 					}
 					else{
-						echo i($applications[$city_id], $group_id, 0) - (i($ctl_ctl_applicants[$city_id], $group_id, 0) + i($nonctl_fellow_applicants[$city_id], $group_id, 0));
+						echo $requirements[$city_id][$group_id];
 					}
 				?>
-			</div>
+				</div>
+	    </div>
+
+			<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
+        <span class="count_top"><i class="fa fa-user"></i> Expected Tasks</span>
+        <div class="count">
+					<?php
+						if($group_id==0 && $city_id==0){
+							echo $all_applied - $all_not_required;;
+						}
+						else if($city_id==0 && $group_id!=0){
+							echo $shortlisted[$group_id] - $total_verticals[$group_id]['not_required'];
+						}
+						elseif($city_id!=0 && $group_id==0){
+							echo $total_cities[$city_id]['applications'] - $total_cities[$city_id]['not_required'];
+						}
+						else{
+							echo i($applications[$city_id], $group_id, 0) - (i($ctl_ctl_applicants[$city_id], $group_id, 0) + i($nonctl_fellow_applicants[$city_id], $group_id, 0));
+						}
+					?>
+				</div>
 	    </div>
 
 	    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
@@ -89,26 +103,28 @@
 	        <span class="count_top"><i class="fa fa-user"></i> Tasks Evaluated</span>
 	        <div class="count">
 	          <?php
-				if($group_id==0 && $city_id==0){
-					echo $all_evaluated;
-				}
-				else if($city_id==0 && $group_id!=0){
-					echo $total_evaluated[$group_id];
-				}
-				elseif($city_id!=0 && $group_id==0){
-					echo $total_cities[$city_id]['evaluated'];
-				}
-				else{
-					echo i($evaluated[$city_id], $group_id, 0);
-				}
+							if($group_id==0 && $city_id==0){
+								echo $all_evaluated;
+							}
+							else if($city_id==0 && $group_id!=0){
+								echo $total_evaluated[$group_id];
+							}
+							elseif($city_id!=0 && $group_id==0){
+								echo $total_cities[$city_id]['evaluated'];
+							}
+							else{
+								echo i($evaluated[$city_id], $group_id, 0);
+							}
 	          ?>
 	        </div>
 	    </div>
 
     <?php } ?>
   	</div>
-  	</div>
+	</div>
+</div>
 
+<div class="x_panel">
 	<div class="x_title">
 		<?php if($group_id==0){ ?>
 			<h2>Vertical Wise Task Upload/Evaluated Information</h2>
@@ -126,14 +142,14 @@
 		</p>
 <?php
 	if($group_id==0){
-		foreach($verticals as $this_group_id => $title) {
+		foreach($verticals as $this_group_id => $title){
 			if(!$requirements[$city_id][$this_group_id]) continue;
 			if($this_group_id == 8) continue;
 
 			if($city_id==0)
-				$expected = $shortlisted[$this_group_id] - $total_verticals[$this_group_id]['not_required'];
+				$expected = $total_verticals[$id]['applications'] - $total_verticals[$this_group_id]['not_required'];
 			else
-				$expected = $shortlisted[$this_group_id] - (i($ctl_ctl_applicants[$city_id], $this_group_id, 0) + i($nonctl_fellow_applicants[$city_id], $this_group_id, 0));
+				$expected = i($applications[$city_id],$this_group_id,0) - (i($ctl_ctl_applicants[$city_id], $this_group_id, 0) + i($nonctl_fellow_applicants[$city_id], $this_group_id, 0));
 ?>
 					<div class="col-md-2 boxes">
 						<p class="vertical-name">
@@ -146,49 +162,49 @@
 ?>
 								<input class="knob" data-width="100" data-height="120" data-angleOffset="0" data-min="0" data-max="
 <?php
-				if($total_submitted[$this_group_id] > $expected)
-					echo $total_submitted[$this_group_id];
+				if(i($submitted[$city_id], $this_group_id, 0) > $expected)
+					echo i($submitted[$city_id], $this_group_id, 0);
 				else
 					echo $expected;
 ?>
 									" data-linecap="round" data-fgColor="
 <?php
-				if(($total_submitted[$this_group_id] < $expected/2 || $shortlisted[$this_group_id]==0))
+				if((i($submitted[$city_id], $this_group_id, 0) < $expected/2) || i($applications[$city_id],$this_group_id,0)==0)
 					echo $colors['red'];
-				else if(($total_submitted[$this_group_id] < $expected || $shortlisted[$this_group_id]==0))
+				else if((i($submitted[$city_id], $this_group_id, 0) < $expected) || i($applications[$city_id],$this_group_id,0)==0)
 					echo $colors['orange'];
 				else
 					echo $colors['green'];
 ?>
-									" value="<?php echo $total_submitted[$this_group_id]; ?>" data-readOnly="true" /><br />
+									" value="<?php echo i($submitted[$city_id], $this_group_id, 0); ?>" data-readOnly="true" /><br />
 <?php
 			}
 			else{
 ?>
 								<input class="knob" data-width="100" data-height="120" data-angleOffset="0" data-min="0" data-max="
 <?php
-				if($total_evaluated[$this_group_id] > $total_submitted[$this_group_id])
-					echo $total_evaluated[$this_group_id];
+				if(i($evaluated[$city_id],$group_id,0) > i($submitted[$city_id], $this_group_id, 0))
+					echo i($evaluated[$city_id],$group_id,0);
 				else
-					echo $total_submitted[$this_group_id];
+					echo i($submitted[$city_id], $this_group_id, 0);
 ?>
 									" data-linecap="round" data-fgColor="
 <?php
-				if(($total_evaluated[$this_group_id] < $total_submitted[$this_group_id]/2) || $total_submitted[$this_group_id]==0)
+				if((i($evaluated[$city_id],$group_id,0) < i($submitted[$city_id], $this_group_id, 0)/2) || i($submitted[$city_id], $this_group_id, 0)==0)
 					echo $colors['red'];
-				else if(($total_evaluated[$this_group_id] < $total_submitted[$this_group_id]) || $total_submitted[$this_group_id]==0)
+				else if((i($evaluated[$city_id],$group_id,0) < i($submitted[$city_id], $this_group_id, 0)) || i($submitted[$city_id], $this_group_id, 0)==0)
 					echo $colors['orange'];
 				else
 					echo $colors['green'];
 ?>
-									" value="<?php echo $total_evaluated[$this_group_id]; ?>" data-readOnly="true" /><br />
+									" value="<?php echo i($evaluated[$city_id],$group_id,0); ?>" data-readOnly="true" /><br />
 <?php
 			}
 ?>
-						Total Applicants: <strong><?php echo $shortlisted[$this_group_id]; ?></strong><br />
+						Total Applicants: <strong><?php echo i($applications[$city_id], $this_group_id, 0); ?></strong><br />
 						Task(s) Expected: <strong><?php echo $expected ?></strong><br />
-						Task(s) Submitted: <strong><?php echo $total_submitted[$this_group_id]; ?></strong><br />
-						Task(s) Evaluated: <strong><?php echo $total_evaluated[$this_group_id]; ?></strong><br />
+						Task(s) Submitted: <strong><?php echo i($submitted[$city_id], $this_group_id, 0); ?></strong><br />
+						Task(s) Evaluated: <strong><?php echo i($evaluated[$city_id], $this_group_id, 0); ?></strong><br />
 						<hr>
 					</div>
 <?php
@@ -253,11 +269,6 @@
 						Task(s) Expected: <strong><?php echo $expected; ?></strong><br />
 						Task(s) Submitted: <strong><?php echo i($submitted[$this_city_id], $group_id, 0); ?></strong><br />
 						Task(s) Evaluated: <strong><?php echo i($evaluated[$this_city_id], $group_id, 0); ?></strong><br />
-
-			Total Applicants: <strong><?php echo i($applications[$this_city_id], $group_id, 0); ?></strong><br />
-			Task(s) Expected: <strong><?php echo $expected; ?></strong><br />
-			Task(s) Submitted: <strong><?php echo i($submitted[$this_city_id], $group_id, 0); ?></strong><br />
-			Task(s) Evaluated: <strong><?php echo i($evaluated[$this_city_id], $group_id, 0); ?></strong><br />
 
 			<hr>
 			</div>

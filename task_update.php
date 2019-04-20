@@ -86,11 +86,9 @@ if($action == 'Update Tasks') {
 		    if(move_uploaded_file($_FILES["common_task_files"]["tmp_name"][$k], $target_file)) {
 					$check_entry = $sql->getOne('SELECT common_task_files FROM FAM_UserTask WHERE user_id='.$applicant['id'].' AND year='.$year);
 					$common_task_files = $check_entry.$parent.str_replace(' ','%20',str_replace('../','/',$target_file));
-					if($check_entry != ''){
-					  $inserted = $sql->update("FAM_UserTask", array(
-							'common_task_files' => $common_task_files
-						),'id='.$task_id);
-					}
+				  $inserted = $sql->update("FAM_UserTask", array(
+						'common_task_files' => $common_task_files
+					),'id='.$task_id);
 		    }
 		    else {
 		      echo '<h2 class="fs-title">Oops, Files were not uploaded</h2><hr>
@@ -99,8 +97,10 @@ if($action == 'Update Tasks') {
 		      </h3>';
 		    }
 		  }
-		}
+		}		
 	}
+
+
 
 	// for($j=0;$j<3;$j++){
 	//   if(!isset($_FILES['task_'.($j+1)])){

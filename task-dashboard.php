@@ -17,30 +17,39 @@ $evaluation_statuses = array(
 );
 
 
-
 $total_filled = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupPreference UGP
 	INNER JOIN User U ON UGP.user_id=U.id
 	WHERE preference=1 AND UGP.group_id <> 8 AND year=$year AND UGP.status <> 'withdrawn'");
 
 $task_type = i($QUERY, 'task_type', 'all');
 $evaluation_status = i($QUERY, 'evaluation_status', 'all');
+$stage_clear_check = '';
+
+
+$selects 	= "SELECT UGP.group_id, COUNT(DISTINCT UGP.user_id) FROM FAM_UserGroupPreference UGP";
+$joins 		= "INNER JOIN User U ON UGP.user_id=U.id INNER JOIN UserGroup UG ON UG.user_id = U.id INNER JOIN `Group` G ON G.id = UG.group_id";
 
 if($task_type && $task_type=='common_video'){
 	$task_check = " AND UT.common_task_url<>'' AND UT.year=$year";
+	$evaluation_stage = 3;
 }
 else if($task_type && $task_type=='common_written'){
 	$task_check = " AND UT.common_task_files<>'' AND UT.year=$year";
+	$evaluation_stage = 3;
 }
 else if($task_type && $task_type=='vertical'){
 	$task_check = " AND UT.preference_1_task_files<>'' AND UT.year=$year";
+	$joins .= ' INNER JOIN FAM_UserStage US ON US.user_id = U.id';
+	$evaluation_stage = 5;
 }
 else{
 	$task_check = " AND (UT.common_task_url<>'' OR UT.common_task_files<>'' OR UT.preference_1_task_files <> '') AND UT.year=$year";
+	$evaluation_stage = 3;
 }
 
-$no_mentor_check = " AND UGP.group_id <> 8 ";
-
 $requirements = getRequirementFromSheet();
+$requirements['total_group'][0] = array_sum($requirements['total_group']);
+$requirements['total_city'][0] = array_sum($requirements['total_city']);
 
 $applications = [];
 $submitted = [];
@@ -49,48 +58,41 @@ $nonctl_fellow_applicants = [];
 $ctl_fellow_applicants = [];
 $ctl_ctl_applicants = [];
 
-$tables = 'SELECT UGP.group_id, COUNT(DISTINCT UGP.user_id)
-					 FROM FAM_UserGroupPreference UGP
-					 INNER JOIN User U ON UGP.user_id=U.id';
+
+
+$no_mentor_check = " AND UGP.group_id <> 8 ";
 
 foreach ($all_cities as $city => $city_name) {
-	// $applications[$city_id] = array_combine(array_keys($verticals), array_fill(0, count($verticals), 0)); // Create init values.
 
-	$applications[$city] = $sql->getById("$tables
-		WHERE preference=1 AND ((UGP.city_id != 0 AND UGP.city_id=$city) OR (UGP.city_id = 0 AND U.city_id=$city)) AND UGP.year=$year
-		AND UGP.status <> 'withdrawn' $no_mentor_check
+	$conditions = "WHERE preference=1 AND ((UGP.city_id != 0 AND UGP.city_id=$city) OR (UGP.city_id = 0 AND U.city_id=$city)) AND UGP.year=$year AND UGP.status <> 'withdrawn'";
+
+	if($task_type && $task_type=='vertical'){
+		$conditions .= " AND US.stage_id = 3 AND US.status ='selected'";
+	}
+
+	$applications[$city] = $sql->getById("$selects $joins $conditions $no_mentor_check GROUP BY UGP.group_id");
+
+	$nonctl_fellow_applicants[$city] = $sql->getById("$selects $joins $conditions
+		AND UG.year=$year AND G.type = 'fellow' AND G.id <> 2 AND UGP.group_id <> 2
+		$no_mentor_check GROUP BY UGP.group_id");
+
+	$ctl_fellow_applicants[$city] = $sql->getById("$selects $joins $conditions AND UG.year=$year AND G.type = 'fellow' AND UGP.group_id = 2
+		$no_mentor_check GROUP BY UGP.group_id");
+
+	$ctl_ctl_applicants[$city] = $sql->getById("$selects $joins $conditions
+		AND UG.year=$year AND G.type = 'fellow' AND G.id=2 AND UGP.group_id = 2
+		$no_mentor_check GROUP BY UGP.group_id");
+
+	$submitted[$city] = $sql->getById("$selects $joins
+		INNER JOIN FAM_UserTask UT ON UT.user_id = U.id
+		$conditions $task_check $no_mentor_check
 		GROUP BY UGP.group_id");
 
-	$nonctl_fellow_applicants[$city] = $sql->getById("$tables
-		INNER JOIN UserGroup UG ON UG.user_id = U.id
-		INNER JOIN `Group` G ON G.id = UG.group_id
-		WHERE UGP.preference=1 AND ((UGP.city_id != 0 AND UGP.city_id=$city) OR (UGP.city_id = 0
-			AND U.city_id=$city)) AND UGP.year=$year AND UG.year=$year AND G.type = 'fellow' AND G.id <> 2 AND UGP.group_id <> 2
-			AND UGP.status <> 'withdrawn' $no_mentor_check GROUP BY UGP.group_id");
-
-	$ctl_fellow_applicants[$city] = $sql->getById("$tables
-		INNER JOIN UserGroup UG ON UG.user_id = U.id
-		INNER JOIN `Group` G ON G.id = UG.group_id
-		WHERE preference=1 AND ((UGP.city_id != 0 AND UGP.city_id=$city) OR (UGP.city_id = 0 AND U.city_id=$city)) AND UGP.year=$year AND UG.year=$year AND G.type = 'fellow' AND UGP.group_id = 2
-		AND UGP.status <> 'withdrawn' $no_mentor_check GROUP BY UGP.group_id");
-
-	$ctl_ctl_applicants[$city] = $sql->getById("$tables
-		INNER JOIN UserGroup UG ON UG.user_id = U.id
-		INNER JOIN `Group` G ON G.id = UG.group_id
-		WHERE preference=1 AND ((UGP.city_id != 0 AND UGP.city_id=$city) OR (UGP.city_id = 0 AND U.city_id=$city)) AND UGP.year=$year AND UG.year=$year AND G.type = 'fellow' AND G.id=2 AND UGP.group_id = 2
-		AND UGP.status <> 'withdrawn' $no_mentor_check GROUP BY UGP.group_id");
-
-	$submitted[$city] = $sql->getById("$tables
+	$evaluated[$city] = $sql->getById("$selects $joins
+		INNER JOIN FAM_UserStage US2 ON US2.user_id = U.id
 		INNER JOIN FAM_UserTask UT ON UT.user_id = U.id
-		WHERE preference=1 AND ((UGP.city_id != 0 AND UGP.city_id=$city) OR (UGP.city_id = 0 AND U.city_id=$city)) AND UGP.year=$year
-		AND UGP.status <> 'withdrawn' $task_check $no_mentor_check
-		GROUP BY UGP.group_id");
-
-	$evaluated[$city] = $sql->getById("$tables
-		INNER JOIN FAM_UserStage US ON US.user_id = U.id
-		INNER JOIN FAM_UserTask UT ON UT.user_id = U.id
-		WHERE preference=1 AND ((UGP.city_id != 0 AND UGP.city_id=$city) OR (UGP.city_id = 0 AND U.city_id=$city)) AND UGP.year=$year AND US.year=$year
-		AND US.stage_id=5 AND US.status<>'' AND US.status<>'pending' $task_check $no_mentor_check
+		$conditions AND US2.year=$year
+		AND US2.stage_id=$evaluation_stage AND US2.status<>'' AND US2.status<>'pending' $task_check $no_mentor_check
 		GROUP BY UGP.group_id");
 
 }
@@ -114,27 +116,26 @@ if($city_id) {
 $shortlisted = [];
 $total_submitted = [];
 $total_evaluated = [];
+
+
 foreach ($verticals as $id => $name) {
-	if($id == 8) continue;
-	$shortlisted[$id] = $sql->getOne("SELECT COUNT(DISTINCT UGP.user_id)
-											FROM FAM_UserGroupPreference UGP
-											INNER JOIN User U ON UGP.user_id=U.id
-											WHERE $city_check_ugp preference=1 AND UGP.group_id=$id AND UGP.year=$year AND UGP.status <> 'withdrawn'");
 
-	$total_submitted[$id] = $sql->getOne("SELECT COUNT(DISTINCT UGP.user_id)
-											FROM FAM_UserGroupPreference UGP
-											INNER JOIN User U ON UGP.user_id=U.id
-											INNER JOIN FAM_UserTask UT ON UT.user_id = U.id
-											WHERE $city_check_ugp preference=1 AND UGP.group_id=$id AND UGP.year=$year AND UGP.status <> 'withdrawn' $task_check");
+	if(!isset($shortlisted[$id])) $shortlisted[$id] = 0;
+	if(!isset($total_submitted[$id])) $total_submitted[$id] = 0;
+	if(!isset($total_evaluated[$id])) $total_evaluated[$id] = 0;
 
-	$total_evaluated[$id] = $sql->getOne("SELECT COUNT(DISTINCT UGP.user_id)
-											FROM FAM_UserGroupPreference UGP
-											INNER JOIN User U ON UGP.user_id=U.id
-											INNER JOIN FAM_UserStage US ON US.user_id = U.id
-											INNER JOIN FAM_UserTask UT ON UT.user_id = U.id
-											WHERE $city_check_ugp preference=1 AND UGP.group_id=$id AND UGP.year=$year AND US.year=$year AND UGP.status <> 'withdrawn'
-											AND US.stage_id=5 AND US.status<>'' AND US.status<>'pending' $task_check");
+	foreach ($all_cities as $city => $city_name) {
+		if($id == 8) continue;
+		if(isset($applications[$city][$id])) $shortlisted[$id] += $applications[$city][$id];
+		if(isset($submitted[$city][$id])) $total_submitted[$id] += $submitted[$city][$id];
+		if(isset($evaluated[$city][$id])) $total_evaluated[$id] += $evaluated[$city][$id];
+	}
+
+	$applications[0][$id] = $shortlisted[$id];
+	$submitted[0][$id] = $total_submitted[$id];
+	$evaluated[0][$id] = $total_evaluated[$id];
 }
+
 
 $selected = [];
 foreach ($verticals as $id => $name) {
