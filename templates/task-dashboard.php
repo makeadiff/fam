@@ -26,14 +26,20 @@
     <div class="fellowship-signup">
     <?php if($group_id != 8) { ?>
 	    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-        <span class="count_top"><i class="fa fa-user"></i> Total Fellowship Sign Ups</span>
+        <span class="count_top"><i class="fa fa-user"></i>
+		<?php 	if($task_type!='vertical'){ ?>
+					Total Fellowship Sign Ups
+		<?php 	}else{ ?>
+					Total Eligible Applications
+		<?php 	} ?>
+				</span>
         <div class="count">
 				<?php
 					if($group_id==0 && $city_id==0){
 						echo $all_applied;
 					}
 					else if($city_id==0 && $group_id!=0){
-						echo $shortlisted[$group_id];
+						echo $total_verticals[$group_id]['applications'];
 					}
 					elseif($city_id!=0 && $group_id==0){
 						echo $total_cities[$city_id]['applications'];
@@ -67,13 +73,16 @@
 							echo $all_applied - $all_not_required;;
 						}
 						else if($city_id==0 && $group_id!=0){
-							echo $shortlisted[$group_id] - $total_verticals[$group_id]['not_required'];
+							echo $total_verticals[$group_id]['applications'] - $total_verticals[$group_id]['not_required'];
 						}
 						elseif($city_id!=0 && $group_id==0){
 							echo $total_cities[$city_id]['applications'] - $total_cities[$city_id]['not_required'];
 						}
 						else{
-							echo i($applications[$city_id], $group_id, 0) - (i($ctl_ctl_applicants[$city_id], $group_id, 0) + i($nonctl_fellow_applicants[$city_id], $group_id, 0));
+							if($task_type!='vertical')
+								echo i($applications[$city_id], $group_id, 0) - (i($ctl_ctl_applicants[$city_id], $group_id, 0) + i($nonctl_fellow_applicants[$city_id], $group_id, 0));
+							else
+								echo i($applications[$city_id], $group_id, 0) - i($same_vertical_applicants[$city_id], $group_id, 0);
 						}
 					?>
 				</div>
@@ -148,6 +157,8 @@
 
 			if($city_id==0)
 				$expected = $total_verticals[$id]['applications'] - $total_verticals[$this_group_id]['not_required'];
+			else if($city_id!=0 && $task_type=='vertical')
+				$expected = i($applications[$city_id],$this_group_id,0) - i($same_vertical_applicants[$city_id], $this_group_id, 0);
 			else
 				$expected = i($applications[$city_id],$this_group_id,0) - (i($ctl_ctl_applicants[$city_id], $this_group_id, 0) + i($nonctl_fellow_applicants[$city_id], $this_group_id, 0));
 ?>
@@ -216,7 +227,10 @@
 			if(!$requirements[$this_city_id][$group_id]) continue;
 			if($city_id!=0 && $city_id!=$this_city_id) continue;
 
-			$expected = i($applications[$this_city_id], $group_id, 0) - (i($ctl_ctl_applicants[$this_city_id], $group_id, 0) + i($nonctl_fellow_applicants[$this_city_id], $group_id, 0));
+			else if($task_type=='vertical')
+				$expected = i($applications[$this_city_id],$group_id,0) - i($same_vertical_applicants[$this_city_id], $group_id, 0);
+			else
+				$expected = i($applications[$this_city_id], $group_id, 0) - (i($ctl_ctl_applicants[$this_city_id], $group_id, 0) + i($nonctl_fellow_applicants[$this_city_id], $group_id, 0));
 ?>
 					<div class="col-md-2 boxes">
 						<p class="vertical-name"><a href="task-status.php?group_id=<?php echo $this_city_id ?>&city_id=<?php echo $this_city_id ?>&action=Filter"><strong><?php echo $title ?></strong></a></p>

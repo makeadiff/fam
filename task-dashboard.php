@@ -67,13 +67,13 @@ foreach ($all_cities as $city => $city_name) {
 	$conditions = "WHERE preference=1 AND ((UGP.city_id != 0 AND UGP.city_id=$city) OR (UGP.city_id = 0 AND U.city_id=$city)) AND UGP.year=$year AND UGP.status <> 'withdrawn'";
 
 	if($task_type && $task_type=='vertical'){
-		$conditions .= " AND US.stage_id = 3 AND US.status ='selected'";
+		$conditions .= " AND US.stage_id = 3 AND US.status ='selected' AND US.year=$year";
 	}
 
 	$applications[$city] = $sql->getById("$selects $joins $conditions $no_mentor_check GROUP BY UGP.group_id");
 
-	$nonctl_fellow_applicants[$city] = $sql->getById("$selects $joins $conditions
-		AND UG.year=$year AND G.type = 'fellow' AND G.id <> 2 AND UGP.group_id <> 2
+	$nonctl_fellow_applicants[$city] = $sql->getById("$selects $joins $conditions AND UG.year=$year
+		AND G.type = 'fellow' AND G.id <> 2 AND UGP.group_id <> 2
 		$no_mentor_check GROUP BY UGP.group_id");
 
 	$ctl_fellow_applicants[$city] = $sql->getById("$selects $joins $conditions AND UG.year=$year AND G.type = 'fellow' AND UGP.group_id = 2
@@ -81,6 +81,10 @@ foreach ($all_cities as $city => $city_name) {
 
 	$ctl_ctl_applicants[$city] = $sql->getById("$selects $joins $conditions
 		AND UG.year=$year AND G.type = 'fellow' AND G.id=2 AND UGP.group_id = 2
+		$no_mentor_check GROUP BY UGP.group_id");
+
+	$same_vertical_applicants[$city] = $sql->getById("$selects $joins $conditions
+		AND UG.year=$year AND G.type = 'fellow' AND G.id=UGP.group_id
 		$no_mentor_check GROUP BY UGP.group_id");
 
 	$submitted[$city] = $sql->getById("$selects $joins
@@ -94,7 +98,6 @@ foreach ($all_cities as $city => $city_name) {
 		$conditions AND US2.year=$year
 		AND US2.stage_id=$evaluation_stage AND US2.status<>'' AND US2.status<>'pending' $task_check $no_mentor_check
 		GROUP BY UGP.group_id");
-
 }
 
 $multiplication_factor = 3;
@@ -165,8 +168,12 @@ foreach($all_cities as $city => $city_name) {
 			$total_verticals[$id]['applications'] += i($applications[$city], $id, 0);
 			$total_verticals[$id]['submitted'] += i($submitted[$city], $id, 0);
 			$total_verticals[$id]['evaluated'] += i($evaluated[$city], $id, 0);
-			$total_verticals[$id]['not_required'] += i($ctl_ctl_applicants[$city], $id, 0);
-			$total_verticals[$id]['not_required'] += i($nonctl_fellow_applicants[$city], $id, 0);
+			if($task_type!='vertical'){
+				$total_verticals[$id]['not_required'] += i($ctl_ctl_applicants[$city], $id, 0);
+				$total_verticals[$id]['not_required'] += i($nonctl_fellow_applicants[$city], $id, 0);
+			}else{
+				$total_verticals[$id]['not_required'] += i($same_vertical_applicants[$city], $id, 0);
+			}
 		}
 
 		if(!isset($total_cities[$city]['applications'])) $total_cities[$city]['applications'] = 0;
@@ -178,8 +185,12 @@ foreach($all_cities as $city => $city_name) {
 			$total_cities[$city]['applications'] += i($applications[$city], $id, 0);
 			$total_cities[$city]['submitted'] += i($submitted[$city], $id, 0);
 			$total_cities[$city]['evaluated'] += i($evaluated[$city], $id, 0);
-			$total_cities[$city]['not_required'] += i($ctl_ctl_applicants[$city], $id, 0);
-			$total_cities[$city]['not_required'] += i($nonctl_fellow_applicants[$city], $id, 0);
+			if($task_type!='vertical'){
+				$total_cities[$city]['not_required'] += i($ctl_ctl_applicants[$city], $id, 0);
+				$total_cities[$city]['not_required'] += i($nonctl_fellow_applicants[$city], $id, 0);
+			}else{
+				$total_cities[$city]['not_required'] += i($same_vertical_applicants[$city], $id, 0);
+			}
 		}
 	}
 	$all_applied += $total_cities[$city]['applications'];
