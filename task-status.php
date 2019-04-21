@@ -44,13 +44,13 @@ if($stage_id) {
 	$join .= 'INNER JOIN FAM_UserStage US ON US.user_id = U.id';
 	$checks[] = 'US.stage_id='.$stage_id;
 	$checks[] = 'US.year='.$year;
-	if($status) {
+	if($task_status) {
 		$checks[] = 'US.status="'.$status.'"';
 	}
 }
 
 $selects .= ', UT.common_task_url, UT.common_task_files, UT.preference_1_task_files';
-$join .= 'LEFT JOIN FAM_UserTask UT ON UGP.user_id = UT.user_id';
+$join .= ' LEFT JOIN FAM_UserTask UT ON UGP.user_id = UT.user_id';
 
 if($common_video_task == 'not-submitted') {
 	$checks[] = "(UT.common_task_url IS NULL OR UT.common_task_url='')";
