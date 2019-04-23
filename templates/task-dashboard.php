@@ -156,7 +156,7 @@
 			if($this_group_id == 8) continue;
 
 			if($city_id==0)
-				$expected = $total_verticals[$id]['applications'] - $total_verticals[$this_group_id]['not_required'];
+				$expected = $total_verticals[$this_group_id]['applications'] - $total_verticals[$this_group_id]['not_required'];
 			else if($city_id!=0 && $task_type=='vertical')
 				$expected = i($applications[$city_id],$this_group_id,0) - i($same_vertical_applicants[$city_id], $this_group_id, 0);
 			else
