@@ -27,7 +27,7 @@ $reference_link = '';
 $all_reference_links = [
 	'2'		=> 'https://drive.google.com/open?id=1iSyOTpJ8WvqcmjRZBUu0peoTdonLKU-wEXcZ4Sd6zyI', //City Team Lead, Updated for 2019
 	'19'	=> 'https://drive.google.com/open?id=1Lr4PS6dnxfIohi66QN1fdxe4l7mwJcRk6V-RtZrsHWk', //Ed Support, Updated for 2019
-	'378'	=> 'https://drive.google.com/open?id=1dtwb0gb1xagSF5ARPSVsaUv06v6sRRs_UELSTRNf-1E', //Aftercare, Updated for 2019
+	'378'	=> 'https://docs.google.com/document/d/1dtwb0gb1xagSF5ARPSVsaUv06v6sRRs_UELSTRNf-1E', //Aftercare, Updated for 2019
 	'272'	=> 'https://drive.google.com/open?id=1br8QUK-CHkqZ4HxbveBpVGlvXVRveIeNWcHIdVEaFlM', //Transition Readiness, Updated for 2019
 	'370'	=> 'https://drive.google.com/open?id=1r6Q-Ghs4s-Bl6_EoGpuTImO_HV45yqlVbHWpsEaH2kE', //Fundraising, Updated for 2019
 	'269'	=> 'https://drive.google.com/open?id=10CrF5GyExazYvA5glGWPJVUXoRQxabGrvWnCccLh3Tk', //Shelter Operations, Updated for 2019
