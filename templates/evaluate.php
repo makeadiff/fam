@@ -43,7 +43,7 @@
 					echo "<h4 class='alert alert-warning'> $applicant[name] <strong>hasn't updated</strong> Common Task yet</h4>";
 				}
 			}
-			
+
 			if($stage_id == 5) {
 				$task_url = $fam->getTask($applicant_id, 'vertical', $group_id);
 				if($task_url){
@@ -213,9 +213,10 @@ if(!$parameters) continue;
 	<br/>
 	<p>If the applicant is rejected for Fellowship, but can be shortlisted for Mentor Profile, mark it below.</p>
 	<div class="clearfix"></div>
+	
 <?php if($applicant_status=='pending'){ ?>
 	<div class="row <?php echo $applicant_status; ?>" style="margin-left:10px;">
-		<a title="reject applicant and recommend for Mentor" href="api/reject_applicant.php?group_id=<?php echo GROUP_ID_MENTOR; ?>&applicant_id=<?php echo $applicant_id; ?>" class="reject_applicant btn btn-primary">Shortlist for Mentor Profile</a>
+		<a title="reject applicant and recommend for Mentor" href="api/reject_applicant.php?group_id=<?php echo GROUP_ID_MENTOR; ?>&applicant_id=<?php echo $applicant_id; ?>&stage_id=<?php echo $stage_id; ?>" class="reject_applicant btn btn-primary">Shortlist for Mentor Profile</a>
 	</div>
 	<div class="row rejected_applicant" style="margin-left:10px;">
 		<a title="Revoke rejected status of Applicant" href="api/revoke_applicant.php?applicant_id=<?php echo $applicant_id; ?>" class="revoke_applicant btn btn-primary">Revoke Applicant Status</a>
@@ -225,7 +226,7 @@ if(!$parameters) continue;
 		<a title="Revoke rejected status of Applicant" href="api/revoke_applicant.php?applicant_id=<?php echo $applicant_id; ?>" class="revoke_applicant btn btn-primary">Revoke Applicant Status</a>
 	</div>
 	<div class="row pending_applicant" style="margin-left:10px;">
-		<a title="reject applicant and recommend for Mentor" href="api/reject_applicant.php?group_id=<?php echo GROUP_ID_MENTOR; ?>&applicant_id=<?php echo $applicant_id; ?>" class="reject_applicant btn btn-primary">Shortlist for Mentor Profile</a>
+		<a title="reject applicant and recommend for Mentor" href="api/reject_applicant.php?group_id=<?php echo GROUP_ID_MENTOR; ?>&applicant_id=<?php echo $applicant_id; ?>&stage_id=<?php echo $stage_id; ?>" class="reject_applicant btn btn-primary">Shortlist for Mentor Profile</a>
 	</div>
 <?php } ?>
 <?php }?>

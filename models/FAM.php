@@ -122,8 +122,8 @@ class FAM {
 		if($group_id!=0){
 			$q .= " AND group_id=$group_id";
 		}
-		$stage = $this->sql->getAssoc($q);
-
+		$q .= " ORDER BY FIELD(status,'selected','free-pool','rejected','maybe','pending')";
+		$stage = $this->sql->getAssoc($q);		
 		if(!$stage) $stage = ['status' => 'pending', 'comment' => ''];
 
 		return $stage;
