@@ -9,6 +9,8 @@ $all_cities = keyFormat($common->getCities(), ['id', 'name']);
 $all_cities[0] = 'Not Moving';
 $city_id = i($QUERY, 'city_id', 0);
 $group_id = i($QUERY, 'group_id', 0);
+$stage_id = i($QUERY, 'stage_id', 0);
+
 
 if($action == 'Find Applicant') {
 	$params = [];
