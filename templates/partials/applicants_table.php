@@ -35,10 +35,10 @@ foreach($applicants as $u) {
 			foreach($applied_groups_split as $this_group_id) {
 				echo "<li>" . $verticals[$this_group_id];
 				if(isset($evaluators[$this_group_id])) echo " (" . $evaluators[$this_group_id] . ")";
-				if(isset($application_info[$this_group_id]) && $stage_id==0 && $stage_id==3 && $stage_id==2 && $stage_id==1 && $stage_id==6){
+				if(isset($application_info[$this_group_id]) && isset($stage_id) && $stage_id==0 && $stage_id==3 && $stage_id==2 && $stage_id==1 && $stage_id==6){
 					// DO Nothing
 				}
-				elseif(isset($application_info[$this_group_id])){
+				elseif(isset($application_info[$this_group_id]) && isset($stage_id)){
 					echo " "; showApplicantStatus($u['id'],$stage_id,$this_group_id);
 				}
 				echo "</li>";
