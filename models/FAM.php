@@ -123,7 +123,7 @@ class FAM {
 			$q .= " AND group_id=$group_id";
 		}
 		$q .= " ORDER BY FIELD(status,'selected','free-pool','rejected','maybe','pending')";
-		$stage = $this->sql->getAssoc($q);		
+		$stage = $this->sql->getAssoc($q);
 		if(!$stage) $stage = ['status' => 'pending', 'comment' => ''];
 
 		return $stage;
@@ -202,7 +202,7 @@ class FAM {
 
 	public function getEvaluatorsByGroup($applicant_id)
 	{
-		return $this->sql->getAll("SELECT E.group_id, U.name
+		return $this->sql->getAll("SELECT E.id, E.group_id, U.name
 				FROM User U
 				INNER JOIN FAM_UserEvaluator E ON E.evaluator_id=U.id
 				WHERE E.user_id=$applicant_id AND U.status='1' AND U.user_type='volunteer' AND E.year={$this->year}");

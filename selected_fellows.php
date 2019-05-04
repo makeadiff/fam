@@ -13,7 +13,7 @@ $selected = [];
 
 foreach ($all_cities as $city_id => $city_name) {
 	foreach ($verticals as $vertical_id => $vertical_name) {
-		$applications[$city_id][$vertical_id] = $sql->getOne("SELECT GROUP_CONCAT(DISTINCT U.name) as fellow_names
+		$applications[$city_id][$vertical_id] = $sql->getAssoc("SELECT GROUP_CONCAT(DISTINCT U.name) as fellow_names, COUNT(DISTINCT U.name) as count
 			FROM User U
 			INNER JOIN FAM_UserStage US ON US.user_id = U.id
 			INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id = U.id

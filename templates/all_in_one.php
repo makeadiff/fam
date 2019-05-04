@@ -3,7 +3,7 @@
   <?php
 		if(!$is_director) die("You don't have access to this view");
 	?>
-  
+
   <div class="x_title">
     <h2>All in One View</h2>
     <div class="clearfix"></div>
@@ -51,7 +51,7 @@
     <?php } ?>
     <td class="bordered"><?php echo $total_cities[$city_id]['requirements'] ?></td>
     <td <?php highlight($total_cities[$city_id]['applications'], $total_cities[$city_id]['requirements']); ?>><?php echo $total_cities[$city_id]['applications'] ?></td>
-    <td <?php highlight($total_cities[$city_id]['selected'], $total_cities[$city_id]['requirements'], 'selected'); ?>><?php echo $total_cities[$city_id]['applications'] ?></td>
+    <td <?php highlight($total_cities[$city_id]['selected'], $total_cities[$city_id]['applications'], 'selected'); ?>><?php echo $total_cities[$city_id]['selected'] ?></td>
     <th class="city-name bordered"><?php echo $city_name ?></th>
   </tr>
   <?php } ?>
@@ -71,7 +71,8 @@
       <?php } ?>
       <td class="bordered"><?php echo $total_required ?></td>
       <td <?php highlight($total_applied, $total_required); ?>><?php echo $total_applied ?></td>
-      <th class="bordered">Total</th>
+      <td><?php echo $total_selected; ?></td>
+      <th class="bordered">Total</td>
   </tr>
   </tbody>
 

@@ -15,7 +15,7 @@
 		<?php $html->buildInput("evaluation_status", "Evaluation Status", 'select', $evaluation_status, ['options' => $evaluation_statuses, 'no_br' => true]); ?> &nbsp;
 		<input type="submit" class="btn btn-success btn-xs" value="Filter" />
 	</form><br />
-  <!-- <a href="all_in_one.php">All In One View</a> -->
+  <a href="task-status.php">Task Status View</a>
 	</div>
 </div>
 
@@ -24,11 +24,15 @@
 
 	<div class="row tile_count">
     <div class="fellowship-signup">
-    <?php if($group_id != 8) { ?>
+    <!-- <?php //if($group_id != 8) { ?> -->
 	    <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
         <span class="count_top"><i class="fa fa-user"></i>
 		<?php 	if($task_type!='vertical'){ ?>
-					Total Fellowship Sign Ups
+					Total <?php if($group_id==8){?>
+						Mentorship
+					<?php }else{?>
+						Fellowship
+					<?php }?> Sign Ups
 		<?php 	}else{ ?>
 					Total Eligible Applications
 		<?php 	} ?>
@@ -36,7 +40,7 @@
         <div class="count">
 				<?php
 					if($group_id==0 && $city_id==0){
-						echo $all_applied;
+						echo $all_applied - i($applications[$city_id], GROUP_ID_MENTOR, 0);
 					}
 					else if($city_id==0 && $group_id!=0){
 						echo $total_verticals[$group_id]['applications'];
@@ -52,7 +56,13 @@
 	    </div>
 
 			<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-        <span class="count_top"><i class="fa fa-user"></i> Fellowship Profiles Open</span>
+        <span class="count_top"><i class="fa fa-user"></i>
+					<?php if($group_id==8){?>
+						Mentorship
+					<?php }else{?>
+						Fellowship
+					<?php }?>
+					 Profiles Open</span>
         <div class="count">
 				<?php
 					if($group_id==0){
@@ -66,11 +76,15 @@
 	    </div>
 
 			<div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
-        <span class="count_top"><i class="fa fa-user"></i> Expected Tasks</span>
+        <span class="count_top"><i class="fa fa-user"></i> Expected <?php if($group_id==8){?>
+					Mentorship
+				<?php }else{?>
+					Fellowship
+				<?php }?> Tasks</span>
         <div class="count">
 					<?php
 						if($group_id==0 && $city_id==0){
-							echo $all_applied - $all_not_required;;
+							echo $all_applied  - $all_not_required - (i($applications[$city_id], GROUP_ID_MENTOR, 0) - $total_verticals[GROUP_ID_MENTOR]['not_required']);
 						}
 						else if($city_id==0 && $group_id!=0){
 							echo $total_verticals[$group_id]['applications'] - $total_verticals[$group_id]['not_required'];
@@ -128,7 +142,7 @@
 	        </div>
 	    </div>
 
-    <?php } ?>
+    <!-- <?php //} ?> -->
   	</div>
 	</div>
 </div>

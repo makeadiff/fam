@@ -2,7 +2,7 @@
 require 'common.php';
 
 $all_cities = keyFormat($common->getCities(), ['id', 'name']);
-$all_verticals = $verticals; unset($all_verticals[8]);
+$all_verticals = $verticals;
 
 $all_tasks = array(
 	'common_video' 	=> 'Common Task (Video)',
@@ -58,9 +58,16 @@ $nonctl_fellow_applicants = [];
 $ctl_fellow_applicants = [];
 $ctl_ctl_applicants = [];
 
+$city_id = i($QUERY, 'city_id', 0);
+$group_id = i($QUERY, 'group_id', 0);
 
 
-$no_mentor_check = " AND UGP.group_id <> 8 ";
+// if($group_id!=8){
+// 	$no_mentor_check = " AND UGP.group_id <> 8 ";
+// }
+// else{
+	$no_mentor_check = "";
+// }
 
 foreach ($all_cities as $city => $city_name) {
 
@@ -105,9 +112,6 @@ $multiplication_factor = 3;
 $all_cities = keyFormat($common->getCities(), ['id', 'name']);
 $all_cities[0] = 'All';
 $all_verticals[0] = 'All';
-$city_id = i($QUERY, 'city_id', 0);
-$group_id = i($QUERY, 'group_id', 0);
-
 
 $city_check = '';
 $city_check_ugp = '';
@@ -128,7 +132,7 @@ foreach ($verticals as $id => $name) {
 	if(!isset($total_evaluated[$id])) $total_evaluated[$id] = 0;
 
 	foreach ($all_cities as $city => $city_name) {
-		if($id == 8) continue;
+		// if($id == 8) continue;
 		if(isset($applications[$city][$id])) $shortlisted[$id] += $applications[$city][$id];
 		if(isset($submitted[$city][$id])) $total_submitted[$id] += $submitted[$city][$id];
 		if(isset($evaluated[$city][$id])) $total_evaluated[$id] += $evaluated[$city][$id];
