@@ -1,4 +1,9 @@
 <div class="x_panel">
+
+  <?php
+		if(!$is_director) die("You don't have access to this view");
+	?>
+  
   <div class="x_title">
     <h2>All in One View</h2>
     <div class="clearfix"></div>
@@ -19,7 +24,7 @@
     </thead>
 
     <tbody>
-  <?php 
+  <?php
   $total_verticals = [];
   $total_cities = [];
 
@@ -51,7 +56,7 @@
   </tr>
   <?php } ?>
   <tr><th class="city-name">Total</th>
-      <?php 
+      <?php
       $total_required = 0;
       $total_applied = 0;
       $total_selected = 0;
@@ -88,14 +93,14 @@
   <span style="background-color:<?php echo $colors['red'] ?>; border:1px solid #000;"> &nbsp; </span>&nbsp; Number of Applicants are <strong>less than requirements</strong>.<br />
   <span style="background-color:<?php echo $colors['orange'] ?>; border:1px solid #000;"> &nbsp; </span>&nbsp; Number of Applicants are <strong>less than 2 x</strong> the requirements.<br />
   <span style="background-color:<?php echo $colors['green'] ?>; border:1px solid #000;"> &nbsp; </span>&nbsp; Number of Applicants are <strong>more than 2 x</strong> the requirements.<br />
-  </div> 
+  </div>
 </div>
 
 <?php
 
 function highlight($count, $requirements, $mode = 'applied') {
   global $multiplication_factor, $colors;
-  
+
   if($mode == 'applied') {
     if($count > $requirements * $multiplication_factor) echo " style='color:{$colors['green']}; font-weight:bold;'";
     else if($count > $requirements) echo " style='color:{$colors['orange']}; font-weight:bold;'";

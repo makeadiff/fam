@@ -1,5 +1,9 @@
 <div class="x_panel">
 
+	<?php
+		if(!$is_director) die("You don't have access to this view");
+	?>
+
 <div class="x_title">
 <h2>Evaluators</h2>
 <div class="clearfix"></div>

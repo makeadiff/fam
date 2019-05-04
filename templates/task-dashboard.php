@@ -153,7 +153,7 @@
 	if($group_id==0){
 		foreach($verticals as $this_group_id => $title){
 			if(!$requirements[$city_id][$this_group_id]) continue;
-			if($this_group_id == 8) continue;
+			// if($this_group_id == 8) continue;
 
 			if($city_id==0)
 				$expected = $total_verticals[$this_group_id]['applications'] - $total_verticals[$this_group_id]['not_required'];
