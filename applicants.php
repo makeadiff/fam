@@ -91,7 +91,7 @@ $query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTI
 			WHERE " . implode(" AND ", $checks) . " AND UGP.year=$year
 			GROUP BY UGP.user_id";
 if($group_id) $query .= " ORDER BY UGP.preference, C.name, U.name";
-else $query .= " ORDER BY C.name, U.name";
+else $query .= " ORDER BY C.name, U.name, FIELD(UGP.status,'pending','rejected','withdrawn')";
 
 $applicants_pager = new SqlPager($query, 25);
 $applicants = $applicants_pager->getPage();
