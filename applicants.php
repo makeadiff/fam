@@ -77,7 +77,7 @@ if($task_status) {
 if($overall_status!=''){
 	$checks[] = "UGP.status = '$overall_status'";
 }else{
-	$checks[]	= "UGP.status != 'withdrawn'";
+	$checks[]	= "UGP.status != 'withdrawn' && UGP.status != 'rejected'";
 }
 
 $query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTINCT UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS groups,
