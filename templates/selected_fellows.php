@@ -49,9 +49,15 @@
       ?>
     </td>
     <?php } ?>
+    <tr><th class="city-name"><?php echo $city_name ?></th>
   </tr>
   <?php } ?>
   </tbody>
+  <tfoot>
+    <tr><th class="city-name">City</th>
+      <?php foreach($verticals as $group_id => $group_name) { ?><th width="150px" class="bordered"><?php echo $group_name ?></th><?php } ?>
+    </tr>
+  </tfoot>
   </table>
   </div>
 </div>
