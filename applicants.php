@@ -49,6 +49,9 @@ if($stage_id) {
 	$join .= 'INNER JOIN FAM_UserStage US ON US.user_id = U.id';
 	$checks[] = 'US.stage_id='.$stage_id;
 	$checks[] = 'US.year='.$year;
+	if($stage_id!=3 && $group_id!=0){
+		$checks[] = 'US.group_id='.$group_id;
+	}
 	if($status) {
 		$checks[] = 'US.status="'.$status.'"';
 	}
