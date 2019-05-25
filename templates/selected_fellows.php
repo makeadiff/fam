@@ -14,6 +14,7 @@
     <thead>
     <tr><th class="city-name">City</th>
       <?php foreach($verticals as $group_id => $group_name) { ?><th width="150px" class="bordered"><?php echo $group_name ?></th><?php } ?>
+      <th class="city-name">City</th>
     </tr>
     </thead>
 
@@ -30,12 +31,10 @@
 			if(isset($applications[$city_id][$group_id]) && $applications[$city_id][$group_id]['fellow_names']!="") {
           $fellow_names = $applications[$city_id][$group_id]['fellow_names'];
           $fellows = explode(',',$fellow_names);
-      }
-			else {
+      
+      } else {
         $fellow_names = '';
       }
-
-
 		?>
     <td width="150px" class="bordered">
       <?php
@@ -49,9 +48,15 @@
       ?>
     </td>
     <?php } ?>
+    <th class="city-name"><?php echo $city_name ?></th>
   </tr>
   <?php } ?>
   </tbody>
+  <tfoot>
+    <tr><th class="city-name">City</th>
+      <?php foreach($verticals as $group_id => $group_name) { ?><th width="150px" class="bordered"><?php echo $group_name ?></th><?php } ?>
+    </tr>
+  </tfoot>
   </table>
   </div>
 </div>
