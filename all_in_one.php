@@ -30,6 +30,7 @@ foreach ($all_cities as $city_id => $city_name) {
 			INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id = U.id
 			INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
 			WHERE US.stage_id = 4
+				AND UGP.status = 'pending'
 				AND US.status = 'selected'
 				AND UGP.year = $year
 				AND US.year = $year
