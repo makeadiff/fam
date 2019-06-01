@@ -4,7 +4,7 @@ require '../../common/common.php';
 /// Purpose : Get all the people marked as selected in FAM and give them the appropriate usergroup in MADApp. Basically sets all the new fellows.
 
 $all_cities = keyFormat($common->getCities(), ['id', 'name']);
-$new_year = 2018;
+$new_year = $year+1;
 
 foreach ($all_cities as $city_id => $city_name) {
 	foreach ($verticals as $group_id => $vertical_name) {

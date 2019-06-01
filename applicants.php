@@ -49,6 +49,9 @@ if($stage_id) {
 	$join .= 'INNER JOIN FAM_UserStage US ON US.user_id = U.id';
 	$checks[] = 'US.stage_id='.$stage_id;
 	$checks[] = 'US.year='.$year;
+	if($stage_id!=3 && $group_id!=0){
+		$checks[] = 'US.group_id='.$group_id;
+	}
 	if($status) {
 		$checks[] = 'US.status="'.$status.'"';
 	}
@@ -74,7 +77,7 @@ if($task_status) {
 if($overall_status!=''){
 	$checks[] = "UGP.status = '$overall_status'";
 }else{
-	$checks[]	= "UGP.status != 'withdrawn'";
+	$checks[]	= "UGP.status != 'withdrawn' && UGP.status != 'rejected'";
 }
 
 $query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTINCT UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS groups,
@@ -88,7 +91,7 @@ $query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTI
 			WHERE " . implode(" AND ", $checks) . " AND UGP.year=$year
 			GROUP BY UGP.user_id";
 if($group_id) $query .= " ORDER BY UGP.preference, C.name, U.name";
-else $query .= " ORDER BY C.name, U.name";
+else $query .= " ORDER BY C.name, U.name, FIELD(UGP.status,'pending','rejected','withdrawn')";
 
 $applicants_pager = new SqlPager($query, 25);
 $applicants = $applicants_pager->getPage();

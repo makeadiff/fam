@@ -9,17 +9,7 @@ $total_filled = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupP
 	WHERE preference=1 AND UGP.year = $year");
 
 $verticals = [
-	// '2'		=> "City Team Lead",
-	// '19'	=> "Ed Support",
-	// '378'	=> "Aftercare",
-	// '272'	=> "Transition",
-	// '370'	=> "Fundraising",
 	'269'	=> "Shelter Ops",
-	// '4'		=> "Shelter Support",
-	// '5'		=> "Human Capital",
-	// '15'	=> "Finance",
-	// '11'	=> "Campaigns",
-	// '375'	=> "Foundational Programme",
 ];
 
 
@@ -29,7 +19,7 @@ if(isset($_POST['user_id'])){
 	foreach ($post_vars as $key => $shelter_id) {
 		$applicant_id = str_replace('shelter_id_','',$key);
 		if($shelter_id!=0){
-			$sql->update('FAM_UserStage',['shelter_id' => $shelter_id], 
+			$sql->update('FAM_UserStage',['shelter_id' => $shelter_id],
 				[
 					'user_id' 	=> $applicant_id,
 					'group_id' 	=> '269',
@@ -38,7 +28,7 @@ if(isset($_POST['user_id'])){
 				]);
 		}
 		else{
-			$sql->update('FAM_UserStage',['shelter_id' => 0], 
+			$sql->update('FAM_UserStage',['shelter_id' => 0],
 				[
 					'user_id' 	=> $applicant_id,
 					'group_id' 	=> '269',
@@ -64,11 +54,12 @@ foreach ($all_cities as $city_id => $city_name) {
 			INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
 			WHERE US.stage_id = 4
 				AND US.status = 'selected'
+				AND UGP.status = 'pending'
 				AND C.id = $city_id
 				AND US.group_id = $vertical_id
 				AND UGP.year = $year
+				AND US.year = $year
 			ORDER BY C.name, U.name ASC");
-
 	}
 }
 
