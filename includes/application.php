@@ -1,6 +1,7 @@
 <?php
 $user_info = check_user();
 
+$year = 2018; // :HARDCODE: :TODO
 $user_id = $user_info['user_id'];
 $fam = new FAM;
 $common = new Common;
