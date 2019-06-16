@@ -145,9 +145,9 @@ function getEmailFromSheet($sheet_url) {
 	$sheet = new ParseCSV($sheet_url);
 	$data = [];
 	foreach($sheet as $row_index => $row) {
-		$data[$row['A']] = strtolower($row['J']);
+		$data[$row['A']] = strtolower($row['I']);
 	}
-	unset($data['ID']); //Unset Header Row
+	unset($data['id']); //Unset Header Row
 	return $data;
 }
 
@@ -175,4 +175,10 @@ function generateCSV($array){
 	else{
 		return false;
 	}
+}
+
+function clear_current_email($sql){
+	return $sql->update('User',[
+		'mad_email' => '',
+	],'city_id < 26');
 }

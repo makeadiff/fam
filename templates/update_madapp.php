@@ -30,8 +30,8 @@
     <tr>
       <th>ID</th>
       <th>Fellow Name</th>
-      <th>Email</th>
-      <th>Sex</th>
+      <!-- <th>Email</th> -->
+      <!-- <th>Sex</th> -->
       <th>City Name</th>
       <th>Role</th>
       <th>UserGroup Updated</th>
@@ -100,8 +100,8 @@
           echo '<tr>'.
                 '<td>'.$app['user_id'].'</td>'.
                 '<td>'.$app['name'].'</td>'.
-                '<td>'.$app['email'].'</td>'.
-                '<td>'.$app['sex'].'</td>'.
+                // '<td>'.$app['email'].'</td>'.
+                // '<td>'.$app['sex'].'</td>'.
                 '<td>'.$app['city'].'</td>'.
                 '<td>'.$app['role'].'</td>'.
                 '<td><b>'.$ugp_status.'</b></td>'.
