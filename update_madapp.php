@@ -37,7 +37,7 @@ if($continue == false){
 	clear_current_email($sql);
 
 	foreach ($applications as $fellows) {
-		print "Fellow ID : ".$fellows['user_id']." -  UserGroup ID : ".$fellows['group_id']." - ";
+		// echo "<script>console.log('fellow_user_id:".$fellows['user_id']."; group_id:".$fellows['group_id']."');</script>";
 		$exsiting = $sql->getOne("SELECT id FROM UserGroup WHERE user_id=".$fellows['user_id']." AND group_id=".$fellows['group_id']." AND year=".$new_year."");
 		if(!$exsiting) {
 			$sql->insert("UserGroup", [
@@ -45,14 +45,14 @@ if($continue == false){
 				'group_id'	=> $fellows['group_id'],
 				'year'		=> $new_year
 			]);
-			print "Inserted\n";
+			// echo "<script>console.log('Updated');</script>";
 		} else {
-			print "Exists Already\n";
+			// echo "<script>console.log('Exists Already');</script>";
 		}
 		$email_update = $sql->update('User',[
 			'mad_email' => $fellows['new_email']
 		],'id='.$fellows['user_id']);
-		print "Email Updated\n";
+		// echo "<script>console.log('Email Updated');</script>";
 	}
 }
 
