@@ -145,6 +145,7 @@ function getEmailFromSheet($sheet_url) {
 	$sheet = new ParseCSV($sheet_url);
 	$data = [];
 	foreach($sheet as $row_index => $row) {
+		// dump($row);
 		$data[$row['A']] = strtolower($row['I']);
 	}
 	unset($data['id']); //Unset Header Row

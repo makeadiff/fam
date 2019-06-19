@@ -24,19 +24,15 @@ $applications = $sql->getAll("SELECT U.id as 'user_id', U.name as 'name', C.name
 								ORDER BY C.name ASC");
 
 
-$email_ids = getEmailFromSheet("https://docs.google.com/spreadsheets/d/e/2PACX-1vSiGf_vxmXrfxRS5Rg05sWTlxyaZ28WVEgc26v7_As_ike744TYuBPcpVRdSSS50Y7uIwA25h5kmCHz/pub?gid=873311152&single=true&output=csv");
+$email_ids = getEmailFromSheet("https://docs.google.com/spreadsheets/d/e/2PACX-1vSiGf_vxmXrfxRS5Rg05sWTlxyaZ28WVEgc26v7_As_ike744TYuBPcpVRdSSS50Y7uIwA25h5kmCHz/pub?gid=137281857&single=true&output=csv");
 
 
 foreach ($applications as $key => $fellows) {
 	$applications[$key]['new_email'] = $email_ids[$fellows['user_id']];
 }
 
-
 if($continue == false){
 	$new_year = ++$year;
-
-	dump($new_year);
-	exit;
 
 	clear_current_email($sql);
 
