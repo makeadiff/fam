@@ -1,7 +1,7 @@
 <?php
 $user_info = check_user();
 
-$year = 2018; // :HARDCODE: :TODO
+$year = get_year();
 $user_id = $user_info['user_id'];
 $fam = new FAM;
 $common = new Common;
@@ -60,9 +60,9 @@ $colors = [
 ];
 
 $overall_statuses = [
-	''					=> 'All',
+	''			=> 'All',
 	'rejected' 	=> 'Shortlisted for Mentor',
-	'pending'		=> 'In Progress',
+	'pending'	=> 'In Progress',
 	'withdrawn'	=> 'Withdrawn Application'
 ];
 
@@ -94,13 +94,13 @@ function getRequirementFromSheet($sheet_url = '') {
 	// Transilation table for group_id => index in the spreadsheet.
 	$keys = [
 		'city_name'	=> ['A'],
-		'2'		=> ['H','I','J'],	// City Team Lead
-		'375'	=> ['K','L','M'],	// Foundation
-		'19'	=> ['N','O','P'],	// Ed Support
-		'272'	=> ['Q','R','S'],	// Transition Readiness
-		'378'	=> ['T','U','V'],	// Aftercare
-		'269'	=> ['W','X','Y'],	// Shelter Operations
-		'4'		=> ['Z','AA','AB'],	// Shelter Support
+		'2'		=> ['H','I','J'],		// City Team Lead
+		'375'	=> ['K','L','M'],		// Foundation
+		'19'	=> ['N','O','P'],		// Ed Support
+		'272'	=> ['Q','R','S'],		// Transition Readiness
+		'378'	=> ['T','U','V'],		// Aftercare
+		'269'	=> ['W','X','Y'],		// Shelter Operations
+		'4'		=> ['Z','AA','AB'],		// Shelter Support
 		'5'		=> ['AC','AD','AE'],	// Human Capital
 		'370'	=> ['AF','AG','AH'],	// Fundraising
 		'15'	=> ['AI','AJ','AK'],	// Finance
@@ -172,8 +172,8 @@ function generateCSV($array){
 		}
 		fclose($output) or die("Can't close php://output");
 		return $output;
-	}
-	else{
+	
+	} else {
 		return false;
 	}
 }
