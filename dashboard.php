@@ -37,14 +37,18 @@ foreach ($verticals as $this_group_id => $name) {
 
 	// Initialize the array
 	$applicants[0][$this_group_id] = 0;
+	$applicants[0][0] = 0;	
 	foreach ($all_cities as $this_city_id => $city_name) {
+		$applicants[$this_city_id][0] = 0;
 		$applicants[$this_city_id][$this_group_id] = 0;
 	}
 
 	foreach($applicant_counts as $row) {
-		$user_or_ugp_city_id = ($row['ugp_city_id']) ? $row['ugp_city_id'] : $row['u_city_id'];
+		$user_or_ugp_city_id = ($row['ugp_city_id']) ? $row['ugp_city_id'] : $row['u_city_id'];		
 		$applicants[$user_or_ugp_city_id][$this_group_id] += $row['applicant_count'];
+		$applicants[$user_or_ugp_city_id][0] += $row['applicant_count'];
 		$applicants[0][$this_group_id] += $row['applicant_count'];
+		$applicants[0][0] += $row['applicant_count'];
 	}
 
 	// The total people who applied is basically a sum of all the shown numbers.

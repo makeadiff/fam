@@ -7,7 +7,7 @@
 	<div class="x_content">
 	<form action="dashboard.php" method="get" class="form-area">
 		<?php $html->buildInput("city_id", "Select City", 'select', $city_id, ['options' => $all_cities, 'no_br' => true]); ?> &nbsp;
-    <?php $html->buildInput("group_id", "Select Vertical", 'select', $group_id, ['options' => $all_verticals, 'no_br' => true]); ?> &nbsp;
+    <?php $html->buildInput("group_id", "Select Profile", 'select', $group_id, ['options' => $all_verticals, 'no_br' => true]); ?> &nbsp;
 		<input type="submit" class="btn btn-success btn-xs" value="Filter" />
 	</form><br />
   <a href="all_in_one.php">All In One View</a>
@@ -54,19 +54,19 @@
     <div class="mentor-signup">
     <?php
       }
-      if ($group_id==0 || $group_id==GROUP_ID_MENTOR ) {
+      if ($group_id==0 || $group_id==GROUP_ID_MENTOR || $group_id==GROUP_ID_FP_MENTOR) {
     ?>
       <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
         <span class="count_top"><i class="fa fa-user"></i> Total Mentor Sign Ups</span>
-        <div class="count"><?php echo $applicants[$city_id][GROUP_ID_MENTOR]; ?></div>
-        <span class="count_bottom"><i class="green"><?php echo $total_volunteers - $applicants[$city_id][GROUP_ID_MENTOR]; ?> </i> Left to Sign Up</span>
+        <div class="count"><?php echo $applicants[$city_id][GROUP_ID_MENTOR] + $applicants[$city_id][GROUP_ID_FP_MENTOR];  ?></div>
+        <span class="count_bottom"><i class="green"><?php echo $total_volunteers - $total_filled  ?> </i> Left to Sign Up</span>
       </div>
 
       <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
         <span class="count_top"><i class="fa fa-search"></i> Mentor Positions Open</span>
-        <div class="count"><?php echo $requirements[$city_id][GROUP_ID_MENTOR] ?></div>
-        <span class="count_bottom"><i class="green"><?php echo $requirements[$city_id][GROUP_ID_MENTOR] * $mentor_multiplication_factor ?> </i> Target Sign Up Count</span>
-      </div>
+        <div class="count"><?php echo $requirements[$city_id][GROUP_ID_MENTOR] + $requirements[$city_id][GROUP_ID_FP_MENTOR] ?></div>
+        <span class="count_bottom"><i class="green"><?php echo ($requirements[$city_id][GROUP_ID_MENTOR]+$requirements[$city_id][GROUP_ID_FP_MENTOR]) * $mentor_multiplication_factor ?> </i> Target Sign Up Count</span>
+      </div>      
     </div>
     <?php
       }
