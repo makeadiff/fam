@@ -7,7 +7,7 @@ class FAM {
 	function __construct() {
        global $sql, $year;
 
-       $this->sql = $sql;
+       $this->sql = iframe\App::$db;
        $this->year = $year;
 	}
 

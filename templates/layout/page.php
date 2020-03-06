@@ -11,18 +11,18 @@
 	<link href="<?php echo $config['common_library_url'] ?>css/style.css" rel="stylesheet" type="text/css" />
 	<link href="<?php echo $config['common_library_url'] ?>bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="<?php echo $config['common_library_url'] ?>bower_components/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet">
-	<link href="<?php echo $config['site_home'] ?>css/style.css" rel="stylesheet" type="text/css" />
-  <link href="<?php echo $config['site_home'] ?>images/silk_theme.css" rel="stylesheet" type="text/css" />
+	<link href="<?php echo $config['app_url'] ?>css/style.css" rel="stylesheet" type="text/css" />
+  <link href="<?php echo $config['app_url'] ?>images/silk_theme.css" rel="stylesheet" type="text/css" />
 
-	<link href="<?php echo $config['site_home'] ?>css/library/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="<?php echo $config['site_home'] ?>css/library/nprogress.css" rel="stylesheet">
-  <link href="<?php echo $config['site_home'] ?>css/library/flat/green.css" rel="stylesheet">
-  <link href="<?php echo $config['site_home'] ?>css/library/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
-  <link href="<?php echo $config['site_home'] ?>css/library/jqvmap.min.css" rel="stylesheet"/>
-  <link href="<?php echo $config['site_home'] ?>css/library/daterangepicker.css" rel="stylesheet">
-  <link href="<?php echo $config['site_home'] ?>css/library/custom.min.css" rel="stylesheet">
+	<link href="<?php echo $config['app_url'] ?>css/library/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="<?php echo $config['app_url'] ?>css/library/nprogress.css" rel="stylesheet">
+  <link href="<?php echo $config['app_url'] ?>css/library/flat/green.css" rel="stylesheet">
+  <link href="<?php echo $config['app_url'] ?>css/library/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+  <link href="<?php echo $config['app_url'] ?>css/library/jqvmap.min.css" rel="stylesheet"/>
+  <link href="<?php echo $config['app_url'] ?>css/library/daterangepicker.css" rel="stylesheet">
+  <link href="<?php echo $config['app_url'] ?>css/library/custom.min.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="<?php echo $config['site_home'] ?>/css/layout.css">
+  <link rel="stylesheet" href="<?php echo $config['app_url'] ?>/css/layout.css">
   <?php echo $css_includes; ?>
 
   <!--Autofill functionality  -->
@@ -132,34 +132,34 @@
       </div>
     </div>
 
-    <script src="<?php echo $config['site_home'] ?>/js/library/bootstrap.min.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/fastclick.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/nprogress.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/Chart.min.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/gauge.min.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/bootstrap-progressbar.min.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/icheck.min.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/skycons.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/jquery.flot.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/jquery.flot.pie.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/jquery.flot.time.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/jquery.flot.stack.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/jquery.flot.resize.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/jquery.flot.orderBars.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/jquery.flot.spline.min.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/curvedLines.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/date.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/jquery.vmap.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/jquery.vmap.world.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/jquery.vmap.sampledata.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/moment.min.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/daterangepicker.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/jquery.inputmask.bundle.min.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/jquery.knob.min.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/custom.min.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/gridviewscroll.js"></script>
-    <script src="<?php echo $config['site_home'] ?>/js/library/bootstrap-notify-3.1.3/dist/bootstrap-notify.min.js"></script>
-	<script src="<?php echo $config['site_home'] ?>js/application.js" type="text/javascript"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/bootstrap.min.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/fastclick.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/nprogress.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/Chart.min.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/gauge.min.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/bootstrap-progressbar.min.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/icheck.min.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/skycons.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/jquery.flot.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/jquery.flot.pie.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/jquery.flot.time.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/jquery.flot.stack.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/jquery.flot.resize.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/jquery.flot.orderBars.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/jquery.flot.spline.min.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/curvedLines.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/date.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/jquery.vmap.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/jquery.vmap.world.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/jquery.vmap.sampledata.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/moment.min.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/daterangepicker.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/jquery.inputmask.bundle.min.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/jquery.knob.min.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/custom.min.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/gridviewscroll.js"></script>
+    <script src="<?php echo $config['app_url'] ?>/js/library/bootstrap-notify-3.1.3/dist/bootstrap-notify.min.js"></script>
+	<script src="<?php echo $config['app_url'] ?>js/application.js" type="text/javascript"></script>
 	<?php echo $js_includes; ?>
 
   <script>

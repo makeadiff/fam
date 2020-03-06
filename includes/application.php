@@ -1,4 +1,6 @@
 <?php
+global $user_info, $year, $user_id, $fam, $common, $user, $html, $user_groups_ids, $evaluators_group_id, $is_director, $verticals, $colors, $overall_statuses;
+
 $user_info = check_user();
 
 $year = get_year();
