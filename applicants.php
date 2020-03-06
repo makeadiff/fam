@@ -93,7 +93,7 @@ $query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTI
 if($group_id) $query .= " ORDER BY UGP.preference, C.name, U.name";
 else $query .= " ORDER BY C.name, U.name, FIELD(UGP.status,'pending','rejected','withdrawn')";
 
-$applicants_pager = new SqlPager($query, 25);
+$applicants_pager = new iframe\DB\SqlPager($query, 25);
 $applicants = $applicants_pager->getPage();
 
 

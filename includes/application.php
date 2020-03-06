@@ -3,9 +3,11 @@ $user_info = check_user();
 
 $year = get_year();
 $user_id = $user_info['user_id'];
+
+require __DIR__ . '/../models/FAM.php';
 $fam = new FAM;
 $common = new Common;
-$html = new HTML;
+$html = new iframe\HTML\HTML;
 
 $user = $user_info['user'];
 $user['groups'] = $common->getUserGroups($user['id']);
