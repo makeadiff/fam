@@ -27,9 +27,9 @@
   <?php
   $total_verticals = [];
   $total_cities = [];
-
   foreach($all_cities as $city_id => $city_name) { ?>
-  <tr><th class="city-name"><?php echo $city_name ?></th>
+  <tr>
+    <th class="city-name"><?php echo $city_name ?></th>
     <?php foreach($verticals as $group_id => $group_name) {
       if(!isset($total_verticals[$group_id]['requirements'])) $total_verticals[$group_id]['requirements'] = 0;
       if(!isset($total_verticals[$group_id]['applications'])) $total_verticals[$group_id]['applications'] = 0;
@@ -44,10 +44,10 @@
       $total_cities[$city_id]['requirements'] += i($requirements[$city_id], $group_id, 0);
       $total_cities[$city_id]['applications'] += i($applications[$city_id], $group_id, 0);
       $total_cities[$city_id]['selected'] += i($selected[$city_id], $group_id, 0);
-      ?>
-      <td class="bordered"><?php echo $requirements[$city_id][$group_id] ?></td>
-      <td <?php highlight(i($applications[$city_id], $group_id, 0), $requirements[$city_id][$group_id]); ?>><?php echo i($applications[$city_id], $group_id, 0); ?></td>
-      <td <?php highlight(i($selected[$city_id], $group_id, 0), $requirements[$city_id][$group_id], 1); ?>><?php echo i($selected[$city_id], $group_id, 0); ?></td>
+    ?>
+    <td class="bordered"><?php echo $requirements[$city_id][$group_id] ?></td>
+    <td <?php highlight(i($applications[$city_id], $group_id, 0), $requirements[$city_id][$group_id]); ?>><?php echo i($applications[$city_id], $group_id, 0); ?></td>
+    <td <?php highlight(i($selected[$city_id], $group_id, 0), $requirements[$city_id][$group_id], 1); ?>><?php echo i($selected[$city_id], $group_id, 0); ?></td>
     <?php } ?>
     <td class="bordered"><?php echo $total_cities[$city_id]['requirements'] ?></td>
     <td <?php highlight($total_cities[$city_id]['applications'], $total_cities[$city_id]['requirements']); ?>><?php echo $total_cities[$city_id]['applications'] ?></td>

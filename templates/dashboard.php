@@ -66,7 +66,7 @@
         <span class="count_top"><i class="fa fa-search"></i> Mentor Positions Open</span>
         <div class="count"><?php echo $requirements[$city_id][GROUP_ID_MENTOR] + $requirements[$city_id][GROUP_ID_FP_MENTOR] ?></div>
         <span class="count_bottom"><i class="green"><?php echo ($requirements[$city_id][GROUP_ID_MENTOR]+$requirements[$city_id][GROUP_ID_FP_MENTOR]) * $mentor_multiplication_factor ?> </i> Target Sign Up Count</span>
-      </div>      
+      </div>
     </div>
     <?php
       }
@@ -82,7 +82,7 @@
 
     <div class="x_content">
       <p class="text-muted font-13 m-b-30">
-        Requirement Data comes from the spreadsheet <a href="https://docs.google.com/spreadsheets/d/1FsypDbY5KDpTwD5696Hz0ZSd1UZpMyrFNauoDWvLBGQ/edit?ts=5c90f9b4#gid=675197629">Succession 2019 - Strat/Fellow Requirement</a>
+        Requirement Data comes from the spreadsheet <a href="https://docs.google.com/spreadsheets/d/1JXA24u9NGRkyF_8hoS_zYy0D-ZIIn7Z-C1ZBz7dVPxE/edit#gid=675197629">Succession 2020 - Strat/Fellow Requirement</a>
       </p>
       <?php
       if($group_id == 0) {

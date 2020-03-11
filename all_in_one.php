@@ -3,6 +3,7 @@ require 'common.php';
 
 $all_cities = keyFormat($common->getCities(), ['id', 'name']);
 unset($all_cities[26]);
+unset($all_cities[14]);
 
 $total_volunteers = $sql->getOne("SELECT COUNT(id) FROM User WHERE status='1' AND user_type='volunteer'");
 $total_filled = $sql->getOne("SELECT COUNT(DISTINCT user_id) FROM FAM_UserGroupPreference UGP

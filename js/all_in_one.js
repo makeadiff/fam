@@ -9,3 +9,5 @@ function init() {
     //     }
     // });
 }
+
+// $('#data-table').footable();
