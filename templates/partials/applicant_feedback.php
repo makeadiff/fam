@@ -17,7 +17,11 @@ foreach ($all_questions as $question_id => $ques) { ?>
 		foreach ($feedback as $reviewer_id => $responses)  {
 			foreach ($responses as $row) {
 				if($row['question_id'] == $question_id) {
-					if(!trim($row['feedback'])) continue;
+					if(!trim($row['feedback'])){
+						if($row['feedback']==0){
+							$row['feedback'] = 'Cannot Say';
+						}
+					}
 				?>
 					<dt>Feedback <?php if($is_director) echo 'by ' . $common->getUserName($reviewer_id);
 										else echo '#' . $count; ?></dt>

@@ -70,6 +70,7 @@
                       <li><a><i class="fa fa-wrench"></i>Tools <span class="fa fa-chevron-left"></span></a>
                       <ul class="nav child_menu">
                         <li><a href="applicants.php"><i class="fa fa-users"></i> Applicants</a></li>
+                        <li><a href="add_applicant.php"><i class="fa fa-user-plus"></i> Add Applicant</a></li>
                         <li><a href="find_applicant.php"><i class="fa fa-search"></i> Find Applicants</a></li>
                         <li><a href="all_in_one.php"><i class="fa fa-table"></i> All in One View</a></li>
                         <li><a href="assign_evaluators_applicants.php"><i class="fa fa-edit"></i> Assign Evaluators</a></li>

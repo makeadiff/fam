@@ -146,3 +146,7 @@ tr.rejected, tr.rejected td, tr.rejected th{
 	filter: grayscale(1);
 	-webkit-filter: grayscale(1);
 } */
+
+.mb-20{
+	margin-bottom: 20px;
+}

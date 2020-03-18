@@ -56,7 +56,7 @@
   </tr>
   <?php } ?>
   <tr><th class="city-name">Total</th>
-      <?php
+    <?php
       $total_required = 0;
       $total_applied = 0;
       $total_selected = 0;
@@ -64,11 +64,11 @@
         $total_required += $total_verticals[$group_id]['requirements'];
         $total_applied += $total_verticals[$group_id]['applications'];
         $total_selected += $total_verticals[$group_id]['selected'];
-        ?>
+    ?>
       <td class="bordered"><?php echo $total_verticals[$group_id]['requirements'] ?></td>
       <td <?php highlight($total_verticals[$group_id]['applications'], $total_verticals[$group_id]['requirements']); ?>><?php echo $total_verticals[$group_id]['applications']; ?></td>
-      <td <?php highlight($total_selected[$group_id]['applications'], $total_verticals[$group_id]['requirements'], 'selected'); ?>><?php echo $total_verticals[$group_id]['selected']; ?></td>
-      <?php } ?>
+      <td <?php highlight($total_verticals[$group_id]['selected'], $total_verticals[$group_id]['applications'], 'selected'); ?>><?php echo $total_verticals[$group_id]['selected']; ?></td>
+    <?php } ?>
       <td class="bordered"><?php echo $total_required ?></td>
       <td <?php highlight($total_applied, $total_required); ?>><?php echo $total_applied ?></td>
       <td><?php echo $total_selected; ?></td>
@@ -80,7 +80,7 @@
     <tr><th class="city-name">&nbsp;</th>
       <?php for($i = 0; $i <= count($verticals); $i++) { ?><th class="bordered">Req.</th><th>Applied</th><th>Selected</th><?php } ?>
       <th class="city-name bordered">&nbsp;</th>
-    </tr>
+    </tr
     <tr><th class="city-name">City</th>
       <?php foreach($verticals as $group_id => $group_name) { ?><th class="bordered" colspan="3"><?php echo $group_name ?></th><?php } ?>
       <th class="bordered" colspan="3">Total</th>

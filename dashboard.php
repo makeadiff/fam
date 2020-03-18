@@ -39,7 +39,7 @@ foreach ($verticals as $this_group_id => $name) {
 	$applicant_counts = $sql->getAll("SELECT U.city_id AS u_city_id, UGP.city_id AS ugp_city_id,COUNT(DISTINCT user_id) AS applicant_count FROM FAM_UserGroupPreference UGP
 		INNER JOIN User U ON UGP.user_id=U.id
 		INNER JOIN City C ON ((UGP.city_id <> 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
-		WHERE $city_check_ugp preference=1 AND UGP.status!='withdrawn' AND UGP.year=$year AND UGP.group_id=$this_group_id
+		WHERE $city_check_ugp preference=1 AND UGP.status!='withdrawn' AND UGP.year=$year AND UGP.group_id=$this_group_id AND C.id <>26 AND C.id <> 14
 		GROUP BY C.id");
 
 	// Initialize the array

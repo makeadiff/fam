@@ -213,7 +213,7 @@ if(!$parameters) continue;
 	<br/>
 	<p>If the applicant is rejected for Fellowship, but can be shortlisted for Mentor Profile, mark it below.</p>
 	<div class="clearfix"></div>
-	
+
 <?php if($applicant_status=='pending'){ ?>
 	<div class="row <?php echo $applicant_status; ?>" style="margin-left:10px;">
 		<a title="reject applicant and recommend for Mentor" href="api/reject_applicant.php?group_id=<?php echo GROUP_ID_MENTOR; ?>&applicant_id=<?php echo $applicant_id; ?>&stage_id=<?php echo $stage_id; ?>" class="reject_applicant btn btn-primary">Shortlist for Mentor Profile</a>
