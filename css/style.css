@@ -150,3 +150,14 @@ tr.rejected, tr.rejected td, tr.rejected th{
 .mb-20{
 	margin-bottom: 20px;
 }
+
+thead{
+	background: #212121;
+	color: #FFF;
+}
+
+.sticky{
+	position: fixed;
+  top: 0;
+  width: 100%
+}

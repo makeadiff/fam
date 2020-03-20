@@ -73,7 +73,7 @@ foreach($applicants as $u) {
 	<?php } ?>
 		<!-- Application Stages -->
 		<td>
-			<!-- <a href="evaluate.php?stage_id=1&applicant_id=<?php //echo $u['id'] ?>" class="btn btn-xs btn-primary">Kindness Challenge</a> <?php //showApplicantStatus($u['id'], 1); ?><br /> -->
+			<a href="evaluate.php?stage_id=1&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-primary">Kindness Challenge</a> <?php showApplicantStatus($u['id'], 1); ?><br />
 			<a href="evaluate.php?stage_id=6&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-primary">Volunteer Participation</a> <?php showApplicantStatus($u['id'], 6); ?><br />
 			<a href="evaluate.php?stage_id=2&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-success">Applicant Feedback</a> <?php showApplicantStatus($u['id'], 2); ?><br />
 			<a href="evaluate.php?stage_id=3&applicant_id=<?php echo $u['id'] ?>" class="btn btn-xs btn-warning">Common Tasks</a> <?php showApplicantStatus($u['id'], 3); ?><br />
