@@ -16,7 +16,7 @@
 			<?php
 			if($stage_id == 3) {
 				// Link for 2019-20 https://docs.google.com/document/d/1fUYeM9_FljQ6WN2Wcif1rthEDZKkyLRa9OxfXtYLcQc
-				echo 'For more details on the scale used in this evaluation, refer to <a target="_blank" href="https://drive.google.com/open?id=1TLChjBVOFuffbmwwFmRK3OhnwfE1IsdfkN8uN0mdWNg">this document</a>';
+				echo 'For more details on the scale used in this evaluation, refer to <a target="_blank" href="https://drive.google.com/open?id=1zTCibH-EEvRxAD8TUiDPJI74XG_6c3-9">this document</a>';
 				$task_url = $fam->getTask($applicant_id, 'common');
 				$task_files = $fam->getTask($applicant_id, 'common_task_file');
 				if($task_url || $task_files) {
