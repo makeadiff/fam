@@ -8,12 +8,12 @@ if(isset($file_name)) {
   $base_name = basename($file_name);
 
   if($_SERVER['HTTP_HOST'] == 'makeadiff.in'){
-    $parent = 'https://makeadiff.in/apps/fellowship-signup/files/index.php?p=';
-    $replace = 'http://makeadiff.in/apps/fellowship-signup/tasks/';
+    $parent = 'https://makeadiff.in/apps/continuation_signup/files/index.php?p=';
+    $replace = 'http://makeadiff.in/apps/continuation_signup/tasks/';
   }
   else{
-    $parent = 'http://localhost/makeadiff/apps/fellowship-signup/files/index.php?p=';
-    $replace = 'http://localhost/makeadiff/apps/fellowship-signup/tasks/';
+    $parent = 'http://localhost/makeadiff/apps/continuation_signup/files/index.php?p=';
+    $replace = 'http://localhost/makeadiff/apps/continuation_signup/tasks/';
   }
 
   $directory = str_replace($base_name,'',str_replace($replace,'',$file_name));
