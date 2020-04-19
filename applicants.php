@@ -74,11 +74,11 @@ if($task_status) {
 	}
 }
 
-if($overall_status!=''){
-	$checks[] = "UGP.status = '$overall_status'";
-}else{
+// if($overall_status!=''){
+// 	$checks[] = "UGP.status = '$overall_status'";
+// }else{
 	$checks[]	= "UGP.status != 'withdrawn' && UGP.status != 'rejected'";
-}
+// }
 
 $query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTINCT UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS groups,
 					C.name AS city, UGP.preference, UGP.id AS ugp_id, UGP.status as status, UGP.added_on as added_on, E.name AS evaluator $selects

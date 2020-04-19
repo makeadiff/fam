@@ -18,7 +18,6 @@ if(isset($file_name)) {
 
   $directory = str_replace($base_name,'',str_replace($replace,'',$file_name));
   $url=$parent.$directory.'&dl='.$base_name;
-
   header('location: '.$url);
   exit;
 

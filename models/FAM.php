@@ -129,6 +129,20 @@ class FAM {
 
 		return $stage;
 	}
+
+	public function getStageApplicantSelectedInfo($stage_id, $city_id = 0, $group_id = 0){
+
+		$q = 'SELECT US.*
+		 			FROM FAM_UserStage as US
+					INNER JOIN FAM_UserGroupPreference as UGP ON UGP.user_id = US.user_id
+					WHERE UGP.year = '.$this->year.'
+						AND US.year = '.$this->year.'
+						AND US.stage_id ='.$stage_id.'
+						AND US.status = "selected"';
+
+		return $this->sql->getAll($q);
+	}
+
 	public function saveStageStatus($data)
 	{
 		$existing = $this->getStageStatus($data['user_id'], $data['stage_id'],$data['group_id']);
@@ -158,6 +172,16 @@ class FAM {
 
 	public function getUser($user_id){
 		return $this->sql->getAssoc("SELECT * FROM User WHERE id=".$user_id);
+	}
+
+	public function isRejected($user_id){
+		$status = $this->sql->getOne('SELECT * FROM FAM_UserGroupPreference WHERE user_id='.$user_id.' AND year='.$this->year.' AND status="rejected"');
+		if($status){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 	public function getApplicants($source) {

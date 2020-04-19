@@ -23,7 +23,7 @@
 if(!isset($count)) $count = 0;
 foreach($applicants as $u) {
 	$count++; ?>
-	<tr class="<?php echo $u['status']; ?>">
+	<tr>
 		<!-- Serial Number -->
 		<td><?php echo $count ?></td>
 		<!-- Applicant Details -->
@@ -64,6 +64,19 @@ foreach($applicants as $u) {
 					echo "</li>";
 				}
 				echo "</ol>";
+
+				if($fam->isRejected($u['id'])){
+					echo "<span class='badge shortlisted'>Mentor Shortlist</span><br/>";
+					$rejected_applications = $fam->getApplications($u['id'],'rejected');
+					if($rejected_applications){
+						echo "<br/><strong>Rejected Applications:</strong>";
+						echo "<ol>";
+						foreach ($rejected_applications as $key => $value) {
+							echo "<li>".$verticals[$value['group_id']]."</li>";
+						}
+						echo "</ol>";
+					}
+				}
 			?>
 		</td>
 	<?php } ?>

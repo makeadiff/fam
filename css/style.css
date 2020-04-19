@@ -161,3 +161,9 @@ thead{
   top: 0;
   width: 100%
 }
+
+.badge.shortlisted{
+	background: #FFE800;
+	color: #333132;
+	margin-left: 40px;
+}
