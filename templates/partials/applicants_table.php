@@ -1,3 +1,10 @@
+<?php
+	if(!isset($overall_status)){
+		$overall_status = '';
+	}
+?>
+
+
 <?php if(!empty($applicants)) { ?>
 	<table class="table table-striped">
 	<tr>
