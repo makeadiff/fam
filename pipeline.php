@@ -69,6 +69,36 @@ foreach ($verticals as $this_group_id => $name) {
 
 }
 
+$stages = $fam->getStages();
+$stage_data = [];
+
+
+$evaluator_phases = [
+	1 => [
+		'name' => 'Participation & Feedback',
+		'stage_id' => [1,2,6],
+	],
+	2 => [
+		'name' => 'Common Task',
+		'stage_id' => [3],
+	],
+	3	=> [
+		'name' => 'Vertical Tasks',
+		'stage_id' => [4],
+	],
+	4 => [
+		'name' => 'Personal Interview',
+		'stage_id' => [5],
+	]
+];
+
+foreach ($stages as $key => $value) {
+	$stage_data[$value['id']] = [
+		'count' => count($fam->getStageApplicantSelectedInfo($value['id'])),
+		'name'	=> $value['name'],
+	];
+}
+
 $multiplication_factor = 3;
 $mentor_multiplication_factor = 1;
 

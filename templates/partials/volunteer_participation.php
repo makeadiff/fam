@@ -9,6 +9,7 @@
 			<tr><th>Parameter</th><th>Value in Database</th><th>Volunteer Input</th><th>Updated Value</th></tr>
 	<?php
 $participation_content = load($config['site_url'] . 'apps/participation-profile-update/?user_id=' . $applicant_id);
+
 // $participation_content = '{"credit":"-2","user_credit":"-2","vertical":"Ed Support","training":"","cpp":"signed","city_circle":"0\/0","shelter_sensitisation":"1\/1"}';
 $participation = json_decode($participation_content, true);
 

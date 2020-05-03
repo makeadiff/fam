@@ -22,8 +22,8 @@ foreach ($applicant as $preference) {
   }
 }
 
-if($is_mentor_applicant){
-  $insert_fam = $fam->addApplicant($applicant_id,$group_id,1,$city_id);
-}
+// if($is_mentor_applicant){
+$insert_fam = $fam->addApplicant($applicant_id,$group_id,1,$city_id);
+// }
 
 echo json_encode(['status' => 'success']);

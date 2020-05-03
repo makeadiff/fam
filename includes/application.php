@@ -41,7 +41,7 @@ define('GROUP_ID_FP_MENTOR', 386);
 
 $verticals = [
 	GROUP_ID_CTL		=> "City Team Lead",
-	GROUP_ID_ED			=> "Ed Support",
+	GROUP_ID_ED			=> "Ed Support Fellow",
 	GROUP_ID_AFTERCARE	=> "Aftercare",
 	GROUP_ID_TR			=> "Transition Readiness",
 	GROUP_ID_FR			=> "Fundraising",
@@ -50,9 +50,9 @@ $verticals = [
 	GROUP_ID_HC			=> "Human Capital",
 	GROUP_ID_FINANCE	=> "Finance",
 	GROUP_ID_PR			=> "Campaigns and Communications",
-	GROUP_ID_FP			=> "Foundational Programme",
-	GROUP_ID_MENTOR		=> 'Ed Support Mentors',
-	GROUP_ID_FP_MENTOR	=> 'Foundational Programme Mentors'
+	GROUP_ID_FP			=> "Foundational Programme Fellow",
+	GROUP_ID_MENTOR		=> 'Ed Support Mentor',
+	GROUP_ID_FP_MENTOR	=> 'Foundational Programme Mentor'
 ];
 
 $colors = [
@@ -86,6 +86,7 @@ function getRequirementFromSheet($sheet_url = '') {
 	// 2018-19 CSV - https://docs.google.com/spreadsheets/d/e/2PACX-1vTf7uqEdn1CWZjwG8YALAS52jGVMABAfo1Xpb6YR3g69jSHir_govSZvFz_F_J_ACX1W50byaNE0ibS/pub?output=csv
 	// 2019-20 Requirement Sheet - https://docs.google.com/spreadsheets/d/1FsypDbY5KDpTwD5696Hz0ZSd1UZpMyrFNauoDWvLBGQ/edit?ts=5c90f9b4#gid=675197629
 	// 2019-20 CSV - https://docs.google.com/spreadsheets/d/e/2PACX-1vRzSwv2Yr5vT9YCjqRpraem2ZBpVKy2VT_UU9L2iA3364MIBiN1zhdVCX2bIq_3CIg7owI2yQx86q1q/pub?gid=675197629&single=true&output=csv;
+	// 2020-21 Requirement Sheet - https://docs.google.com/spreadsheets/d/1JXA24u9NGRkyF_8hoS_zYy0D-ZIIn7Z-C1ZBz7dVPxE/edit#gid=675197629
 	$sheet_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSEPdykfUZNrNOZS1E-Xd0cvw4ZMQAIbVDJ6Yk9OC5gaTSe-Pl8_tnvW-dYxn4GVVe4lkZZvO53uBKZ/pub?gid=675197629&single=true&output=csv";
 
 	require 'includes/classes/ParseCSV.php';
@@ -93,26 +94,13 @@ function getRequirementFromSheet($sheet_url = '') {
 	// dump($sheet);
 
 	$all_cities = keyFormat($common->getCities(), ['name', 'id']);
+	unset($all_cities['Kolkata']);
 
 	// Transilation table for group_id => index in the spreadsheet.
 	$keys = [
 		'city_name'	=> ['A'],
-<<<<<<< HEAD
-		'2'		=> ['H','I','J'],		// City Team Lead
-		'375'	=> ['K','L','M'],		// Foundation
-		'19'	=> ['N','O','P'],		// Ed Support
-		'272'	=> ['Q','R','S'],		// Transition Readiness
-		'378'	=> ['T','U','V'],		// Aftercare
-		'269'	=> ['W','X','Y'],		// Shelter Operations
-		'4'		=> ['Z','AA','AB'],		// Shelter Support
-		'5'		=> ['AC','AD','AE'],	// Human Capital
-		'370'	=> ['AF','AG','AH'],	// Fundraising
-		'15'	=> ['AI','AJ','AK'],	// Finance
-		'11'	=> ['AL','AM','AN'],	// Campaigns and Communications
-		'8'		=> ['AP','AQ','AR'],	// Mentors
-=======
 		'2'		=> ['J','K','L'],	// City Team Lead
-		'375'	=> ['M','N','O'],	// Foundation
+		'375'	=> ['M','N','O'],	// Foundation Programme
 		'19'	=> ['P','Q','R'],	// Ed Support
 		'272'	=> ['S','T','U'],	// Transition Readiness
 		'378'	=> ['V','W','X'],	// Aftercare
@@ -124,7 +112,6 @@ function getRequirementFromSheet($sheet_url = '') {
 		'11'	=> ['AN','AO','AP'],	// Campaigns and Communications
 		'8'		=> ['AU','AV','AW'],	// Ed Support Mentors
 		'386'	=> ['AX','AY','AZ'],	// Foundational Mentors
->>>>>>> 9411cae4a7610bfb5592493bae5d48141cd67f08
 	];
 
 	$requirements = [];
@@ -191,7 +178,7 @@ function generateCSV($array){
 		}
 		fclose($output) or die("Can't close php://output");
 		return $output;
-	
+
 	} else {
 		return false;
 	}

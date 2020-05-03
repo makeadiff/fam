@@ -67,7 +67,7 @@ if($action == 'Update Tasks') {
 		      continue;
 		    }
 		    $city_name = getCity($applicant['city_id'],$sql);
-		    $target_dir = '../fellowship-signup/tasks/'.$city_name.'/Common'.'/';
+		    $target_dir = '../continuation_signup/tasks/'.$city_name.'/Common'.'/';
 		    if (!is_dir($target_dir.$applicant['name'])){
 		      mkdir($target_dir.$applicant['name'], 0777, true);
 		    }
@@ -97,7 +97,7 @@ if($action == 'Update Tasks') {
 		      </h3>';
 		    }
 		  }
-		}		
+		}
 	}
 
 

@@ -24,6 +24,7 @@ class FAM {
 					'city_id'		=> $city_id,
 					'added_on'		=> 'NOW()',
 					'year'			=> $this->year,
+					'taskfolder_link' => '',
 					'status'		=> 'pending'
 			));
 		}
@@ -128,6 +129,20 @@ class FAM {
 
 		return $stage;
 	}
+
+	public function getStageApplicantSelectedInfo($stage_id, $city_id = 0, $group_id = 0){
+
+		$q = 'SELECT US.*
+		 			FROM FAM_UserStage as US
+					INNER JOIN FAM_UserGroupPreference as UGP ON UGP.user_id = US.user_id
+					WHERE UGP.year = '.$this->year.'
+						AND US.year = '.$this->year.'
+						AND US.stage_id ='.$stage_id.'
+						AND US.status = "selected"';
+
+		return $this->sql->getAll($q);
+	}
+
 	public function saveStageStatus($data)
 	{
 		$existing = $this->getStageStatus($data['user_id'], $data['stage_id'],$data['group_id']);
@@ -153,6 +168,20 @@ class FAM {
 										WHERE UE.evaluator_id IS NULL AND U.status='1' AND UGP.year={$this->year} AND UE.year={$this->year}
 											AND (U.user_type='volunteer' OR U.user_type='alumni') AND UGP.status != 'withdrawn'
 										GROUP BY UGP.user_id");
+	}
+
+	public function getUser($user_id){
+		return $this->sql->getAssoc("SELECT * FROM User WHERE id=".$user_id);
+	}
+
+	public function isRejected($user_id){
+		$status = $this->sql->getOne('SELECT * FROM FAM_UserGroupPreference WHERE user_id='.$user_id.' AND year='.$this->year.' AND status="rejected"');
+		if($status){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 
 	public function getApplicants($source) {
@@ -288,6 +317,24 @@ class FAM {
 			if($checks) $query .= " AND (" . implode($and_or, $checks) . ") ";
 			$query .= "GROUP BY UGP.user_id";
 		}
+
+		return $this->sql->getAll($query);
+	}
+
+	public function findAllUsers($parameters, $and_or = ' AND '){
+		global $year;
+
+		$checks = [];
+		foreach ($parameters as $field => $value) {
+			if($field == 'name') {
+				$checks[] = "U.`$field` LIKE '%" . $this->sql->escape($value) . "%'";
+			} else {
+				$checks[] = "U.`$field` = '" . $this->sql->escape($value) . "'";
+			}
+		}
+
+		$query = "SELECT U.id as id,U.name as name,U.phone as phone,U.email as email,U.mad_email as mad_email,U.user_type as user_type,C.name as city FROM User U INNER JOIN City C ON C.id = U.city_id WHERE user_type IN ('alumni','volunteer') AND status='1'";
+		if($checks) $query .= " AND (" . implode($and_or, $checks) . ")";
 
 		return $this->sql->getAll($query);
 	}
