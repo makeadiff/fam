@@ -2,7 +2,7 @@
 $user_info = check_user();
 
 // $year = get_year();
-$year = 2019 //HardCoded;
+$year = 2019; //HardCoded;
 $user_id = $user_info['user_id'];
 $fam = new FAM;
 $common = new Common;
