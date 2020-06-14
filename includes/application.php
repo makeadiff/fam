@@ -146,14 +146,16 @@ function getRequirementFromSheet($sheet_url = '') {
 	return $requirements;
 }
 
-function getEmailFromSheet($sheet_url) {
+function getEmailFromSheet($sheet_url,$idCol,$emailCol) {
 	global $common;
 	require 'includes/classes/ParseCSV.php';
 	$sheet = new ParseCSV($sheet_url);
 	$data = [];
+
+	// dump($sheet);
 	foreach($sheet as $row_index => $row) {
 		// dump($row);
-		$data[$row['A']] = strtolower($row['I']);
+		$data[$row[$idCol]] = strtolower($row[$emailCol]);
 	}
 	unset($data['id']); //Unset Header Row
 	return $data;
