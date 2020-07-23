@@ -8,7 +8,7 @@ class FAM {
        global $sql, $year;
 
        $this->sql = $sql;
-       $this->year = $year;
+			 $this->year = $year;			 
 	}
 
 	public function addApplicant($user_id,$group_id,$preference,$city_id=0)
@@ -118,7 +118,7 @@ class FAM {
 	}
 
 	public function getStageStatus($user_id, $stage_id, $group_id=0)
-	{
+	{		
 		$q = "SELECT * FROM FAM_UserStage WHERE user_id=$user_id AND stage_id=$stage_id AND year={$this->year}";
 		if($group_id!=0){
 			$q .= " AND group_id=$group_id";
