@@ -1,8 +1,8 @@
 <?php
 $user_info = check_user();
 
-// $year = get_year();
-$year = 2019; //HardCoded;
+$year = get_year();
+// $year = 2019; //HardCoded;
 
 $user_id = $user_info['user_id'];
 $fam = new FAM;
@@ -26,8 +26,6 @@ foreach($user['groups'] as $grp) {
 	  break;
 	}
 }
-
-
 
 define('GROUP_ID_CTL', 2);
 define('GROUP_ID_ED', 19);
