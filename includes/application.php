@@ -89,7 +89,9 @@ function getRequirementFromSheet($sheet_url = '') {
 	// 2019-20 Requirement Sheet - https://docs.google.com/spreadsheets/d/1FsypDbY5KDpTwD5696Hz0ZSd1UZpMyrFNauoDWvLBGQ/edit?ts=5c90f9b4#gid=675197629
 	// 2019-20 CSV - https://docs.google.com/spreadsheets/d/e/2PACX-1vRzSwv2Yr5vT9YCjqRpraem2ZBpVKy2VT_UU9L2iA3364MIBiN1zhdVCX2bIq_3CIg7owI2yQx86q1q/pub?gid=675197629&single=true&output=csv;
 	// 2020-21 Requirement Sheet - https://docs.google.com/spreadsheets/d/1JXA24u9NGRkyF_8hoS_zYy0D-ZIIn7Z-C1ZBz7dVPxE/edit#gid=675197629
-	$sheet_url = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSEPdykfUZNrNOZS1E-Xd0cvw4ZMQAIbVDJ6Yk9OC5gaTSe-Pl8_tnvW-dYxn4GVVe4lkZZvO53uBKZ/pub?gid=675197629&single=true&output=csv";
+	// 2020-21 CSV - https://docs.google.com/spreadsheets/d/e/2PACX-1vSEPdykfUZNrNOZS1E-Xd0cvw4ZMQAIbVDJ6Yk9OC5gaTSe-Pl8_tnvW-dYxn4GVVe4lkZZvO53uBKZ/pub?gid=675197629&single=true&output=csv
+
+	$sheet_url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRE7bYLmwcQWppMdmOCGqX6n98Shtnjf7EidH1zduCNMTbYZoZI6T5vThJueshAVuBEtcubN21EYI9N/pub?gid=675197629&single=true&output=csv';
 
 	require 'includes/classes/ParseCSV.php';
 	$sheet = new ParseCSV($sheet_url);
