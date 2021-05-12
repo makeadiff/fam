@@ -82,7 +82,7 @@
 
     <div class="x_content">
       <p class="text-muted font-13 m-b-30">
-        Requirement Data comes from the spreadsheet <a href="https://docs.google.com/spreadsheets/d/1JXA24u9NGRkyF_8hoS_zYy0D-ZIIn7Z-C1ZBz7dVPxE/edit#gid=675197629">Succession 2020 - Strat/Fellow Requirement</a>
+        Requirement Data comes from the spreadsheet <a href="https://docs.google.com/spreadsheets/d/1NlrdtDHLSnJE9VuZX3l9dJtaQsPiFJF9WDSQxv1Zuog/edit#gid=675197629">Succession 2020 - Strat/Fellow Requirement</a>
       </p>
       <?php
       if($group_id == 0) {

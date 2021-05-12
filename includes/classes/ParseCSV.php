@@ -41,7 +41,7 @@ class ParseCSV implements Iterator
 		if($url) $this->csv_location =  $url;
 		if(!$this->csv_location) die("Please specify a GoogleSpreadsheet CSV URL as the argument to this function");
 
-		$this->contents = load($this->csv_location, ['cache' => true, 'cache_timeout' => 60 * 24]); // Calls to external library(iFrame function.)
+		$this->contents = load($this->csv_location, ['cache' => true, 'cache_timeout' => 5]); // Calls to external library(iFrame function.)
 		if(!$this->contents) die("Can't load the CSV URL '{$this->csv_location}'");
 		// dump($this->contents);
 		$this->lines = explode("\n", $this->contents);
