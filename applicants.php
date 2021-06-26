@@ -80,12 +80,14 @@ if($overall_status!=''){
 	$checks[]	= "UGP.status != 'withdrawn' && UGP.status != 'rejected'";
 }
 
-$query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTINCT UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS groups,
-					C.name AS city, UGP.preference, UGP.id AS ugp_id, UGP.status as status, UGP.added_on as added_on, E.name AS evaluator $selects
+$query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTINCT UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS `groups`,
+					C.name AS city, UGP.preference, UGP.id AS ugp_id, UGP.status as status, UGP.added_on as added_on, E.name AS evaluator, 
+					UT.common_task_files AS achivement_record $selects
 			FROM User U
 			INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
 			INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
 			LEFT JOIN FAM_UserEvaluator UE ON U.id=UE.user_id $join_condition
+			LEFT JOIN FAM_UserTask UT ON UT.user_id=U.id
 			LEFT JOIN User E ON E.id=UE.evaluator_id
 			$join
 			WHERE " . implode(" AND ", $checks) . " AND UGP.year=$year

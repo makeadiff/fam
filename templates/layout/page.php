@@ -162,19 +162,7 @@
     <script src="<?php echo $config['site_home'] ?>/js/library/custom.min.js"></script>
     <script src="<?php echo $config['site_home'] ?>/js/gridviewscroll.js"></script>
     <script src="<?php echo $config['site_home'] ?>/js/library/bootstrap-notify-3.1.3/dist/bootstrap-notify.min.js"></script>
-	<script src="<?php echo $config['site_home'] ?>js/application.js" type="text/javascript"></script>
-	<?php echo $js_includes; ?>
-
-  <script>
-  window.intercomSettings = {
-    app_id: "xnngu157",
-    name: '<?php echo $user['name'] ?>',
-    email: '<?php echo $user['email'] ?>'
-  };
-  </script>
-  <script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://widget.intercom.io/widget/xnngu157';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}}})()</script>
-
-
-
+  	<script src="<?php echo $config['site_home'] ?>js/application.js" type="text/javascript"></script>
+ 	  <?php echo $js_includes; ?>
   </body>
 </html>

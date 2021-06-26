@@ -167,3 +167,8 @@ thead{
 	color: #333132;
 	margin-left: 40px;
 }
+
+.icon {
+	padding: 10px 18px !important;
+	background-position: center left !important;
+}
