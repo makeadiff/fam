@@ -208,9 +208,10 @@ class FAM {
 		}
 
 	 	$query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(UGP.group_id ORDER BY UGP.preference SEPARATOR ',') AS `groups`,
-	 					UGP.preference, C.name AS city, UGP.id AS ugp_id, UGP.status as status $selects
+	 					UGP.preference, C.name AS city, UGP.id AS ugp_id, UGP.status as status, UT.common_task_files AS achivement_record $selects
 					FROM User U
 					INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
+					INNER JOIN FAM_UserTask UT ON UT.user_id=U.id
 					$join
 					INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
 					WHERE " . implode(" AND ", $checks) . " AND UGP.status != 'withdrawn' AND UGP.year={$this->year}
@@ -335,7 +336,8 @@ class FAM {
 			}
 		}
 
-		$query = "SELECT U.id as id,U.name as name,U.phone as phone,U.email as email,U.mad_email as mad_email,U.user_type as user_type,C.name as city FROM User U INNER JOIN City C ON C.id = U.city_id WHERE user_type IN ('alumni','volunteer') AND status='1'";
+		$query = "SELECT U.id as id,U.name as name,U.phone as phone,U.email as email,U.mad_email as mad_email,U.user_type as user_type,C.name as city 
+					FROM User U INNER JOIN City C ON C.id = U.city_id WHERE user_type IN ('alumni','volunteer') AND status='1'";
 		if($checks) $query .= " AND (" . implode($and_or, $checks) . ")";
 
 		return $this->sql->getAll($query);
@@ -343,7 +345,8 @@ class FAM {
 
 	public function getApplicantFeedback($applicant_id)
 	{
-		$feedback = $this->sql->getAll("SELECT reviewer_user_id, question_id, feedback, comment FROM FAM_ApplicantFeedback WHERE applicant_user_id=$applicant_id AND year={$this->year}");
+		$feedback = $this->sql->getAll("SELECT reviewer_user_id, question_id, feedback, comment FROM FAM_ApplicantFeedback 
+							WHERE applicant_user_id=$applicant_id AND year={$this->year}");
 
 		$return = [];
 
