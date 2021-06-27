@@ -211,7 +211,7 @@ class FAM {
 	 					UGP.preference, C.name AS city, UGP.id AS ugp_id, UGP.status as status, UT.common_task_files AS achivement_record $selects
 					FROM User U
 					INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
-					LEFT JOIN FAM_UserTask UT ON UT.user_id=U.id
+					LEFT JOIN FAM_UserTask UT ON UT.user_id=U.id AND UT.year = {$this->year}
 					$join
 					INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
 					WHERE " . implode(" AND ", $checks) . " AND UGP.status != 'withdrawn' AND UGP.year={$this->year}
@@ -283,6 +283,10 @@ class FAM {
 											FROM FAM_UserTask WHERE user_id=$applicant_id AND year={$this->year}");
 		} elseif($type == 'common_task_file') {
 			return $this->sql->getOne("SELECT common_task_files FROM FAM_UserTask WHERE user_id=$applicant_id AND year={$this->year}");
+
+		} elseif($type == 'common_task_url') {
+			return $this->sql->getOne("SELECT common_task_url FROM FAM_UserTask WHERE user_id=$applicant_id AND year={$this->year}");
+		
 		} elseif($type == 'all') {
 			return $this->sql->getAll("SELECT * FROM FAM_UserTask WHERE user_id=$applicant_id AND year={$this->year}");
 		}

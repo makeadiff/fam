@@ -88,12 +88,14 @@ $query = "SELECT U.id, U.name, U.email, U.mad_email, U.phone, GROUP_CONCAT(DISTI
 			INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
 			LEFT JOIN FAM_UserEvaluator UE ON U.id=UE.user_id $join_condition
 			LEFT JOIN FAM_UserTask UT ON UT.user_id=U.id
-			LEFT JOIN User E ON E.id=UE.evaluator_id
+			LEFT JOIN User E ON E.id=UE.evaluator_id AND UT.year = $year
 			$join
-			WHERE " . implode(" AND ", $checks) . " AND UGP.year=$year AND UT.year=$year
+			WHERE " . implode(" AND ", $checks) . " AND UGP.year=$year
 			GROUP BY UGP.user_id";
 if($group_id) $query .= " ORDER BY UGP.preference, C.name, U.name";
 else $query .= " ORDER BY C.name, U.name, FIELD(UGP.status,'pending','rejected','withdrawn')";
+
+// dump($query); exit;
 
 $applicants_pager = new SqlPager($query, 25);
 $applicants = $applicants_pager->getPage();
