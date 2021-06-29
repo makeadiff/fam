@@ -50,7 +50,7 @@ if($stage_id) {
 }
 
 $selects .= ', UT.common_task_url, UT.common_task_files, UT.preference_1_task_files';
-$join .= ' LEFT JOIN FAM_UserTask UT ON UGP.user_id = UT.user_id';
+$join .= ' LEFT JOIN FAM_UserTask UT ON UGP.user_id = UT.user_id AND UT.year='.$year;
 
 if($common_video_task == 'not-submitted') {
 	$checks[] = "(UT.common_task_url IS NULL OR UT.common_task_url='')";

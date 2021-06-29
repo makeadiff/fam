@@ -317,7 +317,7 @@ class FAM {
 						INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id
 						INNER JOIN City C ON ((UGP.city_id != 0 AND UGP.city_id=C.id) OR (UGP.city_id = 0 AND U.city_id=C.id))
 						LEFT JOIN FAM_UserEvaluator UE ON U.id=UE.user_id
-						LEFT JOIN FAM_UserTask UT ON UT.user_id=U.id
+						LEFT JOIN FAM_UserTask UT ON UT.user_id=U.id AND UT.year={$year}
 						LEFT JOIN User E ON E.id=UE.evaluator_id
 						INNER JOIN `Group` G ON UGP.group_id=G.id
 						WHERE UGP.status != 'withdrawn' AND UGP.year=$year ";

@@ -100,9 +100,9 @@ foreach ($all_cities as $city => $city_name) {
 		GROUP BY UGP.group_id");
 
 	$evaluated[$city] = $sql->getById("$selects $joins
-		INNER JOIN FAM_UserStage US2 ON US2.user_id = U.id
-		INNER JOIN FAM_UserTask UT ON UT.user_id = U.id
-		$conditions AND US2.year=$year
+		INNER JOIN FAM_UserStage US2 ON US2.user_id = U.id AND US2.year=$year
+		INNER JOIN FAM_UserTask UT ON UT.user_id = U.id AND UT.year=$year
+		$conditions 
 		AND US2.stage_id=$evaluation_stage AND US2.status<>'' AND US2.status<>'pending' $task_check $no_mentor_check
 		GROUP BY UGP.group_id");
 }
