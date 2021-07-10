@@ -42,7 +42,7 @@ $common_task_parameter_ids = $sql->getById("SELECT id,name FROM FAM_Parameter WH
 foreach($raw_data as $row) {
 	$user_id = $row['id'];
 	$details = [
-		'id'				=> $row['id'],
+		'user_id'			=> $row['id'],
 		'name'				=> $row['name'],
 		'city'				=> $row['city'],
 		'first_preference'	=> i($all_groups, $row['first_preference'], $row['first_preference']),
@@ -65,6 +65,7 @@ foreach($raw_data as $row) {
 												GROUP BY question_id");
 	foreach ($applicant_feedback_question_ids as $question_key => $question_id) {
 		$details[$question_key . '_avg'] = i($feedback_aggregate, $question_id, 'No Data');
+		if($details[$question_key . '_avg'] == 0) $details[$question_key . '_avg'] = 'No Data';
 	}
 
 	// Evaluation Data
