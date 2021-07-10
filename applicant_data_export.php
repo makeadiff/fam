@@ -1,7 +1,12 @@
 <?php
-$_SESSION['user_id'] = 1; // Enable Spreadsheet loading
-require 'common.php';
-$debug = false;
+error_reporting(0);
+@ini_set('display_errors', 0);
+@ini_set('display_startup_errors', 0);
+
+session_start();
+$_SESSION['user_id'] = 1;
+@require 'common.php';
+$debug = true;
 
 $all_groups = $verticals;
 $all_groups[0] = 'Any';

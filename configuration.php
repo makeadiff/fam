@@ -6,3 +6,7 @@ $config = $config_data + array(
 	'site_title'	=> 'FAM',
 );
 $config['site_home'] = $config_data['site_home'] . 'apps/fam/';
+
+if($_SERVER['HTTP_HOST'] == 'localhost') {
+	$config['mode'] = 'p';
+}
