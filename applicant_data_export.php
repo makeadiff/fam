@@ -91,6 +91,6 @@ if($debug) {
 	dump($data);
 } else {
 	header("Content-type: text/csv");
-	eader('Content-Disposition: attachment; filename="Applicant_Data.csv"');
+	header('Content-Disposition: attachment; filename="Applicant_Data.csv"');
 	print array2csv($data);
 }
