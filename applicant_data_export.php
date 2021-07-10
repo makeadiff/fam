@@ -6,7 +6,7 @@ error_reporting(0);
 session_start();
 $_SESSION['user_id'] = 1;
 @require 'common.php';
-$debug = false;
+$debug = true;
 
 $all_groups = $verticals;
 $all_groups[0] = 'Any';
