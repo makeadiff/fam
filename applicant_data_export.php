@@ -1,7 +1,7 @@
 <?php
 session_start();
 $_SESSION['user_id'] = 1;
-require 'common.php';
+@require 'common.php';
 $debug = false;
 
 $all_groups = $verticals;
