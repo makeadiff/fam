@@ -1,4 +1,8 @@
 <?php
+error_reporting(0);
+@ini_set('display_errors', 0);
+@ini_set('display_startup_errors', 0);
+
 session_start();
 $_SESSION['user_id'] = 1;
 @require 'common.php';
