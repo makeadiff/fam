@@ -1,7 +1,5 @@
 <?php
-session_start();
-$_SESSION['user_id'] = 1;
-error_reporting(0);
+$_SESSION['user_id'] = 1; // Enable Spreadsheet loading
 require 'common.php';
 $debug = false;
 
