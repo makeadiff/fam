@@ -1,6 +1,6 @@
 <?php
 require 'common.php';
-$debug = true;
+$debug = false;
 
 $all_groups = $verticals;
 $all_groups[0] = 'Any';
