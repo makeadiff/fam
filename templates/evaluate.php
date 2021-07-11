@@ -21,21 +21,23 @@
 				$task_files = $fam->getTask($applicant_id, 'common_task_file');
 				if($task_url || $task_files) {
 					echo "<h4>Click on the link(s) below to see $applicant[name]'s Common Task Videos & Task Files </h4>";
-					$task = explode('http',str_replace(', ','',str_replace('#','%23',$task_url)));
+					$task = json_decode($task_url, 1);
+					if(!$task) $task = [$task_url];
 					$i=0;
 					foreach ($task as $file) {
 						if($file!=''){
 							$i++;
-							echo '<a target="_blank" class="badge badge-info" href="http'.$file.'">'.'Common Task Video</a>';
+							echo '<a target="_blank" class="badge badge-info" href="'.$file.'">'.'Common Task Video</a>';
 						}
 					}
 					if($task_files){
-						$task = explode('http',str_replace(', ','',str_replace('#','%23',$task_files)));
+						$task = json_decode($task_files, 1);
+					if(!$task) $task = [$task_files];
 						$i=0;
 						foreach ($task as $file) {
 							if($file!=''){
 								$i++;
-								echo '<a target="_blank" class="badge badge-primary" href="download.php?file=http'.$file.'">'.'Common Task Attachment '.$i.'</a>';
+								echo '<a target="_blank" class="badge badge-primary" href="download.php?file='.$file.'">'.'Common Task Attachment '.$i.'</a>';
 							}
 						}
 					}
@@ -50,9 +52,7 @@
 				if($task_url){
 					echo "<h4>Click on the link(s) below to see $applicant[name]'s $verticals[$group_id] Task </h4>";
 					$task = json_decode($task_url, 1);
-					if(!$task) {
-						$task = [$task_url];
-					}
+					if(!$task) $task = [$task_url];
 					$i=0;
 					foreach ($task as $file) {
 						if($file!=''){
