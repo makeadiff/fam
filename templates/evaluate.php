@@ -49,7 +49,10 @@
 				$task_url = $fam->getTask($applicant_id, 'vertical', $group_id);
 				if($task_url){
 					echo "<h4>Click on the link(s) below to see $applicant[name]'s $verticals[$group_id] Task </h4>";
-					$task = explode('http',str_replace(', ','',str_replace('#','%23',$task_url)));
+					$task = json_decode($task_url, 1);
+					if(!$task) {
+						$task = [$task_url];
+					}
 					$i=0;
 					foreach ($task as $file) {
 						if($file!=''){
@@ -64,21 +67,6 @@
 					echo "<h4 class='alert alert-warning'> $applicant[name] <strong>hasn't updated</strong> Vertical Tasks yet</h4>";
 				}
 
-				$task_video_url = $fam->getTask($applicant_id, 'vertical_video_task', $group_id);
-				if($task_video_url) {
-					echo "<h4>Click on the link(s) below to see $applicant[name]'s Video Tasks for $verticals[$group_id]</h4>";
-					$task = explode('http',str_replace(', ','',str_replace('#','%23',$task_video_url)));
-					$i=0;
-					foreach ($task as $file) {
-						if($file!=''){
-							$i++;
-							echo '<a target="_blank" class="badge badge-primary" href="http'.$file.'">'.$verticals[$group_id].' Task URL '.$i.'</a>';
-						}
-					}
-
-				}
-
-				// if($task_video_url) echo "<h4><a href='$task_video_url'>View $applicant[name]'s Vertical Task Video</a></h4>";
 			}
 			?>
 		</p>
