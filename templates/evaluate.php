@@ -54,6 +54,7 @@
 					foreach ($task as $file) {
 						if($file!=''){
 							$i++;
+							$file = str_replace(' ', '%20', $file);
 							echo '<a target="_blank" class="badge badge-info" href="http'.$file.'">'.$verticals[$group_id].' Task '.$i.'</a>';
 						}
 					}
