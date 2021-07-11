@@ -55,7 +55,7 @@
 						if($file!=''){
 							$i++;
 							$file = str_replace(' ', '%20', $file);
-							echo '<a target="_blank" class="badge badge-info" href="http'.$file.'">'.$verticals[$group_id].' Task '.$i.'</a>';
+							echo '<a target="_blank" class="badge badge-info" href="'.$file.'">'.$verticals[$group_id].' Task '.$i.'</a>';
 						}
 					}
 					// echo "<h4><a href='$task_url'>View $applicant[name]'s Vertical Task</a></h4>";
