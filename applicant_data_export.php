@@ -46,6 +46,7 @@ $yes_no = [
 	'-1' => 'N/A'
 ];
 $common_task_parameter_ids = $sql->getById("SELECT id,name FROM FAM_Parameter WHERE category_id IN (31,32) AND status = '1' AND type='1-5' ORDER BY sort");
+$common_task_parameter_ids[201] = 'Knowledge about creating online experiences';
 
 foreach($raw_data as $row) {
 	$user_id = $row['id'];
@@ -100,7 +101,6 @@ foreach($raw_data as $row) {
 		foreach ($common_task_parameter_ids as $parameter_id => $name) {
 			$details[unformat($name)] = i($common_task_evaluation, $parameter_id, 'No Data');
 		}
-		$details['blank_3'] = '';
 	}
 
 	$data[] = $details;
