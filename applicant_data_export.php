@@ -1,7 +1,7 @@
 <?php
 session_start();
 $_SESSION['user_id'] = 1;
-@require 'common.php';
+require 'common.php';
 $debug = false;
 
 $all_groups = $verticals;
@@ -10,7 +10,7 @@ $all_groups[0] = 'Any';
 $all_cities = keyFormat($common->getCities(), ['id', 'name']);
 $all_cities[0] = 'Any';
 
-$query = "SELECT U.id, U.name, U.email, C.name AS city, U.phone, 
+$query = "SELECT DISTINCT U.id, U.name, U.email, C.name AS city, U.phone, 
 			(SELECT group_id FROM FAM_UserGroupPreference WHERE user_id=U.id AND year=$year AND preference = 1 AND status='pending') AS first_preference, 
 			(SELECT group_id FROM FAM_UserGroupPreference WHERE user_id=U.id AND year=$year AND preference = 2 AND status='pending') AS second_preference, 
 			G.name AS current_role, UGP.added_on as added_on 
