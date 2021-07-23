@@ -49,6 +49,7 @@
 
 			if($stage_id == 5) {
 				$task_url = $fam->getTask($applicant_id, 'vertical', $group_id);
+				dump($task_url);
 				if($task_url){
 					echo "<h4>Click on the link(s) below to see $applicant[name]'s $verticals[$group_id] Task </h4>";
 					$task = json_decode($task_url, 1);

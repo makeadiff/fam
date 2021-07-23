@@ -13,8 +13,8 @@ $all_cities = keyFormat($common->getCities(), ['id', 'name']);
 $all_cities[0] = 'Any';
 
 $query = "SELECT DISTINCT U.id, U.name, U.email, C.name AS city, U.phone, 
-			(SELECT group_id FROM FAM_UserGroupPreference WHERE user_id=U.id AND year=$year AND preference = 1 AND status='pending') AS first_preference, 
-			(SELECT group_id FROM FAM_UserGroupPreference WHERE user_id=U.id AND year=$year AND preference = 2 AND status='pending') AS second_preference, 
+			(SELECT group_id FROM FAM_UserGroupPreference WHERE user_id=U.id AND year=$year AND preference = 1 AND status='pending' LIMIT 0,1) AS first_preference, 
+			(SELECT group_id FROM FAM_UserGroupPreference WHERE user_id=U.id AND year=$year AND preference = 2 AND status='pending' LIMIT 0,1) AS second_preference, 
 			G.name AS current_role, UGP.added_on as added_on 
 			FROM User U
 			INNER JOIN FAM_UserGroupPreference UGP ON UGP.user_id=U.id AND UGP.year=$year AND UGP.status='pending'
