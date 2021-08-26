@@ -6,7 +6,7 @@
   </div>
 
   <div class="x_content">
-    <p> Are you sure you want to update Fellows' <b>UserGroups</b> and <b>Email</b> on MADApp </p>
+    <p> Are you sure you want to update Fellows' <b>UserGroups</b> and <b>Email</b> on MADApp for the year <strong><?php echo $year ?></strong>?</p>
     <form action="./update_madapp.php" method="POST">
       <input type="submit" name="continue" value="Yes"/>
       <input type="submit" name="continue" value="No"/>
