@@ -2,7 +2,7 @@
 $user_info = check_user();
 
 // $year = get_year();
-$year = 2020; //HardCoded;
+$year = 2021; //HardCoded;
 
 $user_id = $user_info['user_id'];
 $fam = new FAM;
@@ -64,9 +64,9 @@ $colors = [
 ];
 
 $overall_statuses = [
-	''			=> 'All',
+	''					=> 'All',
 	'rejected' 	=> 'Shortlisted for Mentor',
-	'pending'	=> 'In Progress',
+	'pending'		=> 'In Progress',
 	'withdrawn'	=> 'Withdrawn Application'
 ];
 
@@ -90,8 +90,11 @@ function getRequirementFromSheet($sheet_url = '') {
 	// 2019-20 CSV - https://docs.google.com/spreadsheets/d/e/2PACX-1vRzSwv2Yr5vT9YCjqRpraem2ZBpVKy2VT_UU9L2iA3364MIBiN1zhdVCX2bIq_3CIg7owI2yQx86q1q/pub?gid=675197629&single=true&output=csv;
 	// 2020-21 Requirement Sheet - https://docs.google.com/spreadsheets/d/1JXA24u9NGRkyF_8hoS_zYy0D-ZIIn7Z-C1ZBz7dVPxE/edit#gid=675197629
 	// 2020-21 CSV - https://docs.google.com/spreadsheets/d/e/2PACX-1vSEPdykfUZNrNOZS1E-Xd0cvw4ZMQAIbVDJ6Yk9OC5gaTSe-Pl8_tnvW-dYxn4GVVe4lkZZvO53uBKZ/pub?gid=675197629&single=true&output=csv
+	// 2021-22 CSV - https://docs.google.com/spreadsheets/d/e/2PACX-1vRE7bYLmwcQWppMdmOCGqX6n98Shtnjf7EidH1zduCNMTbYZoZI6T5vThJueshAVuBEtcubN21EYI9N/pub?gid=675197629&single=true&output=csv'
+	// 2022-23 Requirement Sheet - https://docs.google.com/spreadsheets/d/12znhNN2Vwh_uFKb3CDcYCxyEDhRdI91uZdp8oNVw09M/edit#gid=0
+	// 2022-23 CSV - https://docs.google.com/spreadsheets/d/e/2PACX-1vQXEZ62Ri7v0cDej34MB5WsqFmf23AXtuTVq25pspqTMEuPdCs1Ma47DcDYXMdJj7Xf4itJv5RKY3QU/pub?gid=0&single=true&output=csv
 
-	$sheet_url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRE7bYLmwcQWppMdmOCGqX6n98Shtnjf7EidH1zduCNMTbYZoZI6T5vThJueshAVuBEtcubN21EYI9N/pub?gid=675197629&single=true&output=csv';
+	$sheet_url = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQXEZ62Ri7v0cDej34MB5WsqFmf23AXtuTVq25pspqTMEuPdCs1Ma47DcDYXMdJj7Xf4itJv5RKY3QU/pub?gid=0&single=true&output=csv';
 
 	require 'includes/classes/ParseCSV.php';
 	$sheet = new ParseCSV($sheet_url);
@@ -143,7 +146,7 @@ function getRequirementFromSheet($sheet_url = '') {
 
 	$requirements['total_group'] = $total_by_group;
 	$requirements['total_city'] = $total_by_city;
-	$requirements['total_group'][0] = $requirements['total_city'][0] = $sheet->getCell('R25');
+	$requirements['total_group'][0] = $requirements['total_city'][0] = $sheet->getCell('R26');
 
 	$requirements[0] = $total_by_group;
 	return $requirements;
@@ -191,7 +194,8 @@ function generateCSV($array){
 }
 
 function clear_current_email($sql){
-	return $sql->update('User',[
-		'mad_email' => '',
-	],'city_id < 26');
+	echo "Not doing that because code looks too dangeorous. Code found in includes/application.php, line 200";
+	// return $sql->update('User',[
+	// 	'mad_email' => '',
+	// ],'city_id < 26');
 }

@@ -5,10 +5,10 @@ class FAM {
 	private $year;
 
 	function __construct() {
-       global $sql, $year;
+        global $sql, $year;
 
-       $this->sql = $sql;
-			 $this->year = $year;			 
+        $this->sql = $sql;
+		$this->year = $year;			 
 	}
 
 	public function addApplicant($user_id,$group_id,$preference,$city_id=0)
@@ -17,15 +17,15 @@ class FAM {
 
 		if(!$check_entry){
 			return $this->sql->insert('FAM_UserGroupPreference',array(
-					'user_id'		=> $user_id,
-					'group_id' 		=> $group_id,
-					'evaluator_id'	=> 0,
-					'preference'	=> $preference,
-					'city_id'		=> $city_id,
-					'added_on'		=> 'NOW()',
-					'year'			=> $this->year,
-					'taskfolder_link' => '',
-					'status'		=> 'pending'
+				'user_id'		=> $user_id,
+				'group_id' 		=> $group_id,
+				'evaluator_id'	=> 0,
+				'preference'	=> $preference,
+				'city_id'		=> $city_id,
+				'added_on'		=> 'NOW()',
+				'year'			=> $this->year,
+				'taskfolder_link' => '',
+				'status'		=> 'pending'
 			));
 		}
 		else{
