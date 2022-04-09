@@ -69,7 +69,7 @@ foreach ($verticals as $this_group_id => $name) {
 
 }
 
-$multiplication_factor = 3;
-$mentor_multiplication_factor = 1;
+$multiplication_factor = 1.5;
+$mentor_multiplication_factor = 1.2;
 
 render();

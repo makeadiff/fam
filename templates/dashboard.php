@@ -42,10 +42,10 @@
         <span class="count_bottom"><i class="green">
           <?php
             if($group_id==0){
-              echo $requirements['total_city'][$city_id] * $multiplication_factor;
+              echo ceil($requirements['total_city'][$city_id] * $multiplication_factor);
             }
             else{
-              echo $requirements[$city_id][$group_id] * $multiplication_factor;
+              echo ceil($requirements[$city_id][$group_id] * $multiplication_factor);
             }
           ?>
           </i> Target Sign Up Count</span>
@@ -65,7 +65,7 @@
       <div class="col-md-2 col-sm-4 col-xs-6 tile_stats_count">
         <span class="count_top"><i class="fa fa-search"></i> Mentor Positions Open</span>
         <div class="count"><?php echo $requirements[$city_id][GROUP_ID_MENTOR] + $requirements[$city_id][GROUP_ID_FP_MENTOR] ?></div>
-        <span class="count_bottom"><i class="green"><?php echo ($requirements[$city_id][GROUP_ID_MENTOR]+$requirements[$city_id][GROUP_ID_FP_MENTOR]) * $mentor_multiplication_factor ?> </i> Target Sign Up Count</span>
+        <span class="count_bottom"><i class="green"><?php echo ceil(($requirements[$city_id][GROUP_ID_MENTOR]+$requirements[$city_id][GROUP_ID_FP_MENTOR]) * $mentor_multiplication_factor) ?> </i> Target Sign Up Count</span>
       </div>
     </div>
     <?php
@@ -82,13 +82,13 @@
 
     <div class="x_content">
       <p class="text-muted font-13 m-b-30">
-        Requirement Data comes from the spreadsheet <a href="https://docs.google.com/spreadsheets/d/1NlrdtDHLSnJE9VuZX3l9dJtaQsPiFJF9WDSQxv1Zuog/edit#gid=675197629">Succession 2020 - Strat/Fellow Requirement</a>
+        Requirement Data comes from the spreadsheet <a href="https://docs.google.com/spreadsheets/d/12znhNN2Vwh_uFKb3CDcYCxyEDhRdI91uZdp8oNVw09M/edit#gid=0">Succession 2022-23 - Strat/Fellow Requirement</a>
       </p>
       <?php
       if($group_id == 0) {
         foreach($verticals as $this_group_id => $title) {
           $multiplication_factor_for_group = $multiplication_factor;
-          if($this_group_id == GROUP_ID_MENTOR) $multiplication_factor_for_group = 1; // Special treatment for Mentors - target is the requirement count.
+          if($this_group_id == GROUP_ID_MENTOR) $multiplication_factor_for_group = $mentor_multiplication_factor; // Special treatment for Mentors - target is the requirement count.
           if(!$requirements[$city_id][$this_group_id]) continue;
       ?>
       <div class="col-md-2 boxes">
@@ -102,7 +102,7 @@
             elseif(($requirements[$city_id][$this_group_id] * 2) > $applicants[$city_id][$this_group_id]) echo $colors['orange'];
             else echo $colors['green'];
              ?>" value="<?php echo $applicants[$city_id][$this_group_id] ?>" data-readOnly="true" /><br />
-        Target: <strong><?php echo ($requirements[$city_id][$this_group_id] * $multiplication_factor_for_group) ?></strong><br />
+        Target: <strong><?php echo ceil($requirements[$city_id][$this_group_id] * $multiplication_factor_for_group) ?></strong><br />
         Requirement: <strong><?php echo $requirements[$city_id][$this_group_id] ?></strong><br />
         Applicant Count: <strong><?php echo $applicants[$city_id][$this_group_id] ?></strong><br />
       </div>
@@ -111,10 +111,10 @@
       } else {
         foreach($all_cities as $this_city_id => $city_name) {
           $multiplication_factor_for_group = $multiplication_factor;
-          if($group_id == GROUP_ID_MENTOR) $multiplication_factor_for_group = 1; // Special treatment for Mentors - target is the requirement count.
+          if($group_id == GROUP_ID_MENTOR) $multiplication_factor_for_group = $mentor_multiplication_factor; // Special treatment for Mentors - target is the requirement count.
           if($city_id and $this_city_id != $city_id) continue;
           if(!isset($requirements[$this_city_id]) or !$requirements[$this_city_id][$group_id]) continue;
-           $target = $requirements[$this_city_id][$group_id] * $multiplication_factor_for_group;
+           $target = ceil($requirements[$this_city_id][$group_id] * $multiplication_factor_for_group);
       ?>
       <div class="col-md-2 boxes">
         <p class="vertical-name"><a href="applicants.php?group_id=<?php echo $group_id ?>&city_id=<?php echo $this_city_id ?>&action=Filter"><?php echo $city_name ?></a></p>
@@ -126,7 +126,7 @@
             elseif(($requirements[$this_city_id][$group_id] * 2) > $applicants[$this_city_id][$group_id]) echo $colors['orange'];
             else echo $colors['green'];
              ?>" value="<?php echo $applicants[$this_city_id][$group_id] ?>" data-readOnly="true" /><br />
-        Target: <strong><?php echo ($requirements[$this_city_id][$group_id] * $multiplication_factor_for_group); ?></strong><br />
+        Target: <strong><?php echo ceil($requirements[$this_city_id][$group_id] * $multiplication_factor_for_group); ?></strong><br />
         Requirement: <strong><?php echo $requirements[$this_city_id][$group_id] ?></strong><br />
         Applicant Count: <strong><?php echo $applicants[$this_city_id][$group_id] ?></strong><br />
       </div>
