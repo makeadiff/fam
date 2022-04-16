@@ -71,5 +71,6 @@ foreach ($verticals as $this_group_id => $name) {
 
 $multiplication_factor = 1.5;
 $mentor_multiplication_factor = 1.2;
+$rating_factor = $multiplication_factor;
 
 render();

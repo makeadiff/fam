@@ -99,7 +99,7 @@
             else echo $target;
           ?>" data-linecap="round" data-fgColor="<?php
             if($requirements[$city_id][$this_group_id] > $applicants[$city_id][$this_group_id]) echo $colors['red'];
-            elseif(($requirements[$city_id][$this_group_id] * 2) > $applicants[$city_id][$this_group_id]) echo $colors['orange'];
+            elseif(($requirements[$city_id][$this_group_id] * $rating_factor) > $applicants[$city_id][$this_group_id]) echo $colors['orange'];
             else echo $colors['green'];
              ?>" value="<?php echo $applicants[$city_id][$this_group_id] ?>" data-readOnly="true" /><br />
         Target: <strong><?php echo ceil($requirements[$city_id][$this_group_id] * $multiplication_factor_for_group) ?></strong><br />
@@ -123,7 +123,7 @@
             else echo $target;
           ?>" data-linecap="round" data-fgColor="<?php
             if($requirements[$this_city_id][$group_id] > $applicants[$this_city_id][$group_id]) echo $colors['red'];
-            elseif(($requirements[$this_city_id][$group_id] * 2) > $applicants[$this_city_id][$group_id]) echo $colors['orange'];
+            elseif(($requirements[$this_city_id][$group_id] * $rating_factor) > $applicants[$this_city_id][$group_id]) echo $colors['orange'];
             else echo $colors['green'];
              ?>" value="<?php echo $applicants[$this_city_id][$group_id] ?>" data-readOnly="true" /><br />
         Target: <strong><?php echo ceil($requirements[$this_city_id][$group_id] * $multiplication_factor_for_group); ?></strong><br />
@@ -135,8 +135,11 @@
     </div>
 
     <strong>Legend</strong><br />
-    <span style="background-color:<?php echo $colors['red'] ?>; border:1px solid #000;"> &nbsp; </span>&nbsp; Number of Applicants are <strong>less than requirements</strong>.<br />
-    <span style="background-color:<?php echo $colors['orange'] ?>; border:1px solid #000;"> &nbsp; </span>&nbsp; Number of Applicants are <strong>less than 2 x</strong> the requirements.<br />
-    <span style="background-color:<?php echo $colors['green'] ?>; border:1px solid #000;"> &nbsp; </span>&nbsp; Number of Applicants are <strong>more than 2 x</strong> the requirements.<br />
+    <span style="background-color:<?php echo $colors['red'] ?>; border:1px solid #000;"> &nbsp; </span>&nbsp; 
+      Number of Applicants are <strong>less than requirements</strong>.<br />
+    <span style="background-color:<?php echo $colors['orange'] ?>; border:1px solid #000;"> &nbsp; </span>&nbsp; 
+      Number of Applicants are <strong>less than <?=$rating_factor?> x</strong> the requirements.<br />
+    <span style="background-color:<?php echo $colors['green'] ?>; border:1px solid #000;"> &nbsp; </span>&nbsp; 
+      Number of Applicants are <strong>more than <?=$rating_factor?> x</strong> the requirements.<br />
   </div>
 </div>
