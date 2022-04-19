@@ -20,11 +20,7 @@ $stage_id = i($QUERY, 'stage_id', 0);
 if($action == 'Search') {
 	$params = [];
 
-	$email = i($QUERY, 'email');
-	if($email) {
-		$params['email'] = $email;
-		$params['mad_email'] = $email;
-	}
+	if(i($QUERY, 'email')) $params['email'] = i($QUERY, 'email');
 	if(i($QUERY, 'phone')) $params['phone'] = i($QUERY, 'phone');
 	if(i($QUERY, 'name')) $params['name'] = i($QUERY, 'name');
 	if(i($QUERY, 'id')) $params['id'] = i($QUERY, 'id');
