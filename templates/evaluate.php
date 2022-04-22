@@ -11,23 +11,23 @@
 	<div class="x_content">
 		<p class="text-muted font-13 m-b-30">
 			City: <?php echo $applicant['city'] ?><br />
-			<?php if($reference_link) { ?>For more details on the scale used in this evaluation, refer to <a target="_blank" href="<?php echo $reference_link ?>">this document</a>.<?php } ?>
+			<!-- <?php if($reference_link) { ?>For more details on the scale used in this evaluation, refer to <a target="_blank" href="<?php echo $reference_link ?>">this document</a>.<?php } ?> -->
 
 			<?php
 			if($stage_id == 3) {
 				// Link for 2019-20 https://docs.google.com/document/d/1fUYeM9_FljQ6WN2Wcif1rthEDZKkyLRa9OxfXtYLcQc
-				echo 'For more details on the scale used in this evaluation, refer to <a target="_blank" href="https://drive.google.com/open?id=1zTCibH-EEvRxAD8TUiDPJI74XG_6c3-9">this document</a>';
+				// echo 'For more details on the scale used in this evaluation, refer to <a target="_blank" href="https://drive.google.com/open?id=1zTCibH-EEvRxAD8TUiDPJI74XG_6c3-9">this document</a>';
 				$task_url = $fam->getTask($applicant_id, 'common');
 				$task_files = $fam->getTask($applicant_id, 'common_task_file');
 				if($task_url || $task_files) {
-					echo "<h4>Click on the link(s) below to see $applicant[name]'s Common Task Videos & Task Files </h4>";
+					echo "<h4>Click on the link(s) below to see $applicant[name]'s Common Task Files </h4>";
 					$task = json_decode($task_url, 1);
 					if(!$task) $task = [$task_url];
 					$i=0;
 					foreach ($task as $file) {
 						if($file!=''){
 							$i++;
-							echo '<a target="_blank" class="badge badge-info" href="'.$file.'">'.'Common Task Video</a>';
+							echo '<a target="_blank" class="badge badge-info" href="'.$file.'">'.'Common Task Link</a>';
 						}
 					}
 					if($task_files){
