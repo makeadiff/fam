@@ -47,20 +47,20 @@ $yes_no = [
 ];
 
 // Ideally, this data should be fetched using the the Query, but for 2021 we wanted data without changing the CSV column order - hence this.
-// $common_task_parameter_ids = $sql->getById("SELECT id,name FROM FAM_Parameter WHERE category_id IN (31,32) AND status = '1' AND type='1-5' ORDER BY sort");
-$common_task_parameter_ids = [
-	'202' => 'Personal Presence',
-    '207' => 'Mobilisation : Quality Ideas, Realism in Design',
-    '203' => 'Facilitation : Quality Content',
-    '208' => '',
-    '204' => 'Innovative : Creative Thinking',
-    '209' => 'Analytical Thinking/Critical Thinking',
-    '205' => 'Communication : Articulation',
-    '210' => 'Communication : Written Skills',
-    '206' => 'Mobilisation : Delivery + Connect',
-    '211' => 'Knowledge of MAD : Knows about other verticals, Knowledge about platforms.',
-    '334' => 'Ownership : Thoroughness, research, diligence'
-];
+$common_task_parameter_ids = $sql->getById("SELECT id,name FROM FAM_Parameter WHERE category_id IN (31,32) AND status = '1' AND type='1-5' ORDER BY sort");
+// $common_task_parameter_ids = [
+// 	'202' => 'Personal Presence',
+//     '207' => 'Mobilisation : Quality Ideas, Realism in Design',
+//     '203' => 'Facilitation : Quality Content',
+//     '208' => '',
+//     '204' => 'Innovative : Creative Thinking',
+//     '209' => 'Analytical Thinking/Critical Thinking',
+//     '205' => 'Communication : Articulation',
+//     '210' => 'Communication : Written Skills',
+//     '206' => 'Mobilisation : Delivery + Connect',
+//     '211' => 'Knowledge of MAD : Knows about other verticals, Knowledge about platforms.',
+//     '334' => 'Ownership : Thoroughness, research, diligence'
+// ];
 
 foreach($raw_data as $row) {
 	$user_id = $row['id'];
@@ -103,10 +103,10 @@ foreach($raw_data as $row) {
 			if($details[$question_key . '_avg'] == 0) $details[$question_key . '_avg'] = 'No Data';
 		}
 
-		// // Blanking out 3 Day Challenge so that the column ordering don't get affected.
-		// foreach (range(1,12) as $blanks) {
-		// 	$details['buzzfeed_' . $blanks] = '';
-		// }
+		// Blanking out 3 Day Challenge so that the column ordering don't get affected.
+		foreach (range(1,12) as $blanks) {
+			$details['buzzfeed_' . $blanks] = '';
+		}
 		$details['blank_2'] = '';
 
 		// Evaluation Data
