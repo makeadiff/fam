@@ -2,7 +2,7 @@
 session_start();
 $_SESSION['user_id'] = 1;
 require 'common.php';
-$debug = 1;
+$debug = 0;
 
 $dataset = i($QUERY, 'dataset', '');
 
