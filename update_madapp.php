@@ -1,6 +1,9 @@
 <?php
 require 'common.php';
 
+$year = 2022; // :HARDCODE:
+$last_year = $year - 1;
+
 $continue = (i($QUERY, 'continue', 'No') === 'Yes') ? true : false;
 
 if(!$continue) {
@@ -14,7 +17,7 @@ $all_cities = keyFormat($common->getCities(), ['id', 'name']);
 $selected = [];
 
 // First, unset all last year fellow's ka email id.
-$last_year = $year - 1;
+
 $prev_fellows = $sql->getAll("SELECT U.id as 'user_id', G.name
 								FROM User U
 								INNER JOIN `UserGroup` UG ON U.id = UG.user_id AND UG.year = $last_year
